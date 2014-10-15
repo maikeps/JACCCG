@@ -10,34 +10,35 @@ public class Carta {
 	private Raridade raridade;
 
 	public Carta(String nome, int ataque, int defesa, int custoMana, int vida, Raridade raridade) {
-
+		this.nome = nome;
+		this.ataque = ataque;
+		this.defesa = defesa;
+		this.custoMana = custoMana;
+		this.vida = vida;
+		this.raridade = raridade;
 	}
 
-	/**
-	 *  
-	 */
 	public Raridade getRaridade() {
-		return null;
+		return raridade;
 	}
 
 	public int getAtaque() {
-		return 0;
+		return ataque;
 	}
 
 	public int getDefesa() {
-		return 0;
+		return defesa;
 	}
 
 	public int getVida() {
-		return 0;
+		return vida;
 	}
 
 	public String getNome() {
-		return null;
+		return nome;
 	}
 
 	public int getCustoMana() {
-		return 0;
+		return custoMana;
 	}
-
 }
