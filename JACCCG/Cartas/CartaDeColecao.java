@@ -26,4 +26,8 @@ public class CartaDeColecao extends Carta {
 		this.disponivel = disponivel;
 	}
 
+	public boolean equals(Object outra){
+		return this.getNome() == ((CartaDeColecao)outra).getNome();
+	}
+	
 }

@@ -1,9 +1,13 @@
 package JACCCG.Colecao;
 
-import JACCCG.Cartas.Carta;
-import JACCCG.Cartas.CartaDeColecao;
-
 import java.util.List;
+
+import JACCCG.Cartas.CartaDeColecao;
+import JACCCG.Cartas.Raridade;
+import JACCCG.Exceptions.BaralhoJaExistenteException;
+import JACCCG.Exceptions.CartaNaoEncontradaException;
+import JACCCG.Exceptions.CartaSendoUtilizadaException;
+import JACCCG.Exceptions.LimiteDeCartasExcedidoExepction;
 
 public class Colecao {
 
@@ -16,26 +20,39 @@ public class Colecao {
 	}
 
 	public boolean podeAdicionarCarta(CartaDeColecao carta) {
-		return false;
+		Raridade raridade = carta.getRaridade();
+		int cont = 0;
+		for(CartaDeColecao c : colecao){
+			if(c.equals(carta)) cont++;
+			if(cont == raridade.ordinal()+1) return false;
+		}
+		return true;
 	}
 
-	public void adicionaCarta(CartaDeColecao carta) {
-
+	public void adicionaCarta(CartaDeColecao carta) throws LimiteDeCartasExcedidoExepction{
+		if(!podeAdicionarCarta(carta)) throw new LimiteDeCartasExcedidoExepction(":)");
+		colecao.add(carta);
 	}
 
 	public List<CartaDeColecao> getCartas() {
-		return null;
+		return colecao;
+	}
+	
+	public List<RegistroDeBaralho> getBaralhos(){
+		return baralhos;
 	}
 
-	public void addBaralho(RegistroDeBaralho baralho) {
-
+	public void addBaralho(RegistroDeBaralho baralho) throws BaralhoJaExistenteException{
+		if(baralhos.contains(baralho)) throw new BaralhoJaExistenteException("caralho do seu avo ja existente");
+		baralhos.add(baralho);
 	}
-
-	/**
-	 *  
-	 */
-	public void removeDaColecao(Carta carta) {
-
+	
+	public void removeDaColecao(CartaDeColecao carta) throws CartaSendoUtilizadaException, CartaNaoEncontradaException{
+		for(RegistroDeBaralho baralho : baralhos){
+			if(baralho.getCartas().contains(carta)) throw new CartaSendoUtilizadaException("heh");
+		}
+		if(!colecao.contains(carta)) throw new CartaNaoEncontradaException("banana");
+		colecao.remove(carta);
 	}
 
 }

@@ -35,4 +35,7 @@ public class RegistroDeBaralho {
 		return cartas.size() == maxCartas;
 	}
 
+	public boolean equals(Object outro){
+		return nome == ((RegistroDeBaralho)outro).getNome();
+	}
 }
