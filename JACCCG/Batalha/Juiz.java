@@ -12,15 +12,19 @@ public class Juiz {
 	 *  
 	 */
 	private Juiz() {
-
+		loja = new Loja(cartas)
 	}
 
 	public void disponibilizaCarta(String carta) {
-
+		lo
 	}
 
 	public static Juiz getInstance() {
-		return null;
+		if(instancia == null){
+			instancia = new Juiz();
+		};
+		
+		return instancia;
 	}
 
 }
