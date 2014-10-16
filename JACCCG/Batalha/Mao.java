@@ -1,29 +1,30 @@
 package JACCCG.Batalha;
 
-import JACCCG.Cartas.Carta;
-import JACCCG.Cartas.CartaDeBatalha;
+import java.util.LinkedList;
 import java.util.List;
+
+import JACCCG.Cartas.Carta;
 
 public class Mao {
 
 	private List<Carta> cartasDaMao;
 
-	private Mao mao;
-
 	public Mao() {
+		cartasDaMao = new LinkedList<Carta>();
 
 	}
 
 	public void removeCarta(Carta carta) {
-
+		cartasDaMao.remove(carta);
 	}
 
 	public void compraCarta(Baralho baralho) {
+		cartasDaMao.add(baralho.getTopo());
 
 	}
 
 	public List<Carta> getCartas() {
-		return null;
+		return cartasDaMao;
 	}
 
 }
