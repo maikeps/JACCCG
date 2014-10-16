@@ -12,11 +12,11 @@ public class Juiz {
 	 *  
 	 */
 	private Juiz() {
-		loja = new Loja(cartas)
+		//loja = new Loja();
 	}
 
 	public void disponibilizaCarta(String carta) {
-		lo
+		//lo
 	}
 
 	public static Juiz getInstance() {
