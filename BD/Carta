@@ -1,0 +1,3 @@
+#id,nome,ataque,defesa,custoMana,vida,raridade,preco
+1,Goblin,2,3,1,25,COMUM,75
+2,Gnomo das Trevas,7,5,2,50,INCOMUM,100

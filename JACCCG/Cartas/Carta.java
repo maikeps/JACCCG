@@ -41,4 +41,17 @@ public class Carta {
 	public int getCustoMana() {
 		return custoMana;
 	}
+	
+	public String toString(){
+		String string = "";
+		
+		string += "Nome: " + nome + "\n";
+		string += "Ataque: " + ataque + "\n";
+		string += "Defesa: " + defesa + "\n";
+		string += "Custo de Mana: " + custoMana + "\n";
+		string += "Vida: " + vida + "\n";
+		string += "Raridade: " + raridade.name() + "\n";
+		
+		return string;
+	}
 }

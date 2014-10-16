@@ -1,17 +1,17 @@
 package JACCCG.Tests;
 
-import java.util.LinkedList;
 import java.util.List;
 
-import JACCCG.Batalha.Baralho;
 import JACCCG.Cartas.Carta;
-import JACCCG.Cartas.Raridade;
-import JACCCG.Colecao.RegistroDeBaralho;
+import JACCCG.Construtor.Construtor;
 
 public class Tests {
 
 	public static void main(String[] args){
-		Raridade r = Raridade.RARO;
-		System.out.println(r.ordinal());
+		Construtor c = new Construtor();
+		List<Carta> cartas = c.pegaCartas();
+		for(Carta carta : cartas){
+			System.out.println(carta.toString());
+		}
 	}
 }
