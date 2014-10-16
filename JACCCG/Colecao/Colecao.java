@@ -11,7 +11,8 @@ public class Colecao {
 	private List<RegistroDeBaralho> baralhos;
 
 	public Colecao(List<CartaDeColecao> colecao, List<RegistroDeBaralho> baralhos) {
-
+		this.colecao = colecao;
+		this.baralhos = baralhos;
 	}
 
 	public boolean podeAdicionarCarta(CartaDeColecao carta) {
