@@ -48,8 +48,14 @@ public class Colecao {
 	}
 	
 	public void removeDaColecao(CartaDeColecao carta) throws CartaSendoUtilizadaException, CartaNaoEncontradaException{
+		int cont = 0;
 		for(RegistroDeBaralho baralho : baralhos){
-			if(baralho.getCartas().contains(carta)) throw new CartaSendoUtilizadaException("heh");
+			//TODO
+			//for(CartaDeColecao c : baralho.getCartas()){
+			//	if(c == carta)
+			//}
+			if(baralho.getCartas().contains(carta)) cont++;
+			if(cont == carta.getRaridade().ordinal()+1) throw new CartaSendoUtilizadaException("heh");
 		}
 		if(!colecao.contains(carta)) throw new CartaNaoEncontradaException("banana");
 		colecao.remove(carta);
