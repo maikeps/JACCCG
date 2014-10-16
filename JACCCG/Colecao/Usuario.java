@@ -27,9 +27,10 @@ public class Usuario {
 		}
 	}
 
-	/**
-	 *  
-	 */
+	public int getDinheiros(){
+		return dinheiros;
+	}
+	
 	public Colecao getColecao() {
 		return colecao;
 	}
