@@ -1,30 +1,43 @@
 package JACCCG.Batalha;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import JACCCG.Cartas.Carta;
 import JACCCG.Cartas.CartaDeBatalha;
-import java.util.List;
+import JACCCG.Exceptions.MesaCheiaException;
+import JACCCG.Exceptions.MesaVaziaException;
 
 public class Mesa {
 
-	private List<Carta> cartasNaMesa;
+	private int maxCartas;	
+	private List<CartaDeBatalha> cartasNaMesa;
 
-	public Mesa() {
-
+	public Mesa(int maxCartas) {
+		cartasNaMesa = new LinkedList<CartaDeBatalha>();
+		this.maxCartas = maxCartas;
 	}
 
-	public void recebeCarta(Carta carta) {
-
+	public void recebeCarta(CartaDeBatalha carta) throws MesaCheiaException{
+		if(!podeReceberCarta()) throw new MesaCheiaException("A mesa ja esta cheia");
+		cartasNaMesa.add(carta);
 	}
 
-	public void removeCarta(Carta carta) {
-
+	public void removeCarta(CartaDeBatalha carta) throws MesaVaziaException{
+		if(cartasNaMesa.size() == 0) throw new MesaVaziaException("A mesa nao possui cartas");
+		cartasNaMesa.remove(carta);
 	}
 
-	/**
-	 *  
-	 */
-	public List<Carta> getCartas() {
-		return null;
+	public boolean podeReceberCarta(){
+		return cartasNaMesa.size() < maxCartas;
+	}
+	
+	public List<CartaDeBatalha> getCartas() {
+		return cartasNaMesa;
+	}
+	
+	public int getMaxCartas(){
+		return maxCartas;
 	}
 
 }
