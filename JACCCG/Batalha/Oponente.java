@@ -13,8 +13,8 @@ public class Oponente extends Jogador {
 	 *  
 	 *  
 	 */
-	public Oponente(String nome, Baralho baralho) {
-		super(baralho);
+	public Oponente(String nome, Baralho baralho, int vida, int manaPool) {
+		super(baralho, vida, manaPool);
 	}
 
 	public Carta selecionaCartaDaMao() {

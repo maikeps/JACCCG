@@ -1,7 +1,5 @@
 package JACCCG.Colecao;
 
-import javax.xml.namespace.QName;
-
 import JACCCG.Cartas.CartaDeColecao;
 import JACCCG.Exceptions.LimiteDeCartasExcedidoExepction;
 
