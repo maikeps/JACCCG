@@ -19,7 +19,7 @@ public class Colecao {
 		this.baralhos = baralhos;
 	}
 
-	public boolean podeAdicionarCarta(CartaDeColecao carta) {
+	/**public boolean podeAdicionarCarta(CartaDeColecao carta) {
 		Raridade raridade = carta.getRaridade();
 		int cont = 0;
 		for(CartaDeColecao c : colecao){
@@ -28,9 +28,9 @@ public class Colecao {
 		}
 		return true;
 	}
-
+	 **/
 	public void adicionaCarta(CartaDeColecao carta) throws LimiteDeCartasExcedidoException{
-		if(!podeAdicionarCarta(carta)) throw new LimiteDeCartasExcedidoException(":)");
+	//	if(!podeAdicionarCarta(carta)) throw new LimiteDeCartasExcedidoException(":)");
 		colecao.add(carta);
 	}
 

@@ -18,26 +18,24 @@ public class Loja {
 		this.cartas = cartas;
 	}
 	/**
-	 * Os nomes dos pr�ximos dois m�todos, est�o do POV da Loja.
+	 * Os nomes dos pr�ximos dois metodos, estao do POV da Loja.
 	 */
 	public void vende(CartaDeColecao carta, Usuario comprador) throws DinheirosInsuficientesException{
-		if(comprador.getDinheiros() >= carta.getPreco()) throw new DinheirosInsuficientesException("o pobreza");
+		if(comprador.getDinheiros() < carta.getPreco()) throw new DinheirosInsuficientesException("o pobreza");
 		try{
 			comprador.adicionaNaColecao(carta);
 			comprador.perdeDinheiros(carta.getPreco());
 		}catch(LimiteDeCartasExcedidoException e){
-			System.out.println("N�o pode comprar.");
+			System.out.println("Naum Pode comprar.");
 		}
 	}
 
 	public void compra(CartaDeColecao carta, Usuario vendedor) throws CartaNaoEncontradaException {
 		try{
-			System.out.println("O Vendedor tinha: " + vendedor.getDinheiros());
 			vendedor.getColecao().removeDaColecao(carta);
 			vendedor.ganhaDinheiros(carta.getPreco());
-			System.out.println("A Loja comprou a carta: " + carta.getNome() +";"+ " O usu�rio agora tem: " + vendedor.getDinheiros());
 		}catch(CartaSendoUtilizadaException a){
-			System.out.println("N�o pode vender.");
+			System.out.println("Naum pode vender.");
 		}
 	}
 

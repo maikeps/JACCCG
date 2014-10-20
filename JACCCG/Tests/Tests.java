@@ -1,38 +1,34 @@
 package JACCCG.Tests;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import JACCCG.Cartas.Carta;
 import JACCCG.Cartas.CartaDeColecao;
-import JACCCG.Cartas.FabricaDeCartas;
-import JACCCG.Colecao.Colecao;
-import JACCCG.Colecao.RegistroDeBaralho;
+import JACCCG.Cartas.Fabrica;
+import JACCCG.Colecao.Loja;
+import JACCCG.Colecao.Usuario;
 import JACCCG.Exceptions.CartaNaoEncontradaException;
-import JACCCG.Exceptions.CartaSendoUtilizadaException;
 
 public class Tests {
 
 	public static void main(String[] args){
-		List<CartaDeColecao> l = FabricaDeCartas.criaCartas();
+	
+		Usuario u = Fabrica.cria();
+		Loja j = new Loja(Fabrica.criaCartas());
 		
-		List<RegistroDeBaralho> r = new LinkedList<RegistroDeBaralho>();
-		List<CartaDeColecao> cartas = new LinkedList<CartaDeColecao>();
-		cartas.addAll(l);
-		RegistroDeBaralho reg = new RegistroDeBaralho(cartas, "Teste", 5);
-		r.add(reg);
 		
-		Colecao c = new Colecao(l, r);
-		for(Carta carta : c.getBaralhos().get(0).getCartas()){
-			System.out.println(carta.getNome());
-		}
+		System.out.println("O Usuário tinha: " + u.getDinheiros());
 		try {
-			c.removeDaColecao(l.get(0));
-			System.out.println("foi");
-		} catch (CartaSendoUtilizadaException e) {
-			System.out.println("Carta sendo utilizada");
+			System.out.println("O Usuário vendeu: " + u.getColecao().getCartas().get(0));
+			j.compra(u.getColecao().getCartas().get(0), u);
+			System.out.println("O Usuário ficouc com: " + u.getDinheiros());
 		} catch (CartaNaoEncontradaException e) {
-			System.out.println("Carta nao encontrada");
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
+		System.out.println("Depois");
+		for(CartaDeColecao c : u.getColecao().getCartas()){
+			System.out.println(c);
+		}
+		
 	}
+	
 }

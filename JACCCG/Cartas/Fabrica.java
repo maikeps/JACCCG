@@ -20,7 +20,6 @@ public class Fabrica{
 		b.criarBaralho("B1", 15);
 		try {
 			b.adicionaCarta(c.getCartas().get(0));
-			System.out.println("!!!");
 			b.adicionaCarta(c.getCartas().get(0));
 			b.adicionaCarta(c.getCartas().get(0));
 			b.adicionaCarta(c.getCartas().get(3));
@@ -67,7 +66,6 @@ public class Fabrica{
 		b.criarBaralho("B3", 15);
 		try {
 			b.adicionaCarta(c.getCartas().get(0));
-			System.out.println("adicionou 0");
 			b.adicionaCarta(c.getCartas().get(1));
 			b.adicionaCarta(c.getCartas().get(1));
 			b.adicionaCarta(c.getCartas().get(11));
@@ -107,7 +105,7 @@ public class Fabrica{
 		listaDeCartas.add(new CartaDeColecao("Humanoide5", 2, 3, 3, 3, Raridade.RARA, 540));
 		listaDeCartas.add(new CartaDeColecao("Humanoide6", 2, 3, 4, 3, Raridade.RARA, 540));
 		listaDeCartas.add(new CartaDeColecao("Fera1", 4, 0, 4, 2, Raridade.INCOMUM, 300));
-		listaDeCartas.add(new CartaDeColecao("Fera2", 5, 0, 2, 2, Raridade.RARA, 500));
+		listaDeCartas.add(new CartaDeColecao("Fera2", 5, 0, 2, 2, Raridade.RARA, 400));
 		listaDeCartas.add(new CartaDeColecao("Monstruoso1", 6, 3, 6, 4, Raridade.INCOMUM, 350));
 		listaDeCartas.add(new CartaDeColecao("Monstruoso2", 5, 2, 5, 4, Raridade.RARA, 600));
 
