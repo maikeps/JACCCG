@@ -31,6 +31,11 @@ public class RegistroDeBaralho {
 	public void setCartas(List<CartaDeColecao> cartas) {
 		this.cartas = cartas;
 	}
+	
+	//TODO adicionar metodo no diagrama
+	public int getMaximo(){
+		return maxCartas;
+	}
 
 	public boolean jogavel() {
 		return cartas.size() == maxCartas;

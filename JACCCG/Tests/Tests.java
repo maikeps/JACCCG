@@ -11,7 +11,6 @@ import JACCCG.Colecao.RegistroDeBaralho;
 import JACCCG.Exceptions.CartaNaoEncontradaException;
 import JACCCG.Exceptions.CartaSendoUtilizadaException;
 
-
 public class Tests {
 
 	public static void main(String[] args){

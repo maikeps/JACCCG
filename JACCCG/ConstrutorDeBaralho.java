@@ -51,7 +51,7 @@ public class ConstrutorDeBaralho {
 	}
 
 	public boolean podeAdicionarCarta() {
-		return baralhoAtual.jogavel();
+		return !baralhoAtual.jogavel();
 	}
 
 	public void editaBaralho(RegistroDeBaralho baralho) {

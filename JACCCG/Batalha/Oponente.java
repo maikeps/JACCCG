@@ -28,5 +28,10 @@ public class Oponente extends Jogador {
 	public Carta selecionaCartaAtacante() {
 		return null;
 	}
+	
+	//TODO adicionar metodo no diagrama
+	public String getNome(){
+		return nome;
+	}
 
 }

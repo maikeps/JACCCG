@@ -50,7 +50,6 @@ public class Colecao {
 	public void removeDaColecao(CartaDeColecao carta) throws CartaSendoUtilizadaException, CartaNaoEncontradaException{
 		if(!colecao.contains(carta)) throw new CartaNaoEncontradaException("banana");
 		int numOcorrenciaCarta = getOcorrenciasCarta(carta);
-		int cont = 0;
 		for(RegistroDeBaralho baralho : baralhos){
 			if(baralho.getOcorrenciasCarta(carta) == numOcorrenciaCarta){
 				throw new CartaSendoUtilizadaException("heh");
