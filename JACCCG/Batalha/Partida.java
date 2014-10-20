@@ -3,13 +3,7 @@ package JACCCG.Batalha;
 public class Partida {
 
 	private Jogador jogador;
-
 	private Oponente oponente;
-
-	private Mesa mesaDoJogador;
-
-	private Mesa mesaDoOponente;
-
 	private Juiz juiz;
 
 	public Partida(Jogador jogador, Oponente oponente, Juiz juiz) {

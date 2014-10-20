@@ -11,11 +11,13 @@ public class Jogador {
 	private Baralho baralho;
 	private int vida;
 	private int manaPool;
-
+	private Mesa mesa;
+	
 	public Jogador(Baralho baralho, int vida, int manaPool) {
 		this.baralho = baralho;
 		mao = new Mao();
 		this.vida = vida;
+		this.mesa = new Mesa(5);
 		this.manaPool = manaPool;
 	}
 
@@ -27,6 +29,9 @@ public class Jogador {
 		}
 	}
 
+	public Mesa getMesa(){
+		return mesa;
+	}
 	public void perdeVida(int qtd) {
 		if((vida-=qtd) <= 0){
 			vida = 0;

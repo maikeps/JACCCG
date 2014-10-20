@@ -23,7 +23,11 @@ public class CartaDeBatalha extends Carta {
 	public void ataca(CartaDeBatalha outra) {
 		outra.perdeVida(this.getAtaque() - outra.getDefesa());
 	}
-
+	
+	public int calculaDanoContra(CartaDeBatalha oponente){
+		return (this.getDefesa()) - (this.getAtaque());
+	}
+	
 	public boolean estaMorta() {
 		return vidaAtual == 0;
 	}
