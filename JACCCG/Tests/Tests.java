@@ -5,7 +5,7 @@ import java.util.List;
 
 import JACCCG.Cartas.Carta;
 import JACCCG.Cartas.CartaDeColecao;
-import JACCCG.Cartas.FabricaDeCartas;
+import JACCCG.Cartas.Fabrica;
 import JACCCG.Colecao.Colecao;
 import JACCCG.Colecao.RegistroDeBaralho;
 import JACCCG.Exceptions.CartaNaoEncontradaException;
@@ -14,7 +14,7 @@ import JACCCG.Exceptions.CartaSendoUtilizadaException;
 public class Tests {
 
 	public static void main(String[] args){
-		List<CartaDeColecao> l = FabricaDeCartas.criaCartas();
+		List<CartaDeColecao> l = Fabrica.criaCartas();
 		
 		List<RegistroDeBaralho> r = new LinkedList<RegistroDeBaralho>();
 		List<CartaDeColecao> cartas = new LinkedList<CartaDeColecao>();
