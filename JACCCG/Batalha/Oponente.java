@@ -1,6 +1,8 @@
 package JACCCG.Batalha;
 
 import JACCCG.Cartas.CartaDeBatalha;
+import JACCCG.Exceptions.ManaInsuficienteException;
+import JACCCG.Exceptions.MesaCheiaException;
 import JACCCG.Exceptions.MesaVaziaException;
 
 public class Oponente extends Jogador {
@@ -53,12 +55,6 @@ public class Oponente extends Jogador {
 		return carta;
 	}
 
-	public void atacaDiretamente(Jogador jogador) {
-		CartaDeBatalha atacante = selecionaCartaAtacante();
-		jogador.perdeVida(atacante.getAtaque());
-		atacante.setPronto(false);
-	}
-
 	public void ataca(Mesa mesaDoJogador) {
 		CartaDeBatalha atacante = selecionaCartaAtacante();
 		CartaDeBatalha alvo = selecionaAlvo(atacante, mesaDoJogador);
@@ -80,22 +76,28 @@ public class Oponente extends Jogador {
 	}
 
 	public void processaTurno(Jogador jogador) {
-		mesa.aprontaCartas();
-		ganhaMana();
-		compraCarta();
+		iniciaTurno();
 		while(querJogar()){
-			jogaCarta(selecionaCartaDaMao());
+			try {
+				jogaCarta(selecionaCartaDaMao());
+			} catch (MesaCheiaException | ManaInsuficienteException e){}
 		}
 		while(mesa.temCartaPronta()){
 			if(jogador.getMesa().getCartas().isEmpty()){
-				atacaDiretamente(jogador);
+				atacaDiretamente(jogador, selecionaCartaAtacante());
 			}else{
 				ataca(jogador.getMesa());
 			}
 		}
 		while(querJogar()){
-			jogaCarta(selecionaCartaDaMao());
+			try {
+				jogaCarta(selecionaCartaDaMao());
+			} catch (MesaCheiaException | ManaInsuficienteException e){}
 		}
+	}
+	
+	public String getNome(){
+		return nome;
 	}
 
 }

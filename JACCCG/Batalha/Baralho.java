@@ -24,7 +24,7 @@ public class Baralho {
 		Collections.shuffle(pilhaDeCartas);
 	}
 
-	public Carta getTopo() throws BaralhoVazioException {
+	public CartaDeBatalha getTopo() throws BaralhoVazioException {
 		if(pilhaDeCartas.size() == 0) throw new BaralhoVazioException("Baralho vazio");
 		return pilhaDeCartas.pop();
 	}

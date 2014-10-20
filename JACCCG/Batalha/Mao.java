@@ -3,19 +3,19 @@ package JACCCG.Batalha;
 import java.util.LinkedList;
 import java.util.List;
 
-import JACCCG.Cartas.Carta;
+import JACCCG.Cartas.CartaDeBatalha;
 import JACCCG.Exceptions.BaralhoVazioException;
 
 public class Mao {
 
-	private List<Carta> cartasDaMao;
+	private List<CartaDeBatalha> cartasDaMao;
 
 	public Mao() {
-		cartasDaMao = new LinkedList<Carta>();
+		cartasDaMao = new LinkedList<CartaDeBatalha>();
 
 	}
 
-	public void removeCarta(Carta carta) {
+	public void removeCarta(CartaDeBatalha carta) {
 		cartasDaMao.remove(carta);
 	}
 
@@ -24,7 +24,7 @@ public class Mao {
 
 	}
 
-	public List<Carta> getCartas() {
+	public List<CartaDeBatalha> getCartas() {
 		return cartasDaMao;
 	}
 

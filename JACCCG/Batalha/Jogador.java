@@ -2,6 +2,7 @@ package JACCCG.Batalha;
 
 import JACCCG.Cartas.CartaDeBatalha;
 import JACCCG.Exceptions.BaralhoVazioException;
+import JACCCG.Exceptions.ManaInsuficienteException;
 import JACCCG.Exceptions.MesaCheiaException;
 
 public class Jogador {
@@ -26,14 +27,17 @@ public class Jogador {
 		this.fatorFatiga = 0;
 	}
 
-	public void jogaCarta(CartaDeBatalha carta) {
-		try {
-			mesa.recebeCarta(carta);
-			mao.removeCarta(carta);
-			manaPool -= carta.getCustoMana();
-		} catch (MesaCheiaException e) {
-			//TODO ver se falta algo
-		}
+	public void jogaCarta(CartaDeBatalha carta) throws MesaCheiaException, ManaInsuficienteException{
+		if(carta.getCustoMana() > manaPool) throw new ManaInsuficienteException("Mana insuficiente");
+		mesa.recebeCarta(carta);
+		mao.removeCarta(carta);
+		manaPool -= carta.getCustoMana();
+	}
+	
+	public void iniciaTurno(){
+		mesa.aprontaCartas();
+		ganhaMana();
+		compraCarta();
 	}
 
 	public Mesa getMesa(){
@@ -77,4 +81,8 @@ public class Jogador {
 		}
 	}
 
+	public void atacaDiretamente(Jogador inimigo, CartaDeBatalha atacante) {
+		inimigo.perdeVida(atacante.getAtaque());
+		atacante.setPronto(false);
+	}
 }
