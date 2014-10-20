@@ -45,7 +45,6 @@ public class Jogo {
 		switch(input){
 		case 1:
 			System.out.println("Selecione um baralho");
-			selecionaBaralho();
 			processaPartida();
 			break;
 		case 2:
@@ -71,10 +70,9 @@ public class Jogo {
 	private RegistroDeBaralho selecionaBaralho(){
 		List<RegistroDeBaralho> baralhos = usuario.getColecao().getBaralhos();
 		for(int i = 0; i < usuario.getColecao().getBaralhos().size(); i++){
-			System.out.println("Baralho " + i + "\n" + baralhos.get(i).getNome());
+			System.out.println("Baralho " + i + ": " + baralhos.get(i).getNome());
 		}
-		int baralho = leitor.leInt(0, baralhos.size());
-		
+		int baralho = leitor.leInt(0, baralhos.size()-1);
 		return baralhos.get(baralho);
 	}
 
@@ -82,10 +80,12 @@ public class Jogo {
 		Jogador jogador = new Jogador(new Baralho(selecionaBaralho()), 30);
 		Oponente oponente = Fabrica.criaOponente();
 		Partida partida = new Partida(jogador, oponente, juiz);
-		Mao mao = jogador.getMao();
+		jogador.iniciaPartida();
+		oponente.iniciaPartida();
 		while(!partida.acabou()){
-			mostraVidas(jogador, oponente);
 			jogador.iniciaTurno();
+			mostraVidas(jogador, oponente);
+			mostraMana(jogador);
 			jogaCartas(jogador);
 			mostraMesas(jogador, oponente);
 			ataca(jogador, oponente);
@@ -93,6 +93,10 @@ public class Jogo {
 			
 			partida.processaTurnoOponente();
 		}
+	}
+
+	private void mostraMana(Jogador jogador) {
+		System.out.println("Sua mana: " + jogador.getManaPool());
 	}
 
 	private void mostraMesas(Jogador jogador, Oponente oponente) {
@@ -125,7 +129,7 @@ public class Jogo {
 		int selecionada = leitor.leInt(0, mesa.getCartas().size());
 		while(mesa.getCartas().get(selecionada).podeAtacar() == false){
 			System.out.println("Esta carta nao pode atacar neste turno");
-			selecionada = leitor.leInt(0, mesa.getCartas().size());
+			return selecionaCartaAtacante(mesa);
 		}
 		return mesa.getCartas().get(selecionada);
 	}
@@ -142,6 +146,7 @@ public class Jogo {
 
 	private void jogaCartas(Jogador jogador) {
 		while(querJogarCarta(jogador.getMao())){
+			mostraMana(jogador);
 			mostraMao(jogador);				
 			CartaDeBatalha escolhida = escolheCarta(jogador.getMao());
 			try {

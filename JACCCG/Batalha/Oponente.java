@@ -48,7 +48,7 @@ public class Oponente extends Jogador {
 	public CartaDeBatalha selecionaCartaAtacante() {
 		CartaDeBatalha carta = this.getMesa().getCartas().get(0);
 		for(int i = 0; i < getMesa().getCartas().size(); i++){
-				if(carta.getAtaque() > getMesa().getCartas().get(i).getAtaque()){
+				if(carta.getAtaque() > getMesa().getCartas().get(i).getAtaque() && carta.podeAtacar()){
 					carta = getMesa().getCartas().get(i);
 			}
 		}
@@ -59,6 +59,8 @@ public class Oponente extends Jogador {
 		CartaDeBatalha atacante = selecionaCartaAtacante();
 		CartaDeBatalha alvo = selecionaAlvo(atacante, mesaDoJogador);
 		atacante.ataca(alvo);
+		System.out.println("Oponente atacou com "+atacante.getNome());
+		System.out.println("alvo "+alvo.getNome());
 		if(alvo.estaMorta()){
 			try {
 				mesaDoJogador.removeCarta(alvo);

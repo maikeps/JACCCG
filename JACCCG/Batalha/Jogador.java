@@ -85,4 +85,10 @@ public class Jogador {
 		inimigo.perdeVida(atacante.getAtaque());
 		atacante.setPronto(false);
 	}
+
+	public void iniciaPartida() {
+		for(int i = 0; i < 4; i++){
+			compraCarta();
+		}
+	}
 }

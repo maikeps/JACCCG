@@ -28,11 +28,10 @@ public class Leitor {
 
 	public boolean leBoolean() {
 		String string = scanner.nextLine().toLowerCase();
-		System.out.println(string);
-		if(!string.equals("nao") && !string.equals("sim")){
-			System.out.println("Digite sim ou nao");
-			leBoolean();
+		if(string.equals("nao") || string.equals("sim")){
+			return (string.equals("sim")) ? true : false;
+		}else{
+			return leBoolean();
 		}
-		return (string.equals("sim")) ? true : false;
 	}
 }

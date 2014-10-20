@@ -54,13 +54,13 @@ public class Mesa {
 	}
 	
 	public String toString(){
+		if(cartasNaMesa.size() == 0) return "Mesa vazia";
 		String str = "";
 		CartaDeBatalha c = getCartas().get(0);
 		for(int i = 0; i < this.getCartas().size(); i++){
 			c = getCartas().get(i);
 			str += i + " - "+ c.getNome() + " " + "A:" + c.getAtaque() + " D:" + c.getDefesa() + " V:" + c.getVida() + "\n";
 		}
-		System.out.println(str);
 		return str;
 	}
 

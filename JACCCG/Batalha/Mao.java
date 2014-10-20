@@ -29,13 +29,13 @@ public class Mao {
 	}
 
 	public String toString(){
+		if(cartasDaMao.size() == 0) return "Mao vazia";
 		String str = "";
 		CartaDeBatalha c = (CartaDeBatalha) getCartas().get(0);
 		for(int i = 0; i < getCartas().size(); i++){
 			c = (CartaDeBatalha) getCartas().get(i);
 			str +=  i + " - " + c.getNome() + " " + "A:" + c.getAtaque() + " D:" + c.getDefesa() + " V:" + c.getVida() + " C:" + c.getCustoMana() + "\n";
 		}
-		System.out.println(str);
 		return str;
 	}
 }
