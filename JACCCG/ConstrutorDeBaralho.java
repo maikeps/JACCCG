@@ -21,24 +21,35 @@ public class ConstrutorDeBaralho {
 	}
 
 	public RegistroDeBaralho criarBaralho(String nome, int maxCartas) {
-		return new RegistroDeBaralho(new LinkedList<CartaDeColecao>(), nome, maxCartas);
+		return baralhoAtual = new RegistroDeBaralho(new LinkedList<CartaDeColecao>(), nome,
+				maxCartas);
 	}
 
-	public void adicionaCarta(CartaDeColecao carta) throws BaralhoNaoInicializadoException, LimiteDeCartasExcedidoException, BaralhoCompletoException {
-		if(baralhoAtual == null) throw new BaralhoNaoInicializadoException("Baralho nao inicializado");
-		if(podeAdicionarCarta()){
-			throw new BaralhoCompletoException("Numero de cartas no baralho excedido");
+	public void adicionaCarta(CartaDeColecao carta)
+			throws BaralhoNaoInicializadoException,
+			LimiteDeCartasExcedidoException, BaralhoCompletoException {
+		if (baralhoAtual == null)
+			throw new BaralhoNaoInicializadoException(
+					"Baralho nao inicializado");
+		if (podeAdicionarCarta()) {
+			throw new BaralhoCompletoException(
+					"Numero de cartas no baralho excedido");
 		}
 		int ocorrencias = baralhoAtual.getOcorrenciasCarta(carta);
-		if(ocorrencias == carta.getRaridade().ordinal()+1){
-			throw new LimiteDeCartasExcedidoException("Limite de cartas no baralho excedido");
+		if (ocorrencias == carta.getRaridade().ordinal() + 1) {
+			throw new LimiteDeCartasExcedidoException(
+					"Limite de cartas no baralho excedido");
 		}
 		baralhoAtual.getCartas().add(carta);
 	}
 
-	public void removeCarta(CartaDeColecao carta) throws BaralhoNaoInicializadoException, CartaNaoEncontradaException{
-		if(baralhoAtual == null) throw new BaralhoNaoInicializadoException("Baralho nao inicializado");
-		if(!baralhoAtual.contem(carta)) throw new CartaNaoEncontradaException("Carta nao encontrada");
+	public void removeCarta(CartaDeColecao carta)
+			throws BaralhoNaoInicializadoException, CartaNaoEncontradaException {
+		if (baralhoAtual == null)
+			throw new BaralhoNaoInicializadoException(
+					"Baralho nao inicializado");
+		if (!baralhoAtual.contem(carta))
+			throw new CartaNaoEncontradaException("Carta nao encontrada");
 		baralhoAtual.getCartas().remove(carta);
 	}
 
@@ -51,13 +62,13 @@ public class ConstrutorDeBaralho {
 	}
 
 	public boolean podeAdicionarCarta() {
-		return !baralhoAtual.jogavel();
+		return baralhoAtual.jogavel();
 	}
 
 	public void editaBaralho(RegistroDeBaralho baralho) {
 		this.baralhoAtual = baralho;
 	}
-	
+
 	public void cancelaBaralho() {
 		baralhoAtual = null;
 	}
