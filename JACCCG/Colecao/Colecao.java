@@ -48,17 +48,22 @@ public class Colecao {
 	}
 	
 	public void removeDaColecao(CartaDeColecao carta) throws CartaSendoUtilizadaException, CartaNaoEncontradaException{
+		if(!colecao.contains(carta)) throw new CartaNaoEncontradaException("banana");
+		int numOcorrenciaCarta = getOcorrenciasCarta(carta);
 		int cont = 0;
 		for(RegistroDeBaralho baralho : baralhos){
-			//TODO
-			//for(CartaDeColecao c : baralho.getCartas()){
-			//	if(c == carta)
-			//}
-			if(baralho.getCartas().contains(carta)) cont++;
-			if(cont == carta.getRaridade().ordinal()+1) throw new CartaSendoUtilizadaException("heh");
+			if(baralho.getOcorrenciasCarta(carta) == numOcorrenciaCarta){
+				throw new CartaSendoUtilizadaException("heh");
+			}
 		}
-		if(!colecao.contains(carta)) throw new CartaNaoEncontradaException("banana");
 		colecao.remove(carta);
 	}
-
+	
+	public int getOcorrenciasCarta(CartaDeColecao carta){
+		int cont = 0;
+		for(CartaDeColecao c : colecao){
+			if(carta.getNome().equals(c.getNome())) cont++;
+		}
+		return cont;
+	}
 }

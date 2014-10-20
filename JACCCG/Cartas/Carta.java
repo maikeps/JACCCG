@@ -1,13 +1,13 @@
 package JACCCG.Cartas;
 
-public class Carta {
+public abstract class Carta {
 
-	private String nome;
-	private int ataque;
-	private int defesa;
-	private int custoMana;
-	private int vida;
-	private Raridade raridade;
+	protected String nome;
+	protected int ataque;
+	protected int defesa;
+	protected int custoMana;
+	protected int vida;
+	protected Raridade raridade;
 
 	public Carta(String nome, int ataque, int defesa, int custoMana, int vida, Raridade raridade) {
 		this.nome = nome;
