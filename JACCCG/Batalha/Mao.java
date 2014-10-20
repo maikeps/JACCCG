@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import JACCCG.Cartas.Carta;
+import JACCCG.Cartas.CartaDeBatalha;
 import JACCCG.Exceptions.BaralhoVazioException;
 
 public class Mao {
@@ -30,8 +31,10 @@ public class Mao {
 
 	public String toString(){
 		String str = "";
-		for(Carta c : getCartas()){
-			str += c.getNome() + " " + "A:" + c.getAtaque() + " D:" + c.getDefesa() + " V:" + c.getVida() + " C:" + c.getCustoMana() + "\n";
+		CartaDeBatalha c = (CartaDeBatalha) getCartas().get(0);
+		for(int i = 0; i < getCartas().size(); i++){
+			c = (CartaDeBatalha) getCartas().get(i);
+			str +=  i + " - " + c.getNome() + " " + "A:" + c.getAtaque() + " D:" + c.getDefesa() + " V:" + c.getVida() + " C:" + c.getCustoMana() + "\n";
 		}
 		System.out.println(str);
 		return str;
