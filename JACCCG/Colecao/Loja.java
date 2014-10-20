@@ -8,7 +8,7 @@ import JACCCG.Cartas.Raridade;
 import JACCCG.Exceptions.CartaNaoEncontradaException;
 import JACCCG.Exceptions.CartaSendoUtilizadaException;
 import JACCCG.Exceptions.DinheirosInsuficientesException;
-import JACCCG.Exceptions.LimiteDeCartasExcedidoExepction;
+import JACCCG.Exceptions.LimiteDeCartasExcedidoException;
 
 public class Loja {
 
@@ -18,15 +18,15 @@ public class Loja {
 		this.cartas = cartas;
 	}
 	/**
-	 * Os nomes dos próximos dois métodos, estão do POV da Loja.
+	 * Os nomes dos prï¿½ximos dois mï¿½todos, estï¿½o do POV da Loja.
 	 */
 	public void vende(CartaDeColecao carta, Usuario comprador) throws DinheirosInsuficientesException{
 		if(comprador.getDinheiros() >= carta.getPreco()) throw new DinheirosInsuficientesException("o pobreza");
 		try{
 			comprador.adicionaNaColecao(carta);
 			comprador.perdeDinheiros(carta.getPreco());
-		}catch(LimiteDeCartasExcedidoExepction e){
-			System.out.println("Não pode comprar.");
+		}catch(LimiteDeCartasExcedidoException e){
+			System.out.println("Nï¿½o pode comprar.");
 		}
 	}
 
@@ -35,9 +35,9 @@ public class Loja {
 			System.out.println("O Vendedor tinha: " + vendedor.getDinheiros());
 			vendedor.getColecao().removeDaColecao(carta);
 			vendedor.ganhaDinheiros(carta.getPreco());
-			System.out.println("A Loja comprou a carta: " + carta.getNome() +";"+ " O usuário agora tem: " + vendedor.getDinheiros());
+			System.out.println("A Loja comprou a carta: " + carta.getNome() +";"+ " O usuï¿½rio agora tem: " + vendedor.getDinheiros());
 		}catch(CartaSendoUtilizadaException a){
-			System.out.println("Não pode vender.");
+			System.out.println("Nï¿½o pode vender.");
 		}
 	}
 

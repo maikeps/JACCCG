@@ -1,7 +1,7 @@
 package JACCCG.Colecao;
 
 import JACCCG.Cartas.CartaDeColecao;
-import JACCCG.Exceptions.LimiteDeCartasExcedidoExepction;
+import JACCCG.Exceptions.LimiteDeCartasExcedidoException;
 
 public class Usuario {
 
@@ -13,7 +13,7 @@ public class Usuario {
 		this.dinheiros = dinheiros;
 	}
 
-	public void adicionaNaColecao(CartaDeColecao carta) throws LimiteDeCartasExcedidoExepction {
+	public void adicionaNaColecao(CartaDeColecao carta) throws LimiteDeCartasExcedidoException {
 		colecao.adicionaCarta(carta);
 	}
 

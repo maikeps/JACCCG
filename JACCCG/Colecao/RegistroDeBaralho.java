@@ -40,6 +40,13 @@ public class RegistroDeBaralho {
 		return nome == ((RegistroDeBaralho)outro).getNome();
 	}
 	
+	public boolean contem(CartaDeColecao carta){
+		for(CartaDeColecao c : cartas){
+			if(c.getNome().equals(carta.getNome())) return true;
+		}
+		return false;
+	}
+	
 	public int getOcorrenciasCarta(CartaDeColecao carta){
 		int cont = 0;
 		for(CartaDeColecao c : cartas){

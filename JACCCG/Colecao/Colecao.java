@@ -7,7 +7,7 @@ import JACCCG.Cartas.Raridade;
 import JACCCG.Exceptions.BaralhoJaExistenteException;
 import JACCCG.Exceptions.CartaNaoEncontradaException;
 import JACCCG.Exceptions.CartaSendoUtilizadaException;
-import JACCCG.Exceptions.LimiteDeCartasExcedidoExepction;
+import JACCCG.Exceptions.LimiteDeCartasExcedidoException;
 
 public class Colecao {
 
@@ -29,8 +29,8 @@ public class Colecao {
 		return true;
 	}
 
-	public void adicionaCarta(CartaDeColecao carta) throws LimiteDeCartasExcedidoExepction{
-		if(!podeAdicionarCarta(carta)) throw new LimiteDeCartasExcedidoExepction(":)");
+	public void adicionaCarta(CartaDeColecao carta) throws LimiteDeCartasExcedidoException{
+		if(!podeAdicionarCarta(carta)) throw new LimiteDeCartasExcedidoException(":)");
 		colecao.add(carta);
 	}
 
