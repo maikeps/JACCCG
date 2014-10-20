@@ -7,30 +7,31 @@ public class Partida {
 	private Juiz juiz;
 
 	public Partida(Jogador jogador, Oponente oponente, Juiz juiz) {
-
+		this.jogador = jogador;
+		this.oponente = oponente;
 	}
 
 	public boolean acabou() {
-		return false;
+		return jogador.estaMorto() || oponente.estaMorto();
 	}
 
 	public Jogador getVencedor() {
+		if(acabou()){
+			if(jogador.estaMorto()) return oponente;
+			else return jogador;
+		}
 		return null;
 	}
 
 	public void processaTurnoOponente() {
-
+		oponente.processaTurno(jogador);
 	}
 
-	public void processaTurnoJogador() {
-
-	}
-
-	/**
-	 *  
-	 */
-	public boolean podeAtacarDiretamente(Mesa mesa) {
-		return false;
+	public boolean podeAtacarDiretamente(Jogador atacante) {
+		if(atacante instanceof Jogador){
+			return oponente.getMesa().getCartas().isEmpty();
+		}
+		return jogador.getMesa().getCartas().isEmpty();
 	}
 
 	public void update() {

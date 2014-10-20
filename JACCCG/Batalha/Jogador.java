@@ -1,29 +1,36 @@
 package JACCCG.Batalha;
 
 import JACCCG.Cartas.CartaDeBatalha;
+import JACCCG.Exceptions.BaralhoVazioException;
 import JACCCG.Exceptions.MesaCheiaException;
 
 public class Jogador {
 	
 	private final int MPT = 1;//mana por turno
+	private final int MAX_MANA = 10;
 	
 	private Mao mao;
 	private Baralho baralho;
 	private int vida;
 	private int manaPool;
-	private Mesa mesa;
+	protected Mesa mesa;
 	
-	public Jogador(Baralho baralho, int vida, int manaPool) {
+	private int fatorFatiga;
+	
+	public Jogador(Baralho baralho, int vida) {
 		this.baralho = baralho;
 		mao = new Mao();
 		this.vida = vida;
 		this.mesa = new Mesa(5);
-		this.manaPool = manaPool;
+		this.manaPool = 0;
+		this.fatorFatiga = 0;
 	}
 
-	public void jogaCarta(Mesa mesa, CartaDeBatalha carta) {
+	public void jogaCarta(CartaDeBatalha carta) {
 		try {
 			mesa.recebeCarta(carta);
+			mao.removeCarta(carta);
+			manaPool -= carta.getCustoMana();
 		} catch (MesaCheiaException e) {
 			//TODO ver se falta algo
 		}
@@ -32,6 +39,7 @@ public class Jogador {
 	public Mesa getMesa(){
 		return mesa;
 	}
+	
 	public void perdeVida(int qtd) {
 		if((vida-=qtd) <= 0){
 			vida = 0;
@@ -54,15 +62,19 @@ public class Jogador {
 		return mao;
 	}
 
-	/**
-	 *  
-	 */
 	public void ganhaMana() {
-		manaPool+=MPT;
+		if(manaPool < MAX_MANA){
+			manaPool+=MPT;
+		}
 	}
 
 	public void compraCarta() {
-		mao.compraCarta(baralho);
+		try{
+			mao.compraCarta(baralho);
+		}catch(BaralhoVazioException e){
+			fatorFatiga++;
+			perdeVida(fatorFatiga);
+		}
 	}
 
 }

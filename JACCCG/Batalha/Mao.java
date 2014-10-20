@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import JACCCG.Cartas.Carta;
+import JACCCG.Exceptions.BaralhoVazioException;
 
 public class Mao {
 
@@ -18,7 +19,7 @@ public class Mao {
 		cartasDaMao.remove(carta);
 	}
 
-	public void compraCarta(Baralho baralho) {
+	public void compraCarta(Baralho baralho) throws BaralhoVazioException{
 		cartasDaMao.add(baralho.getTopo());
 
 	}

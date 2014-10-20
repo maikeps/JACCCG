@@ -22,9 +22,11 @@ public class Usuario {
 	}
 
 	public void perdeDinheiros(int qtd) {
-		if((dinheiros-=qtd) <= 0){
+		/**if((dinheiros-=qtd) <= 0){
 			dinheiros = 0;
-		}
+		}**/
+		dinheiros -= qtd;
+		
 	}
 
 	public int getDinheiros(){

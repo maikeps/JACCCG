@@ -39,4 +39,17 @@ public class Mesa {
 		return maxCartas;
 	}
 
+	public void aprontaCartas() {
+		for(CartaDeBatalha c : cartasNaMesa){
+			c.setPronto(true);
+		}
+	}
+
+	public boolean temCartaPronta() {
+		for(CartaDeBatalha c : cartasNaMesa){
+			if(c.estaMorta()) return true;
+		}
+		return false;
+	}
+
 }

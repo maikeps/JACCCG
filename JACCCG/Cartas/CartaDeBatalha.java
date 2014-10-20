@@ -15,6 +15,7 @@ public class CartaDeBatalha extends Carta {
 	}
 
 	public void perdeVida(int qtd) {
+		qtd = (qtd < 0) ? 0 : qtd;
 		if ((vidaAtual -= qtd) <= 0) {
 			vidaAtual = 0;
 		}
@@ -22,6 +23,8 @@ public class CartaDeBatalha extends Carta {
 
 	public void ataca(CartaDeBatalha outra) {
 		outra.perdeVida(this.getAtaque() - outra.getDefesa());
+		this.perdeVida(outra.getAtaque() - this.getDefesa());
+		pronta = false;
 	}
 	
 	public int calculaDanoContra(CartaDeBatalha oponente){
