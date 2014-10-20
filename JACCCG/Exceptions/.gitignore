@@ -2,4 +2,13 @@
 /BaralhoCompletoException.class
 /BaralhoNaoInicializadoException.class
 /BaralhoVazioException.class
+<<<<<<< HEAD
 /ManaInsuficienteException.class
+=======
+/BaralhoJaExistenteException.class
+/CartaNaoEncontradaException.class
+/CartaSendoUtilizadaException.class
+/DinheirosInsuficientesException.class
+/MesaCheiaException.class
+/MesaVaziaException.class
+>>>>>>> branch 'master' of https://github.com/maikeps/JACCCG
