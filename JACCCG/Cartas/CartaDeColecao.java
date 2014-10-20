@@ -30,4 +30,11 @@ public class CartaDeColecao extends Carta {
 		return this.getNome() == ((CartaDeColecao)outra).getNome();
 	}
 	
+	public String toString(){
+		String string = "";
+		string = super.toString();
+		string += "Preço: " + preco + "\n";
+		
+		return string;
+	}
 }

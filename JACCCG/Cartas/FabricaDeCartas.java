@@ -7,14 +7,22 @@ public class FabricaDeCartas {
 
 	public static List<CartaDeColecao> criaCartas() {
 		List<CartaDeColecao> listaDeCartas = new LinkedList<CartaDeColecao>();
-		
-		listaDeCartas.add(new CartaDeColecao("carta1",2,3,8,2048,Raridade.COMUM, 1));
-		listaDeCartas.add(new CartaDeColecao("carta2",22,32,82,22048,Raridade.COMUM, 2));
-		listaDeCartas.add(new CartaDeColecao("carta3",2,3,8,20482,Raridade.COMUM, 3));
-		listaDeCartas.add(new CartaDeColecao("carta4",2,3,8,2048,Raridade.COMUM, 4));
-		listaDeCartas.add(new CartaDeColecao("carta5",2,3,8,2048,Raridade.COMUM, 5));
-		listaDeCartas.add(new CartaDeColecao("carta6",2,3,8,2048,Raridade.COMUM, 600));
-		
+
+		listaDeCartas.add(new CartaDeColecao("Goblin1", 1, 1, 1, 1, Raridade.COMUM, 100));
+		listaDeCartas.add(new CartaDeColecao("Goblin2", 1, 2, 1, 1, Raridade.COMUM, 110));
+		listaDeCartas.add(new CartaDeColecao("Goblin3", 2, 1, 1, 1, Raridade.INCOMUM, 201));
+		listaDeCartas.add(new CartaDeColecao("Goblin4", 2, 2, 2, 2, Raridade.INCOMUM, 205));
+		listaDeCartas.add(new CartaDeColecao("Goblin5", 3, 2, 2, 3, Raridade.RARA, 650));
+		listaDeCartas.add(new CartaDeColecao("Humanoide1", 1, 2, 1, 2, Raridade.COMUM, 50));
+		listaDeCartas.add(new CartaDeColecao("Humanoide2", 1, 2, 1, 4, Raridade.COMUM, 130));
+		listaDeCartas.add(new CartaDeColecao("Humanoide3", 2, 2, 2, 2, Raridade.INCOMUM, 290));
+		listaDeCartas.add(new CartaDeColecao("Humanoide4", 2, 3, 2, 3, Raridade.INCOMUM, 140));
+		listaDeCartas.add(new CartaDeColecao("Humanoide5", 2, 3, 3, 3, Raridade.RARA, 540));
+		listaDeCartas.add(new CartaDeColecao("Fera1", 4, 0, 4, 2, Raridade.INCOMUM, 300));
+		listaDeCartas.add(new CartaDeColecao("Fera2", 5, 0, 2, 2, Raridade.RARA, 500));
+		listaDeCartas.add(new CartaDeColecao("Monstruoso1", 6, 3, 6, 4, Raridade.INCOMUM, 350));
+		listaDeCartas.add(new CartaDeColecao("Monstruoso2", 5, 2, 5, 4, Raridade.RARA, 600));
+
 		return  listaDeCartas;
 	}
 }

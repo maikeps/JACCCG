@@ -1,7 +1,7 @@
 package JACCCG.Cartas;
 
 public enum Raridade {
-	RARO,
+	RARA,
 	INCOMUM,
 	COMUM
 }
