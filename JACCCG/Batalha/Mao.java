@@ -28,4 +28,12 @@ public class Mao {
 		return cartasDaMao;
 	}
 
+	public String toString(){
+		String str = "";
+		for(Carta c : getCartas()){
+			str += c.getNome() + " " + "A:" + c.getAtaque() + " D:" + c.getDefesa() + " V:" + c.getVida() + " C:" + c.getCustoMana() + "\n";
+		}
+		System.out.println(str);
+		return str;
+	}
 }

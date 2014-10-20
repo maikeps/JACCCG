@@ -2,3 +2,9 @@
 /BaralhoCompletoException.class
 /BaralhoNaoInicializadoException.class
 /BaralhoVazioException.class
+/BaralhoJaExistenteException.class
+/CartaNaoEncontradaException.class
+/CartaSendoUtilizadaException.class
+/DinheirosInsuficientesException.class
+/MesaCheiaException.class
+/MesaVaziaException.class

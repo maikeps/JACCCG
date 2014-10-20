@@ -2,6 +2,7 @@ package JACCCG.Colecao;
 
 import java.util.List;
 
+import JACCCG.Cartas.Carta;
 import JACCCG.Cartas.CartaDeColecao;
 
 public class RegistroDeBaralho {
@@ -58,5 +59,16 @@ public class RegistroDeBaralho {
 			if(carta.getNome().equals(c.getNome())) cont++;
 		}
 		return cont;
+	}
+	
+
+	public String toString(){
+		String str = "";
+		for(Carta c : getCartas()){
+			str += this.getNome() + "\n";
+			str += c.getNome() + " " + "A:" + c.getAtaque() + " D:" + c.getDefesa() + " V:" + c.getVida() + " C:" + c.getCustoMana() + "\n";
+		}
+		System.out.println(str);
+		return str;
 	}
 }

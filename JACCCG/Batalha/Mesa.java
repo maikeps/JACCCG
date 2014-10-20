@@ -3,6 +3,7 @@ package JACCCG.Batalha;
 import java.util.LinkedList;
 import java.util.List;
 
+import JACCCG.Cartas.Carta;
 import JACCCG.Cartas.CartaDeBatalha;
 import JACCCG.Exceptions.MesaCheiaException;
 import JACCCG.Exceptions.MesaVaziaException;
@@ -50,6 +51,15 @@ public class Mesa {
 			if(c.estaMorta()) return true;
 		}
 		return false;
+	}
+	
+	public String toString(){
+		String str = "";
+		for(Carta c : getCartas()){
+			str += c.getNome() + " " + "A:" + c.getAtaque() + " D:" + c.getDefesa() + " V:" + c.getVida() + "\n";
+		}
+		System.out.println(str);
+		return str;
 	}
 
 }
