@@ -3,7 +3,6 @@ package JACCCG.Batalha;
 import java.util.LinkedList;
 import java.util.List;
 
-import JACCCG.Cartas.Carta;
 import JACCCG.Cartas.CartaDeBatalha;
 import JACCCG.Exceptions.MesaCheiaException;
 import JACCCG.Exceptions.MesaVaziaException;
