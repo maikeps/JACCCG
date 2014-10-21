@@ -10,7 +10,10 @@ public class Leitor {
 	public Leitor(){
 		scanner = new Scanner(System.in);
 	}
-	
+	public String leString(){
+		String aux = scanner.next();
+		return aux;
+	}
 	public int leInt(int min, int max){
 		int inteiro = 0;
 		try{
