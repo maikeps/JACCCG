@@ -54,4 +54,11 @@ public class CartaDeBatalha extends Carta {
 		pronta = pronto;
 	}
 
+	public String toString(){
+		return getNome() + " | A:" + getAtaque() + 
+						   " | D:" + getDefesa() + 
+						   " | V:" + getVidaAtual() + "/" + getVida() + 
+						   " | C:" + getCustoMana() + 
+						   " | " + (pronta ? "Pronta" : "Indisponivel");
+	}
 }

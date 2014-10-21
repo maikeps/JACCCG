@@ -65,8 +65,9 @@ public class RegistroDeBaralho {
 	public String toString(){
 		String str = "";
 		for(Carta c : getCartas()){
-			str += this.getNome() + "\n";
-			str += c.getNome() + " " + "A:" + c.getAtaque() + " D:" + c.getDefesa() + " V:" + c.getVida() + " C:" + c.getCustoMana() + "\n";
+			//str += this.getNome() + "\n";
+			//str += c.getNome() + " " + "A:" + c.getAtaque() + " D:" + c.getDefesa() + " V:" + c.getVida() + " C:" + c.getCustoMana() + "\n";
+			str += c + "\n";
 		}
 		System.out.println(str);
 		return str;

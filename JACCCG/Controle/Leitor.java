@@ -29,6 +29,17 @@ public class Leitor {
 		return inteiro;
 	}
 
+	public int leInt() {
+		int inteiro = 0;
+		try{
+			inteiro = scanner.nextInt();
+		}catch(InputMismatchException e){
+			System.out.println("Digite um inteiro");
+			leInt();
+		}
+		return inteiro;
+	}
+
 	public boolean leBoolean() {
 		String string = scanner.nextLine().toLowerCase();
 		if(string.equals("nao") || string.equals("sim")){

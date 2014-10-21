@@ -56,12 +56,15 @@ public class Mesa {
 	public String toString(){
 		if(cartasNaMesa.size() == 0) return "Mesa vazia";
 		String str = "";
-		CartaDeBatalha c = getCartas().get(0);
-		for(int i = 0; i < this.getCartas().size(); i++){
-			c = getCartas().get(i);
-			str += (i+1) + " - "+ c.getNome() + " " + "A:" + c.getAtaque() + " D:" + c.getDefesa() + " V:" + c.getVidaAtual()+"\t";
-			str += (c.podeAtacar()) ? "(Pronta)\n" : "(Indisponivel)\n";
+		for(int i = 1; i <= getCartas().size(); i++){
+			str += i + " - " + getCartas().get(i-1) + "\n";
 		}
+//		CartaDeBatalha c = getCartas().get(0);
+//		for(int i = 0; i < this.getCartas().size(); i++){
+//			c = getCartas().get(i);
+//			str += (i+1) + " - "+ c.getNome() + " " + "A:" + c.getAtaque() + " D:" + c.getDefesa() + " V:" + c.getVidaAtual()+"\t";
+//			str += (c.podeAtacar()) ? "(Pronta)\n" : "(Indisponivel)\n";
+//		}
 		return str;
 	}
 

@@ -31,10 +31,11 @@ public class CartaDeColecao extends Carta {
 	}
 	
 	public String toString(){
-		String string = "";
-		string = super.toString();
-		string += "Preço: " + preco + "\n";
+		//String string = "";
+		return getNome() + " - " + "A:" + getAtaque() + " | D:" + getDefesa() + " | V:" + getVida() + " | C:" + getCustoMana() + " | Preco: " + getPreco();
+		//string = super.toString();
+		//string += "Preï¿½o: " + preco + "\n";
 		
-		return string;
+		//return string;
 	}
 }

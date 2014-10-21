@@ -17,6 +17,7 @@ import JACCCG.Colecao.RegistroDeBaralho;
 import JACCCG.Colecao.Usuario;
 import JACCCG.Controle.Leitor;
 import JACCCG.Exceptions.CartaNaoEncontradaException;
+import JACCCG.Exceptions.DinheirosInsuficientesException;
 import JACCCG.Exceptions.ManaInsuficienteException;
 import JACCCG.Exceptions.MesaCheiaException;
 import JACCCG.Exceptions.MesaVaziaException;
@@ -55,8 +56,7 @@ public class Jogo {
 				processaPartida();
 				break;
 			case 2:
-				System.out.println("Foi pra loja");
-				mostraMenuLoja();
+				updateLoja();
 				break;
 			case 3:
 				System.out.println("Mostrando a colecao");
@@ -66,8 +66,8 @@ public class Jogo {
 				break;
 			case 4:
 				System.out.println("Mostrando os baralhos");
-				for(int i = 0; i < usuario.getColecao().getBaralhos().size(); i++){
-					System.out.println("Baralho " + i + "\n" + usuario.getColecao().getBaralhos().get(i));
+				for(int i = 1; i <= usuario.getColecao().getBaralhos().size(); i++){
+					System.out.println("Baralhods " + i + "\n" + usuario.getColecao().getBaralhos().get(i-1));
 				}
 				break;
 			case 5:
@@ -252,79 +252,110 @@ public class Jogo {
 		int input;
 		while(true){
 			mostraMenuLoja();
+			System.out.println("Voce possui "+usuario.getDinheiros()+" dinheiros.");
 			input = leitor.leInt(1, 5);
 			Loja j = new Loja(Fabrica.criaCartasDoJogo());
 			
 			switch(input){
 			case 1:
-				System.out.println("Digite o nome da carta a ser procurada");
-				String nome = leitor.leString();
-				j.pesquisaCarta(nome);
-					for(int i = 0; i < j.pesquisaCarta(nome).size(); i++){
-						System.out.println(i + " - " + j.pesquisaCarta(nome).get(i));
-					}
-					System.out.println("Voce quer comprar alguma delas? Qual?");
-					leitor.leBoolean();
-					int x = leitor.leInt(0, j.pesquisaCarta(nome).size()-1);
-				try {
-					j.compra(j.pesquisaCarta(nome).get(x), usuario);
-				} catch (CartaNaoEncontradaException e) {
-				}
+				pesquisaPorNome(j);
 				break;
 			case 2:
-				System.out.println("Digite a raridade da carta a ser procurada");
-				int b = leitor.leInt(1, 3);
-				j.pesquisaCarta(b);
-					for(int i = 0; i < j.pesquisaCarta(b).size(); i++){
-						System.out.println(i + " - " + j.pesquisaCarta(b).get(i));
-					}
-					System.out.println("Voce quer comprar alguma delas? Qual?");
-					leitor.leBoolean();
-					//TODO if(sim)
-					int indexNaCol = leitor.leInt(0, j.pesquisaCarta(b).size()-1);
-				try {
-					j.compra(j.pesquisaCarta(b).get(indexNaCol), usuario);
-				} catch (CartaNaoEncontradaException e) {
-
-				}
+				pesquisaPorRaridade(j);
 				break;
 			case 3:
-				System.out.println("Digite o valor que você quer procuar");
-				int c = leitor.leInt(1, 3);
-				System.out.println("Voce quer as cartas que custam menos que isso?");
-				boolean hm = leitor.leBoolean();
-				//TODO tratar sim ou nao
-				j.pesquisaCarta(c, hm);
-					for(int i = 0; i < j.pesquisaCarta(c, hm).size(); i++){
-						System.out.println(i + " - " + j.pesquisaCarta(c, hm).get(i));
-					}
-					System.out.println("Voce quer comprar alguma delas? Qual?");
-					leitor.leBoolean();
-					//TODO if(sim)
-					int indexN = leitor.leInt(0, j.pesquisaCarta(c,hm).size()-1);
-				try {
-					j.compra(j.pesquisaCarta(c).get(indexN), usuario);
-				} catch (CartaNaoEncontradaException e) {
-				}
+				pesquisaPorValor(j);
 				break;
 			case 4:
-				System.out.println("Digite o custo de mana que você quer procurar");
-				int man = leitor.leInt(1, 10);
-				//TODO tratar sim ou nao
-				j.pesquisaCarta(man);
-					for(int i = 0; i < j.pesquisaCarta(man).size(); i++){
-						System.out.println(i + " - " + j.pesquisaCarta(man).get(i));
-					}
-					System.out.println("Voce quer comprar alguma delas? Qual?");
-					leitor.leBoolean();
-					//TODO if(sim)
-					int indexM = leitor.leInt(0, j.pesquisaCarta(man).size()-1);
-				try {
-					j.compra(j.pesquisaCarta(man).get(indexM), usuario);
-				} catch (CartaNaoEncontradaException e) {
-				}
+				pesquisarPorMana(j);
 				break;
-	
+			case 5:
+				return;
 			}
-			}
-	}}
+		}
+	}
+
+	private void pesquisarPorMana(Loja j) {
+		System.out.println("Digite o custo de mana que voce quer procurar");
+		int man = leitor.leInt(1, 10);
+		List<CartaDeColecao> cartas = j.pesquisaCarta(man);
+		System.out.println("Qual carta deseja comprar?");
+		System.out.println("0 - Cancelar");
+		for(int i = 1; i <= cartas.size(); i++){
+			System.out.println(i + " - " + cartas.get(i-1));
+		}
+		int indexM = leitor.leInt(0, cartas.size())-1;
+		if(indexM == -1) return;
+		try {
+			j.vende(cartas.get(indexM), usuario);
+			System.out.println("Voce comprou a carta "+cartas.get(indexM).getNome()+" por "+cartas.get(indexM).getPreco()+" dinheiros.");
+		} catch (DinheirosInsuficientesException e) {
+			System.out.println("Desculpe, voce nao tem dinheiros suficientes.");
+		}
+	}
+
+	private void pesquisaPorValor(Loja j) {
+		System.out.println("Digite o valor que voce quer procuar");
+		int c = leitor.leInt();
+		System.out.println("Voce quer as cartas que custam menos que isso?");
+		boolean hm = leitor.leBoolean();
+		List<CartaDeColecao> cartas = j.pesquisaCarta(c, hm);
+		System.out.println("Qual carta deseja comprar?");
+		System.out.println("0 - Cancelar");
+		for(int i = 1; i <= cartas.size(); i++){
+			System.out.println(i + " - " + cartas.get(i-1));
+		}
+		int indexN = leitor.leInt(0, cartas.size())-1;
+		if(indexN == -1) return;
+		try {
+			j.vende(cartas.get(indexN), usuario);
+			System.out.println("Voce comprou a carta "+cartas.get(indexN).getNome()+" por "+cartas.get(indexN).getPreco()+" dinheiros.");
+		} catch (DinheirosInsuficientesException e) {
+			System.out.println("Desculpe, voce nao tem dinheiros suficientes.");
+		}
+	}
+
+	private void pesquisaPorRaridade(Loja j) {
+		System.out.println("Digite a raridade da carta a ser procurada");
+		System.out.println("0 - Cancelar");
+		System.out.println("1 - COMUM");
+		System.out.println("2 - INCOMUM");
+		System.out.println("3 - RARA");
+		int b = leitor.leInt(0, 3);
+		if(b == 0) return;
+		List<CartaDeColecao> cartas = j.pesquisaCarta(b);
+		System.out.println("Qual carta deseja comprar?");
+		System.out.println("0 - Cancelar");
+		for(int i = 1; i <= cartas.size(); i++){
+			System.out.println(i + " - " + cartas.get(i-1));
+		}
+		int indexNaCol = leitor.leInt(0, cartas.size())-1;
+		if(indexNaCol == -1) return;
+		try {
+			j.vende(cartas.get(indexNaCol), usuario);
+			System.out.println("Voce comprou a carta "+cartas.get(indexNaCol).getNome()+" por "+cartas.get(indexNaCol).getPreco()+" dinheiros.");
+		} catch (DinheirosInsuficientesException e) {
+			System.out.println("Desculpe, voce nao tem dinheiros suficientes.");
+		}
+	}
+
+	private void pesquisaPorNome(Loja loja) {
+		System.out.println("Digite o nome da carta a ser procurada");
+		String nome = leitor.leString();
+		List<CartaDeColecao> cartas = loja.pesquisaCarta(nome);
+		System.out.println("Qual carta deseja comprar?");
+		System.out.println("0 - Cancelar");
+		for(int i = 1; i <= cartas.size(); i++){
+			System.out.println(i + " - " + cartas.get(i-1));
+		}
+		//leitor.leBoolean();
+		int x = leitor.leInt(0, cartas.size())-1;
+		if(x == -1) return;
+		try {
+			loja.vende(cartas.get(x), usuario);
+			System.out.println("Voce comprou a carta "+cartas.get(x).getNome()+" por "+cartas.get(x).getPreco()+" dinheiros.");
+		} catch (DinheirosInsuficientesException e) {
+			System.out.println("Desculpe, voce nao tem dinheiros suficientes.");
+		}
+	}
+}
