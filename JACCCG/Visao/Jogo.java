@@ -17,6 +17,7 @@ import JACCCG.Colecao.Usuario;
 import JACCCG.Controle.Leitor;
 import JACCCG.Exceptions.ManaInsuficienteException;
 import JACCCG.Exceptions.MesaCheiaException;
+import JACCCG.Exceptions.MesaVaziaException;
 
 public class Jogo {
 
@@ -32,52 +33,61 @@ public class Jogo {
 	}
 	
 	public void mostraMenuInicial(){
+		System.out.println("#############################");
 		System.out.println("1 - Iniciar uma nova partida!");
 		System.out.println("2 - Ir para a loja");
 		System.out.println("3 - Mostrar colecao");
 		System.out.println("4 - Mostrar baralhos");
 		System.out.println("5 - Sair");
+		System.out.println("#############################");
 	}
 	
 	public void update(){
-		mostraMenuInicial();
-		int input = leitor.leInt(1, 5);
-		switch(input){
-		case 1:
-			System.out.println("Selecione um baralho");
-			processaPartida();
-			break;
-		case 2:
-			System.out.println("Foi pra loja");
-			break;
-		case 3:
-			System.out.println("Mostrando a colecao");
-			for(CartaDeColecao c : usuario.getColecao().getCartas()){
-				System.out.println(c);
+		int input;
+		while(true){
+			mostraMenuInicial();
+			input = leitor.leInt(1, 5);
+			switch(input){
+			case 1:
+				System.out.println("Selecione um baralho");
+				processaPartida();
+				break;
+			case 2:
+				System.out.println("Foi pra loja");
+				break;
+			case 3:
+				System.out.println("Mostrando a colecao");
+				for(CartaDeColecao c : usuario.getColecao().getCartas()){
+					System.out.println(c);
+				}
+				break;
+			case 4:
+				System.out.println("Mostrando os baralhos");
+				for(int i = 0; i < usuario.getColecao().getBaralhos().size(); i++){
+					System.out.println("Baralho " + i + "\n" + usuario.getColecao().getBaralhos().get(i));
+				}
+				break;
+			case 5:
+				System.exit(1);
 			}
-			break;
-		case 4:
-			System.out.println("Mostrando os baralhos");
-			for(int i = 0; i < usuario.getColecao().getBaralhos().size(); i++){
-				System.out.println("Baralho " + i + "\n" + usuario.getColecao().getBaralhos().get(i));
-			}
-			break;
-		case 5:
-			System.exit(1);
 		}
 	}
 	
 	private RegistroDeBaralho selecionaBaralho(){
 		List<RegistroDeBaralho> baralhos = usuario.getColecao().getBaralhos();
+		System.out.println("0 - Cancelar");
 		for(int i = 0; i < usuario.getColecao().getBaralhos().size(); i++){
-			System.out.println("Baralho " + i + ": " + baralhos.get(i).getNome());
+			System.out.println((i+1) + " - " + baralhos.get(i).getNome());
 		}
-		int baralho = leitor.leInt(0, baralhos.size()-1);
+		int baralho = leitor.leInt(0, baralhos.size())-1;
+		if(baralho == -1) return null;
 		return baralhos.get(baralho);
 	}
 
 	private void processaPartida() {
-		Jogador jogador = new Jogador(new Baralho(selecionaBaralho()), 30);
+		RegistroDeBaralho baralhoSelecionado = selecionaBaralho();
+		if(baralhoSelecionado == null) return;
+		Jogador jogador = new Jogador(new Baralho(baralhoSelecionado), 30);
 		Oponente oponente = Fabrica.criaOponente();
 		Partida partida = new Partida(jogador, oponente, juiz);
 		jogador.iniciaPartida();
@@ -92,27 +102,64 @@ public class Jogo {
 			jogaCartas(jogador);
 			
 			partida.processaTurnoOponente();
+			mostraMesas(jogador, oponente);
+		}
+		anunciaVencedor(partida);
+	}
+
+	private void anunciaVencedor(Partida partida) {
+		if(partida.acabou()){
+			Jogador vencedor = partida.getVencedor();
+			if(vencedor instanceof Jogador){
+				System.out.println("Parabens, voce venceu!\nA carta do " + partida.getOponente().getNome() + " foi liberada na loja para compra.");
+			}else{
+				System.out.println("Voce perdeu :(");
+			}
 		}
 	}
 
 	private void mostraMana(Jogador jogador) {
+		System.out.println("#############");
 		System.out.println("Sua mana: " + jogador.getManaPool());
 	}
 
 	private void mostraMesas(Jogador jogador, Oponente oponente) {
+		System.out.println("#############");
 		System.out.println("Sua mesa:\n" + jogador.getMesa());
 		System.out.println("Mesa do oponente:\n" + oponente.getMesa());
 	}
 
 	private void ataca(Jogador jogador, Oponente oponente) {
-		while(querAtacar(jogador)){
+		while(querAtacar(jogador.getMesa())){
 			CartaDeBatalha atacante = selecionaCartaAtacante(jogador.getMesa());
+			if(atacante == null) return;
 			if(oponente.getMesa().getCartas().size() == 0){
 				jogador.atacaDiretamente(oponente, atacante);
 				mostraVidas(jogador, oponente);
 			}else{
 				CartaDeBatalha alvo = selecionaCartaAlvo(oponente.getMesa());
-				atacante.ataca(alvo);	
+				if(alvo == null) return;
+				atacante.ataca(alvo);
+				System.out.println(atacante.getNome()+"(A: "+atacante.getAtaque()+", D: "+atacante.getDefesa()+")" + " Atacou " + 
+									alvo.getNome()+"(A: "+alvo.getAtaque()+", D: "+alvo.getDefesa()+")");
+				System.out.println(alvo.getNome()+" levou "+ atacante.calculaDanoContra(alvo) + " de dano.");
+				System.out.println(atacante.getNome()+" levou "+ alvo.calculaDanoContra(atacante) + " de dano.");
+				if(alvo.estaMorta()){
+					try {
+						oponente.getMesa().removeCarta(alvo);
+						System.out.println(alvo.getNome()+" morreu");
+					} catch (MesaVaziaException e) {
+						e.printStackTrace();
+					}
+				}
+				if(atacante.estaMorta()){
+					try {
+						jogador.getMesa().removeCarta(atacante);
+						System.out.println(atacante.getNome()+" morreu");
+					} catch (MesaVaziaException e) {
+						e.printStackTrace();
+					}
+				}
 				mostraMesas(jogador, oponente);
 			}
 		}
@@ -120,37 +167,49 @@ public class Jogo {
 
 	private CartaDeBatalha selecionaCartaAlvo(Mesa mesa) {
 		System.out.println("Selecione a carta alvo: ");
-		int selecionada = leitor.leInt(0, mesa.getCartas().size());
+		System.out.println("0 - Cancelar");
+		System.out.println(mesa);
+		int selecionada = leitor.leInt(0, mesa.getCartas().size())-1;
+		if(selecionada == -1) return null;
 		return mesa.getCartas().get(selecionada);
 	}
 
 	private CartaDeBatalha selecionaCartaAtacante(Mesa mesa) {
 		System.out.println("Selecione a carta para atacar: ");
-		int selecionada = leitor.leInt(0, mesa.getCartas().size());
-		while(mesa.getCartas().get(selecionada).podeAtacar() == false){
+		System.out.println("0 - Cancelar");
+		System.out.println(mesa);
+		int selecionada = leitor.leInt(0, mesa.getCartas().size())-1;
+		if(selecionada == -1) return null;
+		if(mesa.getCartas().get(selecionada).podeAtacar() == false){
 			System.out.println("Esta carta nao pode atacar neste turno");
-			return selecionaCartaAtacante(mesa);
+			if(querAtacar(mesa)){
+				return selecionaCartaAtacante(mesa);
+			}
 		}
 		return mesa.getCartas().get(selecionada);
 	}
 
-	private boolean querAtacar(Jogador jogador) {
-		if(jogador.getMesa().getCartas().size() == 0) return false;
+	private boolean querAtacar(Mesa mesa) {
+		if(mesa.getCartas().size() == 0) return false;
 		System.out.println("Quer atacar? (sim/nao)");
 		return leitor.leBoolean();
 	}
 
 	private void mostraVidas(Jogador jogador, Oponente oponente) {
-		System.out.println("Voce: " + jogador.getVida() + "\t" + oponente.getNome() + ": " + oponente.getVida());
+		System.out.println("#############");
+		System.out.println("Voce: " + jogador.getVida() + " HP\t" + oponente.getNome() + ": " + oponente.getVida()+" HP");
 	}
 
 	private void jogaCartas(Jogador jogador) {
 		while(querJogarCarta(jogador.getMao())){
 			mostraMana(jogador);
-			mostraMao(jogador);				
+			System.out.println("0 - Cancelar");	
+			mostraMao(jogador);
 			CartaDeBatalha escolhida = escolheCarta(jogador.getMao());
+			if(escolhida == null) return;
 			try {
 				jogador.jogaCarta(escolhida);
+				System.out.println("Voce jogou: "+escolhida.getNome());
 			} catch (MesaCheiaException e) {
 				System.out.println("A mesa esta cheia");
 				break;
@@ -161,7 +220,8 @@ public class Jogo {
 	}
 
 	private CartaDeBatalha escolheCarta(Mao mao) {
-		int escolha = leitor.leInt(0, mao.getCartas().size());
+		int escolha = leitor.leInt(0, mao.getCartas().size())-1;
+		if(escolha == -1) return null;
 		return mao.getCartas().get(escolha);
 	}
 

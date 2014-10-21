@@ -34,7 +34,7 @@ public class Mao {
 		CartaDeBatalha c = (CartaDeBatalha) getCartas().get(0);
 		for(int i = 0; i < getCartas().size(); i++){
 			c = (CartaDeBatalha) getCartas().get(i);
-			str +=  i + " - " + c.getNome() + " " + "A:" + c.getAtaque() + " D:" + c.getDefesa() + " V:" + c.getVida() + " C:" + c.getCustoMana() + "\n";
+			str +=  (i+1) + " - " + c.getNome() + " " + "A:" + c.getAtaque() + " D:" + c.getDefesa() + " V:" + c.getVida() + " C:" + c.getCustoMana() + "\n";
 		}
 		return str;
 	}

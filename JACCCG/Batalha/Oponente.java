@@ -11,6 +11,7 @@ public class Oponente extends Jogador {
 
 	public Oponente(String nome, Baralho baralho, int vida) {
 		super(baralho, vida);
+		this.nome = nome;
 	}
 
 	public boolean querJogar(){
@@ -59,11 +60,11 @@ public class Oponente extends Jogador {
 		CartaDeBatalha atacante = selecionaCartaAtacante();
 		CartaDeBatalha alvo = selecionaAlvo(atacante, mesaDoJogador);
 		atacante.ataca(alvo);
-		System.out.println("Oponente atacou com "+atacante.getNome());
-		System.out.println("alvo "+alvo.getNome());
+		System.out.println(atacante.getNome() + "("+atacante.getAtaque()+") atacou "+alvo.getNome()+"("+alvo.getDefesa()+")");
 		if(alvo.estaMorta()){
 			try {
 				mesaDoJogador.removeCarta(alvo);
+				System.out.println(alvo.getNome()+" morreu");
 			} catch (MesaVaziaException e) {
 				e.printStackTrace();
 			}

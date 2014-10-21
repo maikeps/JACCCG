@@ -38,4 +38,8 @@ public class Partida {
 
 	}
 
+	public Oponente getOponente() {
+		return oponente;
+	}
+
 }

@@ -59,7 +59,8 @@ public class Mesa {
 		CartaDeBatalha c = getCartas().get(0);
 		for(int i = 0; i < this.getCartas().size(); i++){
 			c = getCartas().get(i);
-			str += i + " - "+ c.getNome() + " " + "A:" + c.getAtaque() + " D:" + c.getDefesa() + " V:" + c.getVida() + "\n";
+			str += (i+1) + " - "+ c.getNome() + " " + "A:" + c.getAtaque() + " D:" + c.getDefesa() + " V:" + c.getVidaAtual()+"\t";
+			str += (c.podeAtacar()) ? "(Pronta)\n" : "(Indisponivel)\n";
 		}
 		return str;
 	}

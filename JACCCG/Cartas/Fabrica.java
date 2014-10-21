@@ -119,21 +119,21 @@ public class Fabrica{
 	public static List<CartaDeColecao> criaCartasDoJogo() {
 		List<CartaDeColecao> listaDeCartas = new LinkedList<CartaDeColecao>();
 
-		listaDeCartas.add(new CartaDeColecao("Goblin1", 1, 1, 1, 1, Raridade.COMUM, 100));
-		listaDeCartas.add(new CartaDeColecao("Goblin2", 1, 2, 1, 1, Raridade.COMUM, 110));
-		listaDeCartas.add(new CartaDeColecao("Goblin3", 2, 1, 1, 1, Raridade.INCOMUM, 201));
-		listaDeCartas.add(new CartaDeColecao("Goblin4", 2, 2, 2, 2, Raridade.INCOMUM, 205));
-		listaDeCartas.add(new CartaDeColecao("Goblin5", 3, 2, 2, 3, Raridade.RARA, 650));
-		listaDeCartas.add(new CartaDeColecao("Humanoide1", 1, 2, 1, 2, Raridade.COMUM, 50));
-		listaDeCartas.add(new CartaDeColecao("Humanoide2", 1, 2, 1, 4, Raridade.COMUM, 130));
-		listaDeCartas.add(new CartaDeColecao("Humanoide3", 2, 2, 2, 2, Raridade.INCOMUM, 290));
-		listaDeCartas.add(new CartaDeColecao("Humanoide4", 2, 3, 2, 3, Raridade.INCOMUM, 140));
-		listaDeCartas.add(new CartaDeColecao("Humanoide5", 2, 3, 3, 3, Raridade.RARA, 540));
-		listaDeCartas.add(new CartaDeColecao("Humanoide6", 2, 3, 4, 3, Raridade.RARA, 540));
-		listaDeCartas.add(new CartaDeColecao("Fera1", 4, 0, 4, 2, Raridade.INCOMUM, 300));
-		listaDeCartas.add(new CartaDeColecao("Fera2", 5, 0, 2, 2, Raridade.RARA, 400));
-		listaDeCartas.add(new CartaDeColecao("Monstruoso1", 6, 3, 6, 4, Raridade.INCOMUM, 350));
-		listaDeCartas.add(new CartaDeColecao("Monstruoso2", 5, 2, 5, 4, Raridade.RARA, 600));
+		listaDeCartas.add(new CartaDeColecao("Goblin1", 2, 1, 1, 1, Raridade.COMUM, 100));
+		listaDeCartas.add(new CartaDeColecao("Goblin2", 2, 2, 1, 1, Raridade.COMUM, 110));
+		listaDeCartas.add(new CartaDeColecao("Goblin3", 4, 1, 1, 1, Raridade.INCOMUM, 201));
+		listaDeCartas.add(new CartaDeColecao("Goblin4", 4, 2, 2, 2, Raridade.INCOMUM, 205));
+		listaDeCartas.add(new CartaDeColecao("Goblin5", 6, 2, 2, 3, Raridade.RARA, 650));
+		listaDeCartas.add(new CartaDeColecao("Humanoide1", 2, 2, 1, 2, Raridade.COMUM, 50));
+		listaDeCartas.add(new CartaDeColecao("Humanoide2", 2, 2, 1, 4, Raridade.COMUM, 130));
+		listaDeCartas.add(new CartaDeColecao("Humanoide3", 4, 2, 2, 2, Raridade.INCOMUM, 290));
+		listaDeCartas.add(new CartaDeColecao("Humanoide4", 4, 3, 2, 3, Raridade.INCOMUM, 140));
+		listaDeCartas.add(new CartaDeColecao("Humanoide5", 4, 3, 3, 3, Raridade.RARA, 540));
+		listaDeCartas.add(new CartaDeColecao("Humanoide6", 4, 3, 4, 3, Raridade.RARA, 540));
+		listaDeCartas.add(new CartaDeColecao("Fera1", 8, 0, 4, 2, Raridade.INCOMUM, 300));
+		listaDeCartas.add(new CartaDeColecao("Fera2", 10, 0, 2, 2, Raridade.RARA, 400));
+		listaDeCartas.add(new CartaDeColecao("Monstruoso1", 12, 3, 6, 4, Raridade.INCOMUM, 350));
+		listaDeCartas.add(new CartaDeColecao("Monstruoso2", 10, 2, 5, 4, Raridade.RARA, 600));
 
 		return  listaDeCartas;
 	}

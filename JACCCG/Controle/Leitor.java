@@ -17,7 +17,7 @@ public class Leitor {
 			inteiro = scanner.nextInt();
 			if(inteiro < min || inteiro > max){
 				System.out.println("Digite um valor entre "+min+" e "+max);
-				leInt(min, max);
+				return leInt(min, max);
 			}
 		}catch(InputMismatchException e){
 			System.out.println("Digite um inteiro");
