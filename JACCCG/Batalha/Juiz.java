@@ -15,7 +15,7 @@ public class Juiz {
 	 *  
 	 */
 	private Juiz() {
-		//loja = new Loja();
+
 	}
 
 	public void disponibilizaCarta(String carta) {

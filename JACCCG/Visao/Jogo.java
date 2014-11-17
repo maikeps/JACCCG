@@ -12,6 +12,7 @@ import JACCCG.Batalha.Partida;
 import JACCCG.Cartas.CartaDeBatalha;
 import JACCCG.Cartas.CartaDeColecao;
 import JACCCG.Cartas.Fabrica;
+import JACCCG.Cartas.Raridade;
 import JACCCG.Colecao.Loja;
 import JACCCG.Colecao.RegistroDeBaralho;
 import JACCCG.Colecao.Usuario;
@@ -137,8 +138,10 @@ public class Jogo {
 			CartaDeBatalha atacante = selecionaCartaAtacante(jogador.getMesa());
 			if(atacante == null) return;
 			if(oponente.getMesa().getCartas().size() == 0){
+				if(atacante.podeAtacar()){
 				jogador.atacaDiretamente(oponente, atacante);
 				mostraVidas(jogador, oponente);
+				}
 			}else{
 				CartaDeBatalha alvo = selecionaCartaAlvo(oponente.getMesa());
 				if(alvo == null) return;
@@ -322,8 +325,17 @@ public class Jogo {
 		System.out.println("2 - INCOMUM");
 		System.out.println("3 - RARA");
 		int b = leitor.leInt(0, 3);
+		List<CartaDeColecao> cartas;
 		if(b == 0) return;
-		List<CartaDeColecao> cartas = j.pesquisaCarta(b);
+		if(b == 1){
+		cartas = j.pesquisaCarta(Raridade.COMUM);
+		}
+		if(b == 2){
+		cartas = j.pesquisaCarta(Raridade.INCOMUM);
+		}
+		else{
+		cartas = j.pesquisaCarta(Raridade.RARA);
+		}
 		System.out.println("Qual carta deseja comprar?");
 		System.out.println("0 - Cancelar");
 		for(int i = 1; i <= cartas.size(); i++){
