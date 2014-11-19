@@ -281,7 +281,7 @@ public class Jogo {
 	private void pesquisarPorMana(Loja j) {
 		System.out.println("Digite o custo de mana que voce quer procurar");
 		int man = leitor.leInt(1, 10);
-		List<CartaDeColecao> cartas = j.pesquisaCarta(man);
+		List<CartaDeColecao> cartas = j.getPesquisador().pesquisaCarta(man);
 		System.out.println("Qual carta deseja comprar?");
 		System.out.println("0 - Cancelar");
 		for(int i = 1; i <= cartas.size(); i++){
@@ -302,7 +302,7 @@ public class Jogo {
 		int c = leitor.leInt();
 		System.out.println("Voce quer as cartas que custam menos que isso?");
 		boolean hm = leitor.leBoolean();
-		List<CartaDeColecao> cartas = j.pesquisaCarta(c, hm);
+		List<CartaDeColecao> cartas = j.getPesquisador().pesquisaCarta(c, hm);
 		System.out.println("Qual carta deseja comprar?");
 		System.out.println("0 - Cancelar");
 		for(int i = 1; i <= cartas.size(); i++){
@@ -328,13 +328,13 @@ public class Jogo {
 		List<CartaDeColecao> cartas;
 		if(b == 0) return;
 		if(b == 1){
-		cartas = j.pesquisaCarta(Raridade.COMUM);
+		cartas = j.getPesquisador().pesquisaCarta(Raridade.COMUM);
 		}
 		if(b == 2){
-		cartas = j.pesquisaCarta(Raridade.INCOMUM);
+		cartas = j.getPesquisador().pesquisaCarta(Raridade.INCOMUM);
 		}
 		else{
-		cartas = j.pesquisaCarta(Raridade.RARA);
+		cartas = j.getPesquisador().pesquisaCarta(Raridade.RARA);
 		}
 		System.out.println("Qual carta deseja comprar?");
 		System.out.println("0 - Cancelar");
@@ -354,7 +354,7 @@ public class Jogo {
 	private void pesquisaPorNome(Loja loja) {
 		System.out.println("Digite o nome da carta a ser procurada");
 		String nome = leitor.leString();
-		List<CartaDeColecao> cartas = loja.pesquisaCarta(nome);
+		List<CartaDeColecao> cartas = loja.getPesquisador().pesquisaCarta(nome);
 		System.out.println("Qual carta deseja comprar?");
 		System.out.println("0 - Cancelar");
 		for(int i = 1; i <= cartas.size(); i++){

@@ -1,10 +1,10 @@
 package JACCCG.Colecao;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import JACCCG.Cartas.CartaDeColecao;
-import JACCCG.Cartas.Raridade;
 import JACCCG.Exceptions.CartaNaoEncontradaException;
 import JACCCG.Exceptions.CartaSendoUtilizadaException;
 import JACCCG.Exceptions.DinheirosInsuficientesException;
@@ -13,9 +13,12 @@ import JACCCG.Exceptions.LimiteDeCartasExcedidoException;
 public class Loja {
 
 	private List<CartaDeColecao> cartas;
-
+	
+	private Pesquisador pesquisador;
+	
 	public Loja(List<CartaDeColecao> cartas) {
 		this.cartas = cartas;
+		pesquisador = new Pesquisador((LinkedList<CartaDeColecao>)cartas);
 	}
 	/**
 	 * Os nomes dos pr�ximos dois metodos, estao do POV da Loja.
@@ -38,50 +41,12 @@ public class Loja {
 			System.out.println("Naum pode vender.");
 		}
 	}
-
-	public List<CartaDeColecao> pesquisaCarta(String nome) {
-		List<CartaDeColecao> temporario = new LinkedList<CartaDeColecao>();
-		for (int i = 0; i < cartas.size(); i++) {
-			if (cartas.get(i).getNome().toLowerCase()
-					.contains(nome.toLowerCase())) {
-				temporario.add(cartas.get(i));
-			}
-		}
-		return temporario;
+	
+	
+	public Pesquisador getPesquisador(){
+		return pesquisador;
 	}
-
-	public List<CartaDeColecao> pesquisaCarta(Raridade raridade) {
-		List<CartaDeColecao> temporario = new LinkedList<CartaDeColecao>();
-		for (int i = 0; i < cartas.size(); i++) {
-			if (cartas.get(i).getRaridade() == raridade) {
-				temporario.add(cartas.get(i));
-			}
-		}
-		return temporario;
-	}
-
-	public List<CartaDeColecao> pesquisaCarta(int preco, boolean menorQue) {
-		List<CartaDeColecao> temporario = new LinkedList<CartaDeColecao>();
-		for(int i = 0; i < cartas.size(); i ++){
-			if(menorQue && cartas.get(i).getPreco() <= preco){
-				temporario.add(cartas.get(i));
-			}else if(!menorQue && cartas.get(i).getPreco() >= preco){
-				temporario.add(cartas.get(i));
-			}
-		}
-		return temporario;
-	}
-
-	public List<CartaDeColecao> pesquisaCarta(int mana) {
-		List<CartaDeColecao> temporario = new LinkedList<CartaDeColecao>();
-		for(int i = 0; i < cartas.size(); i++){
-			if(cartas.get(i).getCustoMana() == mana){
-				temporario.add(cartas.get(i));
-			}
-		}
-		return temporario;
-	}
-
+	
 	public List<CartaDeColecao> getCartas() {
 		return cartas;
 	}
