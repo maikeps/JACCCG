@@ -42,7 +42,9 @@ public class BaralhoDAO extends DAO{
 				cartas.add((CartaDeColecao) cartaDAO.load(idCarta));
 			}
 			
-			return new RegistroDeBaralho(cartas, nome, cartas.size());
+			RegistroDeBaralho baralho = new RegistroDeBaralho(cartas, nome, cartas.size());
+			baralho.setId(id);
+			return baralho;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -53,14 +55,37 @@ public class BaralhoDAO extends DAO{
 
 	@Override
 	public boolean store(Registravel registravel) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean update(Registravel registravel, int id) {
-		// TODO Auto-generated method stub
+		System.out.println("Update");
 		return false;
+	}
+	
+	public boolean store(RegistroDeBaralho baralho, int idUsuario){
+		if(baralho.getId() != 0) return update(baralho, baralho.getId());
+//		int idUsuario = getIdDonoDoBaralho(baralho);
+		
+		String queryNome = "INSERT INTO baralho (nome, id_usuario) VALUES (\""+baralho.getNome()+"\", "+idUsuario+")";
+		try{
+			Statement st = con.createStatement();
+			st.execute(queryNome);
+
+			ResultSet rs = st.executeQuery("SELECT LAST_INSERT_ID()");
+			if(rs.next()) {
+				baralho.setId(rs.getInt(1));
+			}
+			for(CartaDeColecao carta : baralho.getCartas()){
+				String queryCartas = "INSERT INTO carta_baralho (id_baralho, id_carta) VALUES ("+baralho.getId() + ", "+carta.getId()+")";
+				st.execute(queryCartas);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 
 	public RegistroDeBaralho loadBaralho(int idUsuario, int id){
@@ -145,5 +170,23 @@ public class BaralhoDAO extends DAO{
 		}
 		
 		return null;
+	}
+	
+	public int getIdDonoDoBaralho(RegistroDeBaralho baralho){
+		String queryId = "SELECT u.id FROM usuario AS u "
+				+ "INNER JOIN baralho AS b ON u.id = b.id_usuario "
+				+ "WHERE b.id = "+baralho.getId();
+		
+		System.out.println(queryId);
+		
+		try{
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(queryId);
+			if(rs.next()) return rs.getInt("u.id");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return -1;
 	}
 }

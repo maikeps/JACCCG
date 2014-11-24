@@ -15,6 +15,7 @@ import Cartas.CartaDeBatalha;
 import Cartas.CartaDeColecao;
 import Cartas.Fabrica;
 import Cartas.Raridade;
+import Colecao.Colecao;
 import Colecao.Loja;
 import Colecao.RegistroDeBaralho;
 import Colecao.Usuario;
@@ -68,10 +69,7 @@ public class Jogo {
 				updateLoja();
 				break;
 			case 3:
-				System.out.println("Mostrando a colecao");
-				for(CartaDeColecao c : usuario.getColecao().getCartas()){
-					System.out.println(c);
-				}
+				updateColecao();
 				break;
 			case 4:
 				System.out.println("Mostrando os baralhos");
@@ -132,10 +130,10 @@ public class Jogo {
 	private void anunciaVencedor(Partida partida) {
 		if(partida.acabou()){
 			Jogador vencedor = partida.getVencedor();
-			if(vencedor instanceof Jogador){
-				System.out.println("Parabens, voce venceu!\nA carta do " + partida.getOponente().getNome() + " foi liberada na loja para compra.");
-			}else{
+			if(vencedor instanceof Oponente){
 				System.out.println("Voce perdeu :(");
+			}else{
+				System.out.println("Parabens, voce venceu!\nA carta do " + partida.getOponente().getNome() + " foi liberada na loja para compra.");
 			}
 		}
 	}
@@ -265,16 +263,29 @@ public class Jogo {
 		System.out.println("2 - Pesquisar por Raridade");
 		System.out.println("3 - Pesquisar por Valor");
 		System.out.println("4 - Pesquisar por Custo de Mana");
-		System.out.println("5 - Sair");
+		System.out.println("5 - Mostrar Todas as Cartas Disponveis");
+		System.out.println("6 - Sair.");
 		System.out.println("#############################");
 	}
+	
+	private void mostraMenuColecao(){
+		System.out.println("#############################");
+		System.out.println("1 - Pesquisar por Nome");
+		System.out.println("2 - Pesquisar por Raridade");
+		System.out.println("3 - Pesquisar por Valor");
+		System.out.println("4 - Pesquisar por Custo de Mana");
+		System.out.println("5 - Mostrar Toda a Colecao");
+		System.out.println("6 - Sair.");
+		System.out.println("#############################");
+	}
+	
 	
 	private void updateLoja(){
 		int input;
 		while(true){
 			mostraMenuLoja();
 			System.out.println("Voce possui "+usuario.getDinheiros()+" dinheiros.");
-			input = leitor.leInt(1, 5);
+			input = leitor.leInt(1, 6);
 			Loja j = new Loja(Fabrica.criaCartasDoJogo());
 			
 			switch(input){
@@ -291,10 +302,47 @@ public class Jogo {
 				pesquisarPorMana(j);
 				break;
 			case 5:
+				System.out.println("Todas as Cartas Disponiveis");
+				for(CartaDeColecao c : j.getCartas()){
+					System.out.println(c);
+				}
+				break;
+			case 6:
 				return;
 			}
 		}
 	}
+	
+	private void updateColecao(){
+		Colecao j = DAOController.getInstance().getColecao(1);
+		while(true){
+		mostraMenuColecao();
+		int input = leitor.leInt(1, 6);
+		
+		switch(input){
+		case 1:
+			pesquisaPorNome(j);
+			break;
+		case 2:
+			pesquisaPorRaridade(j);
+			break;
+		case 3:
+			pesquisaPorValor(j);
+			break;
+		case 4:
+			pesquisarPorMana(j);
+			break;
+		case 5:
+			System.out.println("Mostrando a colecao");
+			for(CartaDeColecao c : usuario.getColecao().getCartas()){
+				System.out.println(c);
+			}
+			break;
+		case 6:
+			return;
+		}
+		}
+		}
 
 	private void pesquisarPorMana(Loja j) {
 		System.out.println("Digite o custo de mana que voce quer procurar");
@@ -388,4 +436,74 @@ public class Jogo {
 			System.out.println("Desculpe, voce nao tem dinheiros suficientes.");
 		}
 	}
+
+	private void pesquisarPorMana(Colecao j) {
+		System.out.println("Digite o custo de mana que voce quer procurar");
+		int man = leitor.leInt(1, 10);
+		List<CartaDeColecao> cartas = j.getPesquisador().pesquisaCarta(man);
+		System.out.println("0 - sair");
+		for(int i = 1; i <= cartas.size(); i++){
+			System.out.println(i + " - " + cartas.get(i-1));
+		}
+		int indexM = leitor.leInt(0, cartas.size())-1;
+		if(indexM == -1) return;
+	}
+
+	private void pesquisaPorValor(Colecao j) {
+		System.out.println("Digite o valor que voce quer procuar");
+		int c = leitor.leInt();
+		System.out.println("Voce quer as cartas que custam menos que isso?");
+		boolean hm = leitor.leBoolean();
+		List<CartaDeColecao> cartas = j.getPesquisador().pesquisaCarta(c, hm);
+		System.out.println("0 - Cancelar");
+		for(int i = 1; i <= cartas.size(); i++){
+			System.out.println(i + " - " + cartas.get(i-1));
+		}
+		int indexN = leitor.leInt(0, cartas.size())-1;
+		if(indexN == -1) return;
+	}
+
+	private void pesquisaPorRaridade(Colecao j) {
+		System.out.println("Digite a raridade da carta a ser procurada");
+		System.out.println("0 - Cancelar");
+		System.out.println("1 - COMUM");
+		System.out.println("2 - INCOMUM");
+		System.out.println("3 - RARA");
+		int b = leitor.leInt(0, 3);
+		List<CartaDeColecao> cartas;
+		if(b == 0) return;
+		if(b == 1){
+		cartas = j.getPesquisador().pesquisaCarta(Raridade.COMUM);
+		}
+		if(b == 2){
+		cartas = j.getPesquisador().pesquisaCarta(Raridade.INCOMUM);
+		}
+		else{
+		cartas = j.getPesquisador().pesquisaCarta(Raridade.RARA);
+		}
+		System.out.println("0 - Cancelar");
+		for(int i = 1; i <= cartas.size(); i++){
+			System.out.println(i + " - " + cartas.get(i-1));
+		}
+		int indexNaCol = leitor.leInt(0, cartas.size())-1;
+		if(indexNaCol == -1) return;
+	}
+
+	private void pesquisaPorNome(Colecao j) {
+		System.out.println("Digite o nome da carta a ser procurada");
+		String nome = leitor.leString();
+		List<CartaDeColecao> cartas = j.getPesquisador().pesquisaCarta(nome);
+		System.out.println(cartas.size());
+		System.out.println(j.getCartas().size());
+		for(int i = 1; i <= cartas.size(); i++){
+			System.out.println(i + " - " + cartas.get(i-1));
+		}
+		System.out.println("0 - Cancelar");
+		int x = leitor.leInt(0, 0);
+		if(x == -1) return;
+		}
 }
+
+
+
+

@@ -38,7 +38,9 @@ public class CartaDAO extends DAO{
 				raridade = Raridade.valueOf(rs.getString("raridade"));
 				preco = rs.getInt("preco");
 
-				return new CartaDeColecao(nome, atk, def, custoMana, vida, raridade, preco);
+				CartaDeColecao carta = new CartaDeColecao(nome, atk, def, custoMana, vida, raridade, preco);
+				carta.setId(id);
+				return carta;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
