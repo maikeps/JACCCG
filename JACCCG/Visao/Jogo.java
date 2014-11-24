@@ -11,6 +11,7 @@ import Batalha.Oponente;
 import Batalha.Partida;
 import Cartas.CartaDeBatalha;
 import Cartas.CartaDeColecao;
+import Cartas.Fabrica;
 import Cartas.Raridade;
 import Colecao.Loja;
 import Colecao.RegistroDeBaralho;

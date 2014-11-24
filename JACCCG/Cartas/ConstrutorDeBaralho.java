@@ -1,6 +1,6 @@
+package Cartas;
 import java.util.LinkedList;
 
-import Cartas.CartaDeColecao;
 import Colecao.RegistroDeBaralho;
 import Colecao.Usuario;
 import Exceptions.BaralhoCompletoException;
