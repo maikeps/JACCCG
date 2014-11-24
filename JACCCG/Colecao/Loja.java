@@ -49,5 +49,5 @@ public class Loja {
 	public List<CartaDeColecao> getCartas() {
 		return cartas;
 	}
-
+	
 }
