@@ -1,5 +1,6 @@
 package Colecao;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import Cartas.CartaDeColecao;
@@ -12,10 +13,12 @@ public class Colecao {
 
 	private List<CartaDeColecao> colecao;
 	private List<RegistroDeBaralho> baralhos;
+	private Pesquisador pesquisador;
 
 	public Colecao(List<CartaDeColecao> colecao, List<RegistroDeBaralho> baralhos) {
 		this.colecao = colecao;
 		this.baralhos = baralhos;
+		this.pesquisador = new Pesquisador((LinkedList<CartaDeColecao>)colecao);
 	}
 
 	/**public boolean podeAdicionarCarta(CartaDeColecao carta) {
@@ -55,6 +58,11 @@ public class Colecao {
 			}
 		}
 		colecao.remove(carta);
+	}
+	
+
+	public Pesquisador getPesquisador(){
+		return pesquisador;
 	}
 	
 	public int getOcorrenciasCarta(CartaDeColecao carta){
