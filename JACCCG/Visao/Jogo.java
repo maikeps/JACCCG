@@ -263,7 +263,8 @@ public class Jogo {
 		System.out.println("2 - Pesquisar por Raridade");
 		System.out.println("3 - Pesquisar por Valor");
 		System.out.println("4 - Pesquisar por Custo de Mana");
-		System.out.println("5 - Sair");
+		System.out.println("5 - Mostrar Todas as Cartas Disponveis");
+		System.out.println("6 - Sair.");
 		System.out.println("#############################");
 	}
 	
@@ -284,7 +285,7 @@ public class Jogo {
 		while(true){
 			mostraMenuLoja();
 			System.out.println("Voce possui "+usuario.getDinheiros()+" dinheiros.");
-			input = leitor.leInt(1, 5);
+			input = leitor.leInt(1, 6);
 			Loja j = new Loja(Fabrica.criaCartasDoJogo());
 			
 			switch(input){
@@ -301,6 +302,12 @@ public class Jogo {
 				pesquisarPorMana(j);
 				break;
 			case 5:
+				System.out.println("Todas as Cartas Disponiveis");
+				for(CartaDeColecao c : j.getCartas()){
+					System.out.println(c);
+				}
+				break;
+			case 6:
 				return;
 			}
 		}
