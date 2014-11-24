@@ -1,15 +1,13 @@
-package JACCCG;
-
 import java.util.LinkedList;
 
-import JACCCG.Cartas.CartaDeColecao;
-import JACCCG.Colecao.RegistroDeBaralho;
-import JACCCG.Colecao.Usuario;
-import JACCCG.Exceptions.BaralhoCompletoException;
-import JACCCG.Exceptions.BaralhoJaExistenteException;
-import JACCCG.Exceptions.BaralhoNaoInicializadoException;
-import JACCCG.Exceptions.CartaNaoEncontradaException;
-import JACCCG.Exceptions.LimiteDeCartasExcedidoException;
+import Cartas.CartaDeColecao;
+import Colecao.RegistroDeBaralho;
+import Colecao.Usuario;
+import Exceptions.BaralhoCompletoException;
+import Exceptions.BaralhoJaExistenteException;
+import Exceptions.BaralhoNaoInicializadoException;
+import Exceptions.CartaNaoEncontradaException;
+import Exceptions.LimiteDeCartasExcedidoException;
 
 public class ConstrutorDeBaralho {
 

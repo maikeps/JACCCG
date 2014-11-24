@@ -1,26 +1,25 @@
-package JACCCG.Visao;
+package Visao;
 
 import java.util.List;
 
-import JACCCG.Batalha.Baralho;
-import JACCCG.Batalha.Jogador;
-import JACCCG.Batalha.Juiz;
-import JACCCG.Batalha.Mao;
-import JACCCG.Batalha.Mesa;
-import JACCCG.Batalha.Oponente;
-import JACCCG.Batalha.Partida;
-import JACCCG.Cartas.CartaDeBatalha;
-import JACCCG.Cartas.CartaDeColecao;
-import JACCCG.Cartas.Fabrica;
-import JACCCG.Cartas.Raridade;
-import JACCCG.Colecao.Loja;
-import JACCCG.Colecao.RegistroDeBaralho;
-import JACCCG.Colecao.Usuario;
-import JACCCG.Controle.Leitor;
-import JACCCG.Exceptions.DinheirosInsuficientesException;
-import JACCCG.Exceptions.ManaInsuficienteException;
-import JACCCG.Exceptions.MesaCheiaException;
-import JACCCG.Exceptions.MesaVaziaException;
+import Batalha.Baralho;
+import Batalha.Jogador;
+import Batalha.Juiz;
+import Batalha.Mao;
+import Batalha.Mesa;
+import Batalha.Oponente;
+import Batalha.Partida;
+import Cartas.CartaDeBatalha;
+import Cartas.CartaDeColecao;
+import Cartas.Raridade;
+import Colecao.Loja;
+import Colecao.RegistroDeBaralho;
+import Colecao.Usuario;
+import Controle.Leitor;
+import Exceptions.DinheirosInsuficientesException;
+import Exceptions.ManaInsuficienteException;
+import Exceptions.MesaCheiaException;
+import Exceptions.MesaVaziaException;
 
 public class Jogo {
 

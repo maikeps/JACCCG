@@ -1,17 +1,16 @@
-package JACCCG.Cartas;
+package Cartas;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import JACCCG.ConstrutorDeBaralho;
-import JACCCG.Batalha.Baralho;
-import JACCCG.Batalha.Oponente;
-import JACCCG.Colecao.Colecao;
-import JACCCG.Colecao.RegistroDeBaralho;
-import JACCCG.Colecao.Usuario;
-import JACCCG.Exceptions.BaralhoCompletoException;
-import JACCCG.Exceptions.BaralhoNaoInicializadoException;
-import JACCCG.Exceptions.LimiteDeCartasExcedidoException;
+import Batalha.Baralho;
+import Batalha.Oponente;
+import Colecao.Colecao;
+import Colecao.RegistroDeBaralho;
+import Colecao.Usuario;
+import Exceptions.BaralhoCompletoException;
+import Exceptions.BaralhoNaoInicializadoException;
+import Exceptions.LimiteDeCartasExcedidoException;
 
 public class Fabrica{
 

@@ -1,4 +1,4 @@
-package JACCCG.BD;
+package BD;
 
 public class DAOFactory {
 

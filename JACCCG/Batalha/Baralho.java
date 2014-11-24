@@ -1,14 +1,14 @@
-package JACCCG.Batalha;
+package Batalha;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
-import JACCCG.Cartas.Carta;
-import JACCCG.Cartas.CartaDeBatalha;
-import JACCCG.Cartas.CartaDeColecao;
-import JACCCG.Colecao.RegistroDeBaralho;
-import JACCCG.Exceptions.BaralhoVazioException;
+import Cartas.Carta;
+import Cartas.CartaDeBatalha;
+import Cartas.CartaDeColecao;
+import Colecao.RegistroDeBaralho;
+import Exceptions.BaralhoVazioException;
 
 public class Baralho {
 

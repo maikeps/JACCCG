@@ -1,9 +1,9 @@
-package JACCCG.Batalha;
+package Batalha;
 
-import JACCCG.Cartas.CartaDeBatalha;
-import JACCCG.Exceptions.BaralhoVazioException;
-import JACCCG.Exceptions.ManaInsuficienteException;
-import JACCCG.Exceptions.MesaCheiaException;
+import Cartas.CartaDeBatalha;
+import Exceptions.BaralhoVazioException;
+import Exceptions.ManaInsuficienteException;
+import Exceptions.MesaCheiaException;
 
 public class Jogador {
 	

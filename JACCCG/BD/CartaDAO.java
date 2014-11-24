@@ -1,16 +1,13 @@
-package JACCCG.BD;
+package BD;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
-import java.util.List;
 
-import JACCCG.Cartas.CartaDeColecao;
-import JACCCG.Cartas.Raridade;
-import JACCCG.Colecao.Colecao;
-import JACCCG.Colecao.RegistroDeBaralho;
+import Cartas.CartaDeColecao;
+import Cartas.Raridade;
 
 
 public class CartaDAO extends DAO{

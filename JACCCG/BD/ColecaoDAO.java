@@ -1,4 +1,4 @@
-package JACCCG.BD;
+package BD;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -7,9 +7,9 @@ import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
-import JACCCG.Cartas.CartaDeColecao;
-import JACCCG.Colecao.Colecao;
-import JACCCG.Colecao.RegistroDeBaralho;
+import Cartas.CartaDeColecao;
+import Colecao.Colecao;
+import Colecao.RegistroDeBaralho;
 
 public class ColecaoDAO extends DAO {
 	

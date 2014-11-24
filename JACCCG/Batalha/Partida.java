@@ -1,4 +1,4 @@
-package JACCCG.Batalha;
+package Batalha;
 
 public class Partida {
 

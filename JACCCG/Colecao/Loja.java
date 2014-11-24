@@ -1,13 +1,13 @@
-package JACCCG.Colecao;
+package Colecao;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import JACCCG.Cartas.CartaDeColecao;
-import JACCCG.Exceptions.CartaNaoEncontradaException;
-import JACCCG.Exceptions.CartaSendoUtilizadaException;
-import JACCCG.Exceptions.DinheirosInsuficientesException;
-import JACCCG.Exceptions.LimiteDeCartasExcedidoException;
+import Cartas.CartaDeColecao;
+import Exceptions.CartaNaoEncontradaException;
+import Exceptions.CartaSendoUtilizadaException;
+import Exceptions.DinheirosInsuficientesException;
+import Exceptions.LimiteDeCartasExcedidoException;
 
 public class Loja {
 

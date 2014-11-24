@@ -1,9 +1,9 @@
-package JACCCG.Batalha;
+package Batalha;
 
 import java.util.List;
 
-import JACCCG.Cartas.CartaDeColecao;
-import JACCCG.Colecao.Loja;
+import Cartas.CartaDeColecao;
+import Colecao.Loja;
 
 public class Juiz {
 

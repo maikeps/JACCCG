@@ -1,10 +1,10 @@
-package JACCCG.Colecao;
+package Colecao;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import JACCCG.Cartas.CartaDeColecao;
-import JACCCG.Cartas.Raridade;
+import Cartas.CartaDeColecao;
+import Cartas.Raridade;
 
 public class Pesquisador {
 	LinkedList<CartaDeColecao> cartas;

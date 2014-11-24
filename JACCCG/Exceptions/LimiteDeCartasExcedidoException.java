@@ -1,4 +1,4 @@
-package JACCCG.Exceptions;
+package Exceptions;
 
 @SuppressWarnings("serial")
 public class LimiteDeCartasExcedidoException extends Exception {

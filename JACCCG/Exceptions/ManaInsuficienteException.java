@@ -1,4 +1,4 @@
-package JACCCG.Exceptions;
+package Exceptions;
 
 public class ManaInsuficienteException extends Exception {
 	public ManaInsuficienteException(String msg){

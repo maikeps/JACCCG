@@ -1,8 +1,8 @@
-package JACCCG.Colecao;
+package Colecao;
 
-import JACCCG.BD.Registravel;
-import JACCCG.Cartas.CartaDeColecao;
-import JACCCG.Exceptions.LimiteDeCartasExcedidoException;
+import BD.Registravel;
+import Cartas.CartaDeColecao;
+import Exceptions.LimiteDeCartasExcedidoException;
 
 public class Usuario implements Registravel{
 

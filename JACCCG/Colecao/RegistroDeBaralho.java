@@ -1,10 +1,10 @@
-package JACCCG.Colecao;
+package Colecao;
 
 import java.util.List;
 
-import JACCCG.BD.Registravel;
-import JACCCG.Cartas.Carta;
-import JACCCG.Cartas.CartaDeColecao;
+import BD.Registravel;
+import Cartas.Carta;
+import Cartas.CartaDeColecao;
 
 public class RegistroDeBaralho implements Registravel{
 

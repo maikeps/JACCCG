@@ -1,14 +1,12 @@
-package JACCCG.Colecao;
+package Colecao;
 
 import java.util.List;
 
-import JACCCG.BD.Registravel;
-import JACCCG.Cartas.CartaDeColecao;
-import JACCCG.Cartas.Raridade;
-import JACCCG.Exceptions.BaralhoJaExistenteException;
-import JACCCG.Exceptions.CartaNaoEncontradaException;
-import JACCCG.Exceptions.CartaSendoUtilizadaException;
-import JACCCG.Exceptions.LimiteDeCartasExcedidoException;
+import Cartas.CartaDeColecao;
+import Exceptions.BaralhoJaExistenteException;
+import Exceptions.CartaNaoEncontradaException;
+import Exceptions.CartaSendoUtilizadaException;
+import Exceptions.LimiteDeCartasExcedidoException;
 
 public class Colecao {
 

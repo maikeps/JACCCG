@@ -1,10 +1,10 @@
-package JACCCG.Batalha;
+package Batalha;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import JACCCG.Cartas.CartaDeBatalha;
-import JACCCG.Exceptions.BaralhoVazioException;
+import Cartas.CartaDeBatalha;
+import Exceptions.BaralhoVazioException;
 
 public class Mao {
 

@@ -1,12 +1,11 @@
-package JACCCG.Batalha;
+package Batalha;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import JACCCG.Cartas.Carta;
-import JACCCG.Cartas.CartaDeBatalha;
-import JACCCG.Exceptions.MesaCheiaException;
-import JACCCG.Exceptions.MesaVaziaException;
+import Cartas.CartaDeBatalha;
+import Exceptions.MesaCheiaException;
+import Exceptions.MesaVaziaException;
 
 public class Mesa {
 

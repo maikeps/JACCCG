@@ -1,6 +1,5 @@
-package JACCCG.Cartas;
+package Cartas;
 
-import JACCCG.BD.Registravel;
 
 public abstract class Carta {
 

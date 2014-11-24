@@ -1,6 +1,6 @@
-package JACCCG.Cartas;
+package Cartas;
 
-import JACCCG.BD.Registravel;
+import BD.Registravel;
 
 public class CartaDeColecao extends Carta implements Registravel{
 

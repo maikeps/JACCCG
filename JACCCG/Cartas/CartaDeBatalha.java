@@ -1,4 +1,4 @@
-package JACCCG.Cartas;
+package Cartas;
 
 public class CartaDeBatalha extends Carta {
 

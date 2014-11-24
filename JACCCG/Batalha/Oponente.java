@@ -1,10 +1,10 @@
-package JACCCG.Batalha;
+package Batalha;
 
-import JACCCG.BD.Registravel;
-import JACCCG.Cartas.CartaDeBatalha;
-import JACCCG.Exceptions.ManaInsuficienteException;
-import JACCCG.Exceptions.MesaCheiaException;
-import JACCCG.Exceptions.MesaVaziaException;
+import BD.Registravel;
+import Cartas.CartaDeBatalha;
+import Exceptions.ManaInsuficienteException;
+import Exceptions.MesaCheiaException;
+import Exceptions.MesaVaziaException;
 
 public class Oponente extends Jogador implements Registravel{
 
