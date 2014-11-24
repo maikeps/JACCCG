@@ -19,7 +19,7 @@ public class MySqlDataSource implements DataSource {
 	public MySqlDataSource() {
 		dbServer = "localhost";
 		dbUser = "root";
-		dbPass = "";
+		dbPass = "root";
 		dbName = "jacccg";
 		dbPort = "3306";
 	}

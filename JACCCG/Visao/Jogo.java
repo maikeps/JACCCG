@@ -23,7 +23,7 @@ import Exceptions.MesaCheiaException;
 import Exceptions.MesaVaziaException;
 
 public class Jogo {
-
+	private final int HP = 30;
 	private Leitor leitor;
 	private Usuario usuario;
 	private Juiz juiz;
@@ -52,8 +52,11 @@ public class Jogo {
 			input = leitor.leInt(1, 5);
 			switch(input){
 			case 1:
-				System.out.println("Selecione um baralho");
-				processaPartida();
+				System.out.println("Selecione um oponente para batalhar!");
+				Oponente oponente = selecionaOponente();
+				System.out.println("Selecione um baralho para usar!");
+				Jogador jogador = new Jogador((new Baralho(selecionaBaralho())), HP);
+				processaPartida(jogador, oponente);
 				break;
 			case 2:
 				updateLoja();
@@ -76,7 +79,12 @@ public class Jogo {
 		}
 	}
 	
+	private Oponente selecionaOponente() {
+		return null;
+	}
+
 	private RegistroDeBaralho selecionaBaralho(){
+		
 		List<RegistroDeBaralho> baralhos = usuario.getColecao().getBaralhos();
 		System.out.println("0 - Cancelar");
 		for(int i = 0; i < usuario.getColecao().getBaralhos().size(); i++){
@@ -87,11 +95,7 @@ public class Jogo {
 		return baralhos.get(baralho);
 	}
 
-	private void processaPartida() {
-		RegistroDeBaralho baralhoSelecionado = selecionaBaralho();
-		if(baralhoSelecionado == null) return;
-		Jogador jogador = new Jogador(new Baralho(baralhoSelecionado), 30);
-		Oponente oponente = Fabrica.criaOponente();
+	private void processaPartida(Jogador jogador, Oponente oponente) {
 		Partida partida = new Partida(jogador, oponente, juiz);
 		jogador.iniciaPartida();
 		oponente.iniciaPartida();
