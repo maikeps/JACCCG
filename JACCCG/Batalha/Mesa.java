@@ -47,7 +47,7 @@ public class Mesa {
 
 	public boolean temCartaPronta() {
 		for(CartaDeBatalha c : cartasNaMesa){
-			if(c.estaMorta()) return true;
+			if(c.podeAtacar() && !c.estaMorta()) return true;
 		}
 		return false;
 	}

@@ -56,10 +56,12 @@ public class Oponente extends Jogador implements Registravel{
 	}
 		
 	public CartaDeBatalha selecionaCartaAtacante() {
-		CartaDeBatalha carta = this.getMesa().getCartas().get(0);
-		for(int i = 0; i < getMesa().getCartas().size(); i++){
-				if(carta.getAtaque() > getMesa().getCartas().get(i).getAtaque() && carta.podeAtacar()){
-					carta = getMesa().getCartas().get(i);
+		CartaDeBatalha carta = null;
+		CartaDeBatalha temp = getMesa().getCartas().get(0);
+		for(CartaDeBatalha c : getMesa().getCartas()){
+			if(temp.getAtaque() >= c.getAtaque() && c.podeAtacar()){
+					carta = c;
+					temp = c;
 			}
 		}
 		return carta;
@@ -73,7 +75,7 @@ public class Oponente extends Jogador implements Registravel{
 		if(alvo.estaMorta()){
 			try {
 				mesaDoJogador.removeCarta(alvo);
-				System.out.println(alvo.getNome()+" morreu");
+				System.out.println("Alvo " +alvo.getNome()+" morreu");
 			} catch (MesaVaziaException e) {
 				e.printStackTrace();
 			}
@@ -81,6 +83,7 @@ public class Oponente extends Jogador implements Registravel{
 		if(atacante.estaMorta()){
 			try {
 				mesa.removeCarta(atacante);
+				System.out.println("Atacante" +atacante.getNome()+" morreu");
 			} catch (MesaVaziaException e) {
 				e.printStackTrace();
 			}
@@ -95,8 +98,10 @@ public class Oponente extends Jogador implements Registravel{
 			} catch (MesaCheiaException | ManaInsuficienteException e){}
 		}
 		while(mesa.temCartaPronta()){
+			CartaDeBatalha carta = selecionaCartaAtacante();
+			if(carta == null) break;
 			if(jogador.getMesa().getCartas().isEmpty()){
-				atacaDiretamente(jogador, selecionaCartaAtacante());
+				atacaDiretamente(jogador, carta );
 			}else{
 				ataca(jogador.getMesa());
 			}
