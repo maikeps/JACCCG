@@ -2,6 +2,7 @@ package JACCCG.Colecao;
 
 import java.util.List;
 
+import JACCCG.BD.Registravel;
 import JACCCG.Cartas.CartaDeColecao;
 import JACCCG.Cartas.Raridade;
 import JACCCG.Exceptions.BaralhoJaExistenteException;

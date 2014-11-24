@@ -1,9 +1,12 @@
 package JACCCG.Cartas;
 
-public class CartaDeColecao extends Carta {
+import JACCCG.BD.Registravel;
+
+public class CartaDeColecao extends Carta implements Registravel{
 
 	private boolean disponivel;
 	private int preco;
+	private int id;
 
 	/**
 	 *  
@@ -37,5 +40,15 @@ public class CartaDeColecao extends Carta {
 		//string += "Pre�o: " + preco + "\n";
 		
 		//return string;
+	}
+
+	@Override
+	public int getId() {
+		return id;
+	}
+
+	@Override
+	public void setId(int id) {
+		this.id = id;
 	}
 }

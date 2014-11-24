@@ -1,12 +1,14 @@
 package JACCCG.Colecao;
 
+import JACCCG.BD.Registravel;
 import JACCCG.Cartas.CartaDeColecao;
 import JACCCG.Exceptions.LimiteDeCartasExcedidoException;
 
-public class Usuario {
+public class Usuario implements Registravel{
 
 	private Colecao colecao;
 	private int dinheiros;
+	private int id;
 
 	public Usuario(Colecao colecao, int dinheiros) {
 		this.colecao = colecao;
@@ -35,6 +37,16 @@ public class Usuario {
 	
 	public Colecao getColecao() {
 		return colecao;
+	}
+
+	@Override
+	public int getId() {
+		return id;
+	}
+
+	@Override
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }

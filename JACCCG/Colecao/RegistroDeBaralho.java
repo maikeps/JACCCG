@@ -2,14 +2,16 @@ package JACCCG.Colecao;
 
 import java.util.List;
 
+import JACCCG.BD.Registravel;
 import JACCCG.Cartas.Carta;
 import JACCCG.Cartas.CartaDeColecao;
 
-public class RegistroDeBaralho {
+public class RegistroDeBaralho implements Registravel{
 
 	private List<CartaDeColecao> cartas;
 	private String nome;
 	private int maxCartas;
+	private int id;
 
 	public RegistroDeBaralho(List<CartaDeColecao> cartas, String nome, int maxCartas) {
 		this.cartas = cartas;
@@ -69,7 +71,16 @@ public class RegistroDeBaralho {
 			//str += c.getNome() + " " + "A:" + c.getAtaque() + " D:" + c.getDefesa() + " V:" + c.getVida() + " C:" + c.getCustoMana() + "\n";
 			str += c + "\n";
 		}
-		System.out.println(str);
 		return str;
+	}
+
+	@Override
+	public int getId() {
+		return id;
+	}
+
+	@Override
+	public void setId(int id) {
+		this.id = id;
 	}
 }

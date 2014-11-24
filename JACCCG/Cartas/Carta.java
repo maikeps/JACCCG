@@ -1,5 +1,7 @@
 package JACCCG.Cartas;
 
+import JACCCG.BD.Registravel;
+
 public abstract class Carta {
 
 	protected String nome;

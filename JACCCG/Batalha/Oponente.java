@@ -1,13 +1,15 @@
 package JACCCG.Batalha;
 
+import JACCCG.BD.Registravel;
 import JACCCG.Cartas.CartaDeBatalha;
 import JACCCG.Exceptions.ManaInsuficienteException;
 import JACCCG.Exceptions.MesaCheiaException;
 import JACCCG.Exceptions.MesaVaziaException;
 
-public class Oponente extends Jogador {
+public class Oponente extends Jogador implements Registravel{
 
 	private String nome;
+	private int id;
 
 	public Oponente(String nome, Baralho baralho, int vida) {
 		super(baralho, vida);
@@ -101,6 +103,16 @@ public class Oponente extends Jogador {
 	
 	public String getNome(){
 		return nome;
+	}
+
+	@Override
+	public int getId() {
+		return id;
+	}
+
+	@Override
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }
