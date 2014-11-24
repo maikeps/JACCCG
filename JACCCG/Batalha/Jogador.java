@@ -15,12 +15,13 @@ public class Jogador {
 	private int vida;
 	private int manaPool;
 	protected Mesa mesa;
-	
+	private int manaLimit;
 	private int fatorFatiga;
 	
 	public Jogador(Baralho baralho, int vida) {
 		this.baralho = baralho;
 		mao = new Mao();
+		this.manaLimit = 1;
 		this.vida = vida;
 		this.mesa = new Mesa(5);
 		this.manaPool = 0;
@@ -36,8 +37,13 @@ public class Jogador {
 	
 	public void iniciaTurno(){
 		mesa.aprontaCartas();
+		encheMana();
 		ganhaMana();
 		compraCarta();
+	}
+	
+	public void encheMana(){
+		manaPool += manaLimit;
 	}
 
 	public Mesa getMesa(){
@@ -68,7 +74,8 @@ public class Jogador {
 
 	public void ganhaMana() {
 		if(manaPool < MAX_MANA){
-			manaPool+=MPT;
+			manaPool += MPT;
+			manaLimit += 1;
 		}
 	}
 

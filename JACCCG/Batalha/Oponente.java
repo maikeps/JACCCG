@@ -40,7 +40,8 @@ public class Oponente extends Jogador implements Registravel{
 
 	
 	public CartaDeBatalha selecionaAlvo(CartaDeBatalha atacante, Mesa mesaDoOponente) {
-		if(mesaDoOponente.getCartas().isEmpty()) return null;
+		if(mesaDoOponente.getCartas().isEmpty()) 
+			return null;
 		CartaDeBatalha alvo = mesaDoOponente.getCartas().get(0);
 		for(int i = 0; i < mesaDoOponente.getCartas().size(); i++){
 			if(atacante.calculaDanoContra(alvo) < atacante.calculaDanoContra(mesaDoOponente.getCartas().get(i))){
