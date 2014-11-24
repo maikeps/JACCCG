@@ -17,7 +17,6 @@ import JACCCG.Colecao.Loja;
 import JACCCG.Colecao.RegistroDeBaralho;
 import JACCCG.Colecao.Usuario;
 import JACCCG.Controle.Leitor;
-import JACCCG.Exceptions.CartaNaoEncontradaException;
 import JACCCG.Exceptions.DinheirosInsuficientesException;
 import JACCCG.Exceptions.ManaInsuficienteException;
 import JACCCG.Exceptions.MesaCheiaException;
