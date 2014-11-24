@@ -82,7 +82,7 @@ public class BaralhoDAO extends DAO{
 			rs = st.executeQuery(queryCartas);
 			while(rs.next()){
 				int idCarta = rs.getInt("c.id");
-				cartas.add((CartaDeColecao) load(idCarta));
+				cartas.add((CartaDeColecao) cartaDAO.load(idCarta));
 			}
 			
 			return new RegistroDeBaralho(cartas, nome, cartas.size());
@@ -117,4 +117,33 @@ public class BaralhoDAO extends DAO{
 		
 		return null;
 	}	
+
+	public RegistroDeBaralho loadBaralhoOponente(int idOponente){
+		String queryNome = "SELECT nome FROM oponente WHERE id = "+idOponente;
+		String query = "SELECT c.id FROM oponente AS o "
+				+ "INNER JOIN carta_oponente AS co ON o.id = co.id_oponente "
+				+ "INNER JOIN carta AS c ON c.id = co.id_carta "
+				+ "WHERE o.id = "+idOponente;
+		
+		String nome = "";
+		LinkedList<CartaDeColecao> cartas = new LinkedList<CartaDeColecao>();
+		
+		try{
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(queryNome);
+			if(rs.next()) nome = rs.getString("nome");
+			
+			rs = st.executeQuery(query);
+			while(rs.next()){
+				cartas.add((CartaDeColecao) cartaDAO.load(rs.getInt("c.id")));
+			}
+			
+			return new RegistroDeBaralho(cartas, nome, cartas.size());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 }

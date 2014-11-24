@@ -26,4 +26,12 @@ public class DAOFactory {
 	public ColecaoDAO getColecaoDAO(){
 		return new ColecaoDAO(dataSource.getConnection());
 	}
+
+	public OponenteDAO getOponenteDAO(){
+		return new OponenteDAO(dataSource.getConnection());
+	}
+	
+	public UsuarioDAO getUsuarioDAO(){
+		return new UsuarioDAO(dataSource.getConnection());
+	}
 }

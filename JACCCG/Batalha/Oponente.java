@@ -9,11 +9,13 @@ import Exceptions.MesaVaziaException;
 public class Oponente extends Jogador implements Registravel{
 
 	private String nome;
+	private int recompensa;
 	private int id;
 
-	public Oponente(String nome, Baralho baralho, int vida) {
+	public Oponente(String nome, Baralho baralho, int vida, int recompensa) {
 		super(baralho, vida);
 		this.nome = nome;
+		this.recompensa = recompensa;
 	}
 
 	public boolean querJogar(){
@@ -115,4 +117,7 @@ public class Oponente extends Jogador implements Registravel{
 		this.id = id;
 	}
 
+	public int getRecompensa(){
+		return recompensa;
+	}
 }
