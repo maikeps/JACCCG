@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.LinkedList;
+import java.util.List;
 
 import Batalha.Baralho;
 import Batalha.Oponente;
@@ -22,8 +24,10 @@ public class OponenteDAO extends DAO{
 		String nome = "";
 		int vida = 0;
 		int recompensa = 0;
+		int numVezesDerrotado = 0;
+		int numVezesBatalhado = 0;
 		
-		String queryStats = "SELECT nome, vida, recompensa FROM oponente WHERE id = "+id;
+		String queryStats = "SELECT * FROM oponente WHERE id = "+id;
 		
 		
 		try{
@@ -33,7 +37,8 @@ public class OponenteDAO extends DAO{
 				nome = rs.getString("nome");
 				vida = rs.getInt("vida");
 				recompensa = rs.getInt("recompensa");
-				
+				numVezesDerrotado = rs.getInt("numVezesDerrotado");
+				numVezesBatalhado = rs.getInt("numVezesBatalhado");				
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -41,7 +46,7 @@ public class OponenteDAO extends DAO{
 		}
 		
 		Baralho baralho = new Baralho(baralhoDAO.loadBaralhoOponente(id));
-		return new Oponente(nome, baralho, vida, recompensa);
+		return new Oponente(nome, baralho, vida, recompensa, numVezesDerrotado, numVezesBatalhado);
 	}
 
 	@Override
@@ -54,6 +59,25 @@ public class OponenteDAO extends DAO{
 	public boolean update(Registravel registravel, int id) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public List<Oponente> loadOponentes() {
+		List<Oponente> oponentes = new LinkedList<Oponente>();
+		
+		String query = "SELECT id FROM oponente";
+		
+		try{
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			while(rs.next()){
+				oponentes.add((Oponente) load(rs.getInt("id")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return oponentes;
 	}
 
 }

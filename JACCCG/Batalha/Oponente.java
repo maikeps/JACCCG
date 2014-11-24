@@ -11,11 +11,15 @@ public class Oponente extends Jogador implements Registravel{
 	private String nome;
 	private int recompensa;
 	private int id;
+	private int vezesDerrotado;
+	private int vezesBatalhado;
 
-	public Oponente(String nome, Baralho baralho, int vida, int recompensa) {
+	public Oponente(String nome, Baralho baralho, int vida, int recompensa, int vezesDerrotado, int vezesBatalhado) {
 		super(baralho, vida);
 		this.nome = nome;
 		this.recompensa = recompensa;
+		this.vezesBatalhado = vezesBatalhado;
+		this.vezesDerrotado = vezesDerrotado;
 	}
 
 	public boolean querJogar(){
@@ -120,5 +124,19 @@ public class Oponente extends Jogador implements Registravel{
 
 	public int getRecompensa(){
 		return recompensa;
+	}
+	
+	public int getVezesDerrotado(){
+		return vezesDerrotado;
+	}
+	
+	public int getVezesBatalhado(){
+		return vezesBatalhado;
+	}
+	
+	public String toString(){
+		double vitoria = ((double)vezesBatalhado/vezesDerrotado)*100;
+		vitoria = (vitoria > 0) ? vitoria : 0;
+		return "Oponente "+nome+": \t"+vitoria+"% de vitorias ("+vezesBatalhado+"/"+vezesDerrotado+") \t Recompensa: "+recompensa+" dinheiros";
 	}
 }

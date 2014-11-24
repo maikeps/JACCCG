@@ -43,7 +43,7 @@ public class Jogador {
 	}
 	
 	public void encheMana(){
-		manaPool += manaLimit;
+		manaPool = manaLimit;
 	}
 
 	public Mesa getMesa(){
@@ -73,9 +73,8 @@ public class Jogador {
 	}
 
 	public void ganhaMana() {
-		if(manaPool < MAX_MANA){
-			manaPool += MPT;
-			manaLimit += 1;
+		if(manaLimit < MAX_MANA){
+			manaLimit += MPT;
 		}
 	}
 

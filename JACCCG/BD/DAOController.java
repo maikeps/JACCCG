@@ -1,5 +1,7 @@
 package BD;
 
+import java.util.List;
+
 import Batalha.Oponente;
 import Cartas.Carta;
 import Cartas.CartaDeColecao;
@@ -42,5 +44,11 @@ public class DAOController {
 		UsuarioDAO usuarioDAO = daoFactory.getUsuarioDAO();
 		Usuario usuario = (Usuario) usuarioDAO.load(id);
 		return usuario;
+	}
+
+	public List<Oponente> getOponentes() {
+		OponenteDAO oponenteDAO = daoFactory.getOponenteDAO();
+		List<Oponente> oponentes = oponenteDAO.loadOponentes();
+		return oponentes;
 	}
 }

@@ -2,6 +2,8 @@ package Visao;
 
 import java.util.List;
 
+import BD.DAOController;
+import BD.DAOFactory;
 import Batalha.Baralho;
 import Batalha.Jogador;
 import Batalha.Juiz;
@@ -31,7 +33,8 @@ public class Jogo {
 	public Jogo(Leitor leitor){
 		this.leitor = leitor;
 		this.juiz = Juiz.getInstance();
-		usuario = Fabrica.criaUsuario();
+		usuario = DAOController.getInstance().getUsuario(1);
+//		usuario = Fabrica.criaUsuario();
 		update();
 	}
 	
@@ -54,8 +57,11 @@ public class Jogo {
 			case 1:
 				System.out.println("Selecione um oponente para batalhar!");
 				Oponente oponente = selecionaOponente();
+				if(oponente == null) break;
 				System.out.println("Selecione um baralho para usar!");
-				Jogador jogador = new Jogador((new Baralho(selecionaBaralho())), HP);
+				RegistroDeBaralho baralho = selecionaBaralho();
+				if(baralho == null) break;
+				Jogador jogador = new Jogador((new Baralho(baralho)), HP);
 				processaPartida(jogador, oponente);
 				break;
 			case 2:
@@ -80,7 +86,16 @@ public class Jogo {
 	}
 	
 	private Oponente selecionaOponente() {
-		return null;
+		List<Oponente> oponentes = DAOController.getInstance().getOponentes();
+		System.out.println("0 - Cancelar");
+		for(int i = 0; i < oponentes.size(); i++){
+			Oponente o = oponentes.get(i);
+			System.out.println((i+1)+" - "+o);
+		}
+		
+		int oponente = leitor.leInt(0, oponentes.size())-1;
+		if(oponente == -1) return null;
+		return oponentes.get(oponente);
 	}
 
 	private RegistroDeBaralho selecionaBaralho(){

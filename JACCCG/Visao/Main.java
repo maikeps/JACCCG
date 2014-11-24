@@ -1,26 +1,38 @@
-package JACCCG.Visao;
+package Visao;
 
-import java.util.List;
-
-import JACCCG.BD.BaralhoDAO;
-import JACCCG.BD.CartaDAO;
-import JACCCG.BD.DAOFactory;
-import JACCCG.Cartas.CartaDeColecao;
-import JACCCG.Colecao.RegistroDeBaralho;
+import Controle.Leitor;
 
 public class Main {
 
 	public static void main(String[] args){
-		DAOFactory daoFactory = DAOFactory.getInstance();
-		BaralhoDAO baralhoDAO = daoFactory.getBaralhoDAO();
-		CartaDAO cartaDAO = daoFactory.getCartaDAO();
-		
-		List<CartaDeColecao> cartas = cartaDAO.loadCartas(1);
-		for(CartaDeColecao c : cartas) System.out.println(c);
-		RegistroDeBaralho rb = (RegistroDeBaralho) baralhoDAO.load(1);
-//		System.out.println(rb);
-		
-		
+//		DAOFactory daoFactory = DAOFactory.getInstance();
+//		BaralhoDAO baralhoDAO = daoFactory.getBaralhoDAO();
+//		CartaDAO cartaDAO = daoFactory.getCartaDAO();
+//		ColecaoDAO colecaoDAO = daoFactory.getColecaoDAO();
+//		UsuarioDAO usuarioDAO = daoFactory.getUsuarioDAO();
+//		OponenteDAO oponenteDAO = daoFactory.getOponenteDAO();
+//		
+//		Oponente oponente = (Oponente) oponenteDAO.load(1);
+//		System.out.println(oponente.getNome());
+//		
+//		Usuario usuario = (Usuario) usuarioDAO.load(1);
+//		Colecao colecaoUsuario = usuario.getColecao();
+////		for(CartaDeColecao c : colecaoUsuario.getCartas()) System.out.println(c);
+////		System.out.println();
+////		for(RegistroDeBaralho rb : colecaoUsuario.getBaralhos()) System.out.println(rb+"\n");
+//		
+//		
+//		Colecao colecao = colecaoDAO.loadColecao(1);
+////		for(CartaDeColecao c : colecao.getCartas()) System.out.println(c);
+////		System.out.println();
+////		for(RegistroDeBaralho rb : colecao.getBaralhos()) System.out.println(rb);
+//		
+//		List<CartaDeColecao> cartas = cartaDAO.loadCartas(1);
+////		for(CartaDeColecao c : cartas) System.out.println(c);
+//		RegistroDeBaralho rb = (RegistroDeBaralho) baralhoDAO.load(1);
+////		System.out.println(rb);
+//		
+//		
 		
 		
 		
@@ -45,7 +57,7 @@ public class Main {
 //		for(RegistroDeBaralho rb: colecao.getBaralhos()) System.out.println(rb+"\n");
 //		
 		
-//		Leitor c = new Leitor();
-//		Jogo j = new Jogo(c);		
+		Leitor c = new Leitor();
+		Jogo j = new Jogo(c);		
 	}
 }
