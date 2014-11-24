@@ -1,0 +1,144 @@
+CREATE DATABASE jacccg;
+
+USE jacccg;
+
+CREATE TABLE carta(
+	id INT NOT NULL AUTO_INCREMENT,
+	nome VARCHAR(40) NOT NULL,
+	atk INT NOT NULL,
+	def INT NOT NULL,
+	custoMana INT NOT NULL,
+	vida INT NOT NULL,
+	raridade ENUM('COMUM', 'INCOMUM', 'RARA') NOT NULL,
+	preco INT NOT NULL,
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE usuario(
+	id INT NOT NULL AUTO_INCREMENT,
+	nome VARCHAR(40) NOT NULL,
+	dinheiros INT NOT NULL,
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE oponente(
+	id INT NOT NULL AUTO_INCREMENT,
+	nome VARCHAR(40) NOT NULL,
+	numVezesDerrotado INT NOT NULL DEFAULT 0,
+	numVezesBatalhado INT NOT NULL DEFAULT 0,
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE baralho(
+	id INT NOT NULL AUTO_INCREMENT,
+	nome VARCHAR(40) NOT NULL,
+	id_usuario INT NOT NULL,
+	PRIMARY KEY(id),
+	FOREIGN KEY(id_usuario) REFERENCES usuario(id)
+);
+
+CREATE TABLE carta_baralho(
+	id INT NOT NULL AUTO_INCREMENT,
+	id_carta INT NOT NULL,
+	id_baralho INT NOT NULL,
+	PRIMARY KEY(id),
+	FOREIGN KEY(id_carta) REFERENCES carta(id),
+	FOREIGN KEY(id_baralho) REFERENCES baralho(id)
+);
+
+CREATE TABLE carta_oponente(
+	id INT NOT NULL AUTO_INCREMENT,
+	id_oponente INT NOT NULL,
+	id_carta INT NOT NULL,
+	PRIMARY KEY(id),
+	FOREIGN KEY(id_oponente) REFERENCES oponente(id),
+	FOREIGN KEY(id_carta) REFERENCES carta(id)
+);
+
+CREATE TABLE colecao(
+	id INT NOT NULL AUTO_INCREMENT,
+	id_usuario INT NOT NULL,
+	PRIMARY KEY(id),
+	FOREIGN KEY(id_usuario) REFERENCES usuario(id)	
+);
+
+CREATE TABLE carta_colecao(
+	id INT NOT NULL AUTO_INCREMENT,
+	id_carta INT NOT NULL,
+	id_colecao INT NOT NULL,
+	PRIMARY KEY(id),
+	FOREIGN KEY(id_carta) REFERENCES carta(id),
+	FOREIGN KEY(id_colecao) REFERENCES colecao(id)
+);
+
+CREATE TABLE baralho_colecao(
+	id INT NOT NULL AUTO_INCREMENT,
+	id_baralho INT NOT NULL,
+	id_colecao INT NOT NULL,
+	PRIMARY KEY(id),
+	FOREIGN KEY(id_baralho) REFERENCES baralho(id),
+	FOREIGN KEY(id_colecao) REFERENCES colecao(id)
+);
+
+INSERT INTO usuario (nome, dinheiros) VALUES ("Teste", 0);
+
+INSERT INTO oponente (nome) VALUES ("Oponente Teste");
+
+INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Goblin1", 2, 1, 1, 1, 'COMUM', 100);
+INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Goblin2", 2, 2, 1, 1, 'COMUM', 110);
+INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Goblin3", 4, 1, 1, 1, 'INCOMUM', 201);
+INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Goblin4", 4, 2, 2, 2, 'INCOMUM', 205);
+INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Goblin5", 6, 2, 2, 3, 'RARA', 650);
+
+INSERT INTO baralho (nome, id_usuario) VALUES ("Baralho Teste", 1);
+
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (1, 1);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (1, 2);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (1, 3);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (1, 4);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (1, 1);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (1, 1);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (1, 2);
+
+INSERT INTO colecao (id_usuario) VALUES (1);
+
+INSERT INTO carta_colecao(id_colecao, id_carta) VALUES (1, 1);
+INSERT INTO carta_colecao(id_colecao, id_carta) VALUES (1, 2);
+INSERT INTO carta_colecao(id_colecao, id_carta) VALUES (1, 3);
+INSERT INTO carta_colecao(id_colecao, id_carta) VALUES (1, 4);
+
+INSERT INTO oponente (nome) VALUES ("Oponente Teste");
+
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (1, 1);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (1, 1);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (1, 1);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (1, 2);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (1, 2);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (1, 2);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (1, 3);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (1, 3);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (1, 4);
+
+
+#Baralhos do jogador
+SELECT u.nome AS Nome, b.nome AS Baralho FROM usuario AS u
+INNER JOIN baralho AS b ON u.id = b.id_usuario;
+
+#Cartas dos baralhos do jogador
+SELECT u.nome AS Nome, b.nome AS Baralho, c.nome as Carta FROM usuario AS u
+INNER JOIN baralho AS b ON u.id = b.id_usuario
+INNER JOIN carta_baralho AS cb ON cb.id_baralho = b.id
+INNER JOIN carta AS c ON c.id = cb.id_carta;
+
+#Cartas da colecao
+SELECT u.nome AS Nome, c.nome AS Carta FROM usuario AS u
+INNER JOIN colecao as col ON col.id_usuario = u.id
+INNER JOIN carta_colecao AS ccol ON ccol.id_colecao = col.id
+INNER JOIN carta AS c ON ccol.id_carta = c.id;
+
+#Baralho do oponente
+SELECT o.nome AS Nome, c.nome AS Carta FROM oponente AS o 
+INNER JOIN carta_oponente AS co ON o.id = co.id_oponente
+INNER JOIN carta AS c ON c.id = co.id_carta;
+
+
