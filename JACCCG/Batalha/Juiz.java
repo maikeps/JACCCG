@@ -20,12 +20,22 @@ public class Juiz {
 
 	}
 
-	private CartaDeColecao disponibilizaCarta(String carta) {
-		//TODO testar para saber se .getCartas pega uma cópia da lista ou pega a lista em si.
-		List<CartaDeColecao> c = loja.getCartas();
-		(c.get(c.indexOf(carta))).setDisponibilidade(true);
-		errado
-		
+//	private CartaDeColecao disponibilizaCarta(String carta) {
+//		//TODO testar para saber se .getCartas pega uma cópia da lista ou pega a lista em si.
+//		List<CartaDeColecao> c = loja.getCartas();
+//		(c.get(c.indexOf(carta))).setDisponibilidade(true);
+//		errado
+//		
+//	}
+	
+	private void disponibilizaCarta(CartaDeColecao carta){
+		List<CartaDeColecao> cartas = loja.getCartas();
+		for(CartaDeColecao c : cartas){
+			if(c.getId() == carta.getId()){
+				c.setDisponibilidade(true);
+				return;
+			}
+		}
 	}
 
 	public static Juiz getInstance() {
@@ -40,7 +50,7 @@ public class Juiz {
 		atualizaOponente(oponente, jogadorVenceu);
 		if(jogadorVenceu){
 			daDinheiros(usuario, recompensa);
-			if(!(oponente.getCartaEquivalente().estaDisponivel)) disponibilizaCarta(oponente.getCartaEquivalente());
+			if(!(oponente.getCartaEquivalente().estaDisponivel())) disponibilizaCarta(oponente.getCartaEquivalente());
 		}
 	}
 	

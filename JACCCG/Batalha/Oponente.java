@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 
 import BD.Registravel;
 import Cartas.CartaDeBatalha;
+import Cartas.CartaDeColecao;
 import Controle.Logger;
 import Exceptions.ManaInsuficienteException;
 import Exceptions.MesaCheiaException;
@@ -16,14 +17,16 @@ public class Oponente extends Jogador implements Registravel{
 	private int id;
 	private int vezesDerrotado;
 	private int vezesBatalhado;
+	private CartaDeColecao cartaEquivalente;
 
-	public Oponente(String nome, Baralho baralho, int vida, int recompensa, int vezesDerrotado, int vezesBatalhado) {
+	public Oponente(String nome, Baralho baralho, int vida, int recompensa, int vezesDerrotado, int vezesBatalhado, CartaDeColecao cartaEquivalente) {
 		super(baralho, vida);
 		this.nome = nome;
 		this.recompensa = recompensa;
 		this.vezesBatalhado = vezesBatalhado;
 		this.vezesDerrotado = vezesDerrotado;
 		this.addObserver(Logger.getInstance());
+		this.cartaEquivalente = cartaEquivalente;
 	}
 
 	public boolean querJogar(){
@@ -159,5 +162,9 @@ public class Oponente extends Jogador implements Registravel{
 	
 	public void aumentaVezesBatalhado() {
 		vezesBatalhado++;
+	}
+	
+	public CartaDeColecao getCartaEquivalente(){
+		return cartaEquivalente;
 	}
 }

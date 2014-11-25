@@ -9,14 +9,17 @@ import java.util.List;
 
 import Batalha.Baralho;
 import Batalha.Oponente;
+import Cartas.CartaDeColecao;
 
 public class OponenteDAO extends DAO{
 
 	private BaralhoDAO baralhoDAO;
+	private CartaDAO cartaDAO;
 	
 	public OponenteDAO(Connection connection) {
 		super(connection);
 		baralhoDAO = DAOFactory.getInstance().getBaralhoDAO();
+		cartaDAO = DAOFactory.getInstance().getCartaDAO();
 	}
 
 	@Override
@@ -28,7 +31,7 @@ public class OponenteDAO extends DAO{
 		int numVezesBatalhado = 0;
 		
 		String queryStats = "SELECT * FROM oponente WHERE id = "+id;
-		
+		CartaDeColecao cartaEquivalente = null;
 		
 		try{
 			Statement st = con.createStatement();
@@ -38,7 +41,9 @@ public class OponenteDAO extends DAO{
 				vida = rs.getInt("vida");
 				recompensa = rs.getInt("recompensa");
 				numVezesDerrotado = rs.getInt("numVezesDerrotado");
-				numVezesBatalhado = rs.getInt("numVezesBatalhado");				
+				numVezesBatalhado = rs.getInt("numVezesBatalhado");
+				int idCarta = rs.getInt("id_carta");
+				cartaEquivalente = (CartaDeColecao) cartaDAO.load(idCarta);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -46,7 +51,7 @@ public class OponenteDAO extends DAO{
 		}
 		
 		Baralho baralho = new Baralho(baralhoDAO.loadBaralhoOponente(id));
-		Oponente oponente = new Oponente(nome, baralho, vida, recompensa, numVezesDerrotado, numVezesBatalhado);
+		Oponente oponente = new Oponente(nome, baralho, vida, recompensa, numVezesDerrotado, numVezesBatalhado, cartaEquivalente);
 		oponente.setId(id);
 		return oponente;
 	}
@@ -88,6 +93,25 @@ public class OponenteDAO extends DAO{
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return oponentes;
+	}
+	
+	public List<Oponente> loadOponentesLiberados(int idUsuario){
+		List<Oponente> oponentes = new LinkedList<Oponente>();
+		
+		String sql = "SELECT * FROM oponente_liberado WHERE id_usuario = "+idUsuario;
+		
+		try{
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			while(rs.next()){
+				int idOponente = rs.getInt("id_oponente");
+				oponentes.add((Oponente) load(idOponente));
+			}
+		} catch(SQLException e){
 			e.printStackTrace();
 		}
 		

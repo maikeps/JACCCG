@@ -142,4 +142,10 @@ public class CartaDAO extends DAO{
 		
 		return cartas;
 	}
+	
+	public List<CartaDeBatalha> loadCartasLiberadas(int idUsuario){
+		List<CartaDeBatalha> cartas = new LinkedList<CartaDeBatalha>();
+		
+		String sql = "SELECT * FROM "
+	}
 }
