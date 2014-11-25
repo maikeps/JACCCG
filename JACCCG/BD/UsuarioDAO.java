@@ -33,7 +33,9 @@ public class UsuarioDAO extends DAO{
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
+			System.out.println("DFDF UsuarioDAO");
+			return null;
 		}
 		
 		Colecao colecao = colecaoDAO.loadColecao(id);

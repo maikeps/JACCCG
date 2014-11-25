@@ -1,13 +1,25 @@
 package BD;
 
+import java.sql.SQLException;
+
 public class DAOFactory {
 
 	private static DAOFactory factory;
 	private MySqlDataSource dataSource;
 	
 	private DAOFactory(){
+		createDataSource();
+	}
+	
+	private void createDataSource(){
+
 		dataSource = new MySqlDataSource();
-		dataSource.connect();
+			try {
+				dataSource.connect();
+			} catch (SQLException e) {
+				dataSource.connectAndCreate();
+				DBCreator dbc = new DBCreator(dataSource.getConnection());
+			}
 	}
 	
 	public static DAOFactory getInstance(){

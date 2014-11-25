@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class MySqlDataSource implements DataSource {
 
@@ -19,7 +20,7 @@ public class MySqlDataSource implements DataSource {
 	public MySqlDataSource() {
 		dbServer = "localhost";
 		dbUser = "root";
-		dbPass = "root";
+		dbPass = "";
 		dbName = "jacccg";
 		dbPort = "3306";
 	}
@@ -33,20 +34,64 @@ public class MySqlDataSource implements DataSource {
 	}
 	
 	@Override
-	public boolean connect() {
+	public boolean connect() throws SQLException {
 		if(connection == null){
-			try{
+//			try{
 				String stringConexao = "jdbc:mysql://"+dbServer+":"+dbPort+"/"+dbName+"?user="+dbUser+"&password="+dbPass;
-				Class.forName(driverName).newInstance();
+				try {
+					Class.forName(driverName).newInstance();
 				connection = DriverManager.getConnection(stringConexao);
 				System.out.println("Conectou.");
 				
 				return true;
-			}catch(SQLException e){
-				e.printStackTrace();
-			}catch(Exception e){
+				} catch (InstantiationException | IllegalAccessException
+						| ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+//			}catch(SQLException e){
+//				e.printStackTrace();
+//			}catch(Exception e){
+//				e.printStackTrace();
+//			}
+		}else{
+			try {
+				if(connection.isClosed()){
+					connection = null;
+					return connect();
+					//...
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
+		return false;
+	}
+	
+	public boolean connectAndCreate(){
+		if(connection == null){
+//			try{
+				String stringConexao = "jdbc:mysql://"+dbServer+":"+dbPort+"/"+dbName+"?user="+dbUser+"&password="+dbPass;
+				try {
+					Class.forName(driverName).newInstance();
+//					connection = DriverManager.getConnection(stringConexao);
+					connection = DriverManager.getConnection("jdbc:mysql://"+dbServer, dbUser, dbPass);
+					
+					Statement st = connection.createStatement();
+					String sql = "CREATE DATABASE jacccg;";
+					st.executeUpdate(sql);
+					st.execute("USE jacccg;");
+					System.out.println("Conectou.");
+					
+					return true;
+				} catch (InstantiationException | IllegalAccessException
+						| ClassNotFoundException e) {
+					e.printStackTrace();
+				}
+				catch (SQLException e) {
+					e.printStackTrace();
+				}
 		}else{
 			try {
 				if(connection.isClosed()){

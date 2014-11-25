@@ -57,7 +57,7 @@ public class OponenteDAO extends DAO{
 
 	@Override
 	public boolean update(Registravel registravel, int id) {
-		// TODO Auto-generated method stub
+		Oponente oponente = (Oponente) registravel;
 		return false;
 	}
 

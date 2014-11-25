@@ -35,7 +35,6 @@ public class Jogo {
 		this.leitor = leitor;
 		this.juiz = Juiz.getInstance();
 		usuario = DAOController.getInstance().getUsuario(1);
-//		usuario = Fabrica.criaUsuario();
 		update();
 	}
 	
