@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
+import java.util.List;
 
 import Cartas.CartaDeColecao;
 import Cartas.Raridade;
@@ -111,5 +112,34 @@ public class CartaDAO extends DAO{
 		}		
 		
 		return null;		
+	}
+
+	public List<CartaDeColecao> loadCartas() {
+		LinkedList<CartaDeColecao> cartas = new LinkedList<CartaDeColecao>();
+		
+		String sql = "SELECT * FROM carta";
+		
+		try{
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			while(rs.next()){
+				int id = rs.getInt("id");
+				String nome = rs.getString("nome");
+				int atk = rs.getInt("atk");
+				int def = rs.getInt("def");
+				int custoMana = rs.getInt("custoMana");
+				int vida = rs.getInt("vida");
+				Raridade raridade = Raridade.valueOf(rs.getString("raridade"));
+				int preco = rs.getInt("preco");
+				
+				CartaDeColecao carta = new CartaDeColecao(nome, atk, def, custoMana, vida, raridade, preco);
+				carta.setId(id);
+				cartas.add(carta);
+			}
+		} catch(SQLException e){
+			e.printStackTrace();
+		}
+		
+		return cartas;
 	}
 }

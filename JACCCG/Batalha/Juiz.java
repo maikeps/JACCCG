@@ -2,10 +2,10 @@ package Batalha;
 
 import java.util.List;
 
-import BD.DAOFactory;
-import BD.OponenteDAO;
+import BD.DAOController;
 import Cartas.CartaDeColecao;
 import Colecao.Loja;
+import Colecao.Usuario;
 
 public class Juiz {
 
@@ -20,10 +20,11 @@ public class Juiz {
 
 	}
 
-	public void disponibilizaCarta(String carta) {
+	private CartaDeColecao disponibilizaCarta(String carta) {
 		//TODO testar para saber se .getCartas pega uma cópia da lista ou pega a lista em si.
 		List<CartaDeColecao> c = loja.getCartas();
 		(c.get(c.indexOf(carta))).setDisponibilidade(true);
+		errado
 		
 	}
 
@@ -34,12 +35,23 @@ public class Juiz {
 		
 		return instancia;
 	}
+	
+	public void gerenciaPosJogo(Oponente oponente, Usuario usuario, boolean jogadorVenceu, int recompensa){
+		atualizaOponente(oponente, jogadorVenceu);
+		if(jogadorVenceu){
+			daDinheiros(usuario, recompensa);
+			if(!(oponente.getCartaEquivalente().estaDisponivel)) disponibilizaCarta(oponente.getCartaEquivalente());
+		}
+	}
+	
+	private void daDinheiros(Usuario usuario, int qtd){
+		usuario.ganhaDinheiros(qtd);
+	}
 
-	public void atualizaOponente(Oponente oponente, boolean jogadorVenceu) {
+	private void atualizaOponente(Oponente oponente, boolean jogadorVenceu) {
 		if(jogadorVenceu) oponente.aumentaVezesDerrotado();
 		oponente.aumentaVezesBatalhado();
-		OponenteDAO oponenteDAO = DAOFactory.getInstance().getOponenteDAO();
-		oponenteDAO.update(oponente, oponente.getId());
+		DAOController.getInstance().updateOponente(oponente);
 	}
 
 }

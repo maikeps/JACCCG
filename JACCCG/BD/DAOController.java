@@ -6,6 +6,7 @@ import Batalha.Oponente;
 import Cartas.Carta;
 import Cartas.CartaDeColecao;
 import Colecao.Colecao;
+import Colecao.Loja;
 import Colecao.Usuario;
 
 public class DAOController {
@@ -50,5 +51,16 @@ public class DAOController {
 		OponenteDAO oponenteDAO = daoFactory.getOponenteDAO();
 		List<Oponente> oponentes = oponenteDAO.loadOponentes();
 		return oponentes;
+	}
+
+	public Loja getLoja() {
+		CartaDAO cartaDAO = daoFactory.getCartaDAO();
+		List<CartaDeColecao> cartas = cartaDAO.loadCartas();
+		return new Loja(cartas);
+	}
+
+	public void updateOponente(Oponente oponente) {
+		OponenteDAO oponenteDAO = DAOFactory.getInstance().getOponenteDAO();
+		oponenteDAO.update(oponente, oponente.getId());
 	}
 }

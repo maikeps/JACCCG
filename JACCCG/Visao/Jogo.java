@@ -30,11 +30,13 @@ public class Jogo {
 	private Leitor leitor;
 	private Usuario usuario;
 	private Juiz juiz;
+	private Loja loja;
 	
 	public Jogo(Leitor leitor){
 		this.leitor = leitor;
 		this.juiz = Juiz.getInstance();
 		usuario = DAOController.getInstance().getUsuario(1);
+		loja = DAOController.getInstance().getLoja();
 		update();
 	}
 	
@@ -129,12 +131,15 @@ public class Jogo {
 	private void anunciaVencedor(Partida partida) {
 		if(partida.acabou()){
 			Jogador vencedor = partida.getVencedor();
+			juiz.gerenciaPosJogo(partida.getOponente(), usuario, !(vencedor instanceof Oponente), partida.getOponente().getRecompensa());
 			if(vencedor instanceof Oponente){
 				System.out.println("Voce perdeu :(");
-				juiz.atualizaOponente(partida.getOponente(), false);
+//				juiz.gerenciaPosJogo(partida.getOponente(), usuario, false, partida.getOponente().getRecompensa());
+//				juiz.atualizaOponente(partida.getOponente(), false);
 			}else{
 				System.out.println("Parabens, voce venceu!\nA carta do " + partida.getOponente().getNome() + " foi liberada na loja para compra.");
-				juiz.atualizaOponente(partida.getOponente(), true);
+//				juiz.gerenciaPosJogo(partida.getOponente(), usuario, true, partida.getOponente().getRecompensa());
+//				juiz.atualizaOponente(partida.getOponente(), true);
 //				juiz.disponibilizaCarta(carta)
 			}
 		}
@@ -288,24 +293,24 @@ public class Jogo {
 			mostraMenuLoja();
 			System.out.println("Voce possui "+usuario.getDinheiros()+" dinheiros.");
 			input = leitor.leInt(1, 6);
-			Loja j = new Loja(Fabrica.criaCartasDoJogo());
+//			Loja j = new Loja(Fabrica.criaCartasDoJogo());
 			
 			switch(input){
 			case 1:
-				pesquisaPorNome(j);
+				pesquisaPorNome(loja);
 				break;
 			case 2:
-				pesquisaPorRaridade(j);
+				pesquisaPorRaridade(loja);
 				break;
 			case 3:
-				pesquisaPorValor(j);
+				pesquisaPorValor(loja);
 				break;
 			case 4:
-				pesquisarPorMana(j);
+				pesquisarPorMana(loja);
 				break;
 			case 5:
 				System.out.println("Todas as Cartas Disponiveis");
-				for(CartaDeColecao c : j.getCartas()){
+				for(CartaDeColecao c : loja.getCartas()){
 					System.out.println(c);
 				}
 				break;
