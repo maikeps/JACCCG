@@ -28,7 +28,27 @@ CREATE TABLE oponente(
 	recompensa INT NOT NULL,
 	numVezesDerrotado INT NOT NULL DEFAULT 0,
 	numVezesBatalhado INT NOT NULL DEFAULT 0,
-	PRIMARY KEY(id)
+	carta_equivalente INT NOT NULL,
+	PRIMARY KEY(id),
+	FOREIGN KEY(id_carta) REFERENCES carta(id),
+);
+
+CREATE TABLE oponente_liberado(
+	id INT NOT NULL AUTO_INCREMENT,
+	id_usuario INT NOT NULL,
+	id_oponente INT NOT NULL,
+	PRIMARY KEY(id),
+	FOREIGN KEY(id_usuario) REFERENCES usuario(id),
+	FOREIGN KEY(id_oponente) REFERENCES oponente(id)
+);
+
+CREATE TABLE carta_liberada(
+	id INT NOT NULL AUTO_INCREMENT,
+	id_usuario INT NOT NULL,
+	id_carta INT NOT NULL,
+	PRIMARY KEY(id),
+	FOREIGN KEY(id_usuario) REFERENCES usuario(id),
+	FOREIGN KEY(id_carta) REFERENCES carta(id)
 );
 
 CREATE TABLE baralho(
@@ -116,6 +136,17 @@ INSERT INTO baralho (nome, id_usuario) VALUES ("Baralho Teste", 1);
 INSERT INTO baralho (nome, id_usuario) VALUES ("Baralho 1", 1);
 INSERT INTO baralho (nome, id_usuario) VALUES ("Baralho 2", 1);
 INSERT INTO baralho (nome, id_usuario) VALUES ("Baralho 3", 1);
+
+###################################
+
+INSERT INTO carta_liberada (id_usuario, id_carta) VALUES (1, 1);
+INSERT INTO carta_liberada (id_usuario, id_carta) VALUES (1, 2);
+INSERT INTO carta_liberada (id_usuario, id_carta) VALUES (1, 3);
+INSERT INTO carta_liberada (id_usuario, id_carta) VALUES (1, 4);
+
+###################################
+
+INSERT INTO oponente_liberado (id_usuario, id_oponente) VALUES (1, 1);
 
 ###################################
 
