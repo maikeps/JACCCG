@@ -192,4 +192,29 @@ public class BaralhoDAO extends DAO{
 		}
 		return -1;
 	}
+
+	public boolean storeBaralho(int idColecao, RegistroDeBaralho baralho) {
+		String query = "SELECT id_usuario FROM colecao AS c WHERE id = "+idColecao;
+		
+		int idUsuario = 0;
+		
+		try{
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			if(rs.next()){
+				idUsuario = rs.getInt("id_usuario");			
+				String sql = "INSERT INTO baralho (nome, id_usuario) VALUES ("+baralho.getNome()+", "+idUsuario+")";
+				st.executeUpdate(sql);
+				for(CartaDeColecao carta : baralho.getCartas()){
+					sql = "INSERT INTO carta_baralho (id_baralho, id_carta) VALUES ("+baralho.getId()+", "+carta.getId()+")";
+					st.executeUpdate(sql);
+				}
+				return true;
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
 }

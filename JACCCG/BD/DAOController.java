@@ -7,6 +7,7 @@ import Cartas.Carta;
 import Cartas.CartaDeColecao;
 import Colecao.Colecao;
 import Colecao.Loja;
+import Colecao.RegistroDeBaralho;
 import Colecao.Usuario;
 
 public class DAOController {
@@ -67,5 +68,36 @@ public class DAOController {
 	public void updateCartaLiberada(int idCarta, int idUsuario){
 		CartaDAO cartaDAO = DAOFactory.getInstance().getCartaDAO();
 		cartaDAO.storeCartaLiberada(idCarta, idUsuario);
+	}
+
+	public void updateDinheirosUsuario(int idUsuario, int dinheiros) {
+		UsuarioDAO usuarioDAO = DAOFactory.getInstance().getUsuarioDAO();
+		usuarioDAO.updateDinheiros(idUsuario, dinheiros);
+	}
+
+	public void storeCartaNaColecao(int idColecao, int idCarta) {
+		ColecaoDAO colecaoDAO = DAOFactory.getInstance().getColecaoDAO();
+		colecaoDAO.storeCartaNaColecao(idColecao, idCarta);
+	}
+
+	public void storeBaralho(int idColecao, RegistroDeBaralho baralho) {
+		BaralhoDAO baralhoDAO = DAOFactory.getInstance().getBaralhoDAO();
+		baralhoDAO.storeBaralho(idColecao, baralho);
+	}
+
+	public void deleteCartaColecao(int idColecao, int idCarta) {
+		ColecaoDAO colecaoDAO = DAOFactory.getInstance().getColecaoDAO();
+		colecaoDAO.deleteCartaColecao(idColecao, idCarta);
+	}
+
+	public List<Oponente> getOponentesLiberados(int idUsuario) {
+		OponenteDAO oponenteDAO = DAOFactory.getInstance().getOponenteDAO();
+		List<Oponente> oponentes = oponenteDAO.loadOponentesLiberados(idUsuario);
+		return oponentes;
+	}
+
+	public void liberaOponente(int idUsuario, int idProxOponente) {
+		OponenteDAO oponenteDAO = DAOFactory.getInstance().getOponenteDAO();
+		oponenteDAO.liberaOponente(idUsuario, idProxOponente);
 	}
 }

@@ -55,5 +55,19 @@ public class UsuarioDAO extends DAO{
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	public boolean updateDinheiros(int idUsuario, int dinheiros) {
+		String sql = "UPDATE usuario SET dinheiros = "+dinheiros+" WHERE id = "+idUsuario;
+		
+		try{
+			Statement st = con.createStatement();
+			st.executeUpdate(sql);
+			return true;
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
 	
 }

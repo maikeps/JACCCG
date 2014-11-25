@@ -3,7 +3,6 @@ package Visao;
 import java.util.List;
 
 import BD.DAOController;
-import BD.DAOFactory;
 import Batalha.Baralho;
 import Batalha.Jogador;
 import Batalha.Juiz;
@@ -13,7 +12,6 @@ import Batalha.Oponente;
 import Batalha.Partida;
 import Cartas.CartaDeBatalha;
 import Cartas.CartaDeColecao;
-import Cartas.Fabrica;
 import Cartas.Raridade;
 import Colecao.Colecao;
 import Colecao.Loja;
@@ -21,6 +19,7 @@ import Colecao.RegistroDeBaralho;
 import Colecao.Usuario;
 import Controle.Leitor;
 import Exceptions.DinheirosInsuficientesException;
+import Exceptions.LimiteDeCartasExcedidoException;
 import Exceptions.ManaInsuficienteException;
 import Exceptions.MesaCheiaException;
 import Exceptions.MesaVaziaException;
@@ -37,6 +36,7 @@ public class Jogo {
 		this.juiz = Juiz.getInstance();
 		usuario = DAOController.getInstance().getUsuario(1);
 		loja = DAOController.getInstance().getLoja();
+		juiz.setLoja(loja);
 		update();
 	}
 	
@@ -85,7 +85,7 @@ public class Jogo {
 	}
 	
 	private Oponente selecionaOponente() {
-		List<Oponente> oponentes = DAOController.getInstance().getOponentes();
+		List<Oponente> oponentes = DAOController.getInstance().getOponentesLiberados(usuario.getId());
 		System.out.println("0 - Cancelar");
 		for(int i = 0; i < oponentes.size(); i++){
 			Oponente o = oponentes.get(i);
@@ -367,6 +367,8 @@ public class Jogo {
 			System.out.println("Voce comprou a carta "+cartas.get(indexM).getNome()+" por "+cartas.get(indexM).getPreco()+" dinheiros.");
 		} catch (DinheirosInsuficientesException e) {
 			System.out.println("Desculpe, voce nao tem dinheiros suficientes.");
+		} catch (LimiteDeCartasExcedidoException e) {
+			System.out.println("Limite de cartas excedido.");
 		}
 	}
 
@@ -388,6 +390,8 @@ public class Jogo {
 			System.out.println("Voce comprou a carta "+cartas.get(indexN).getNome()+" por "+cartas.get(indexN).getPreco()+" dinheiros.");
 		} catch (DinheirosInsuficientesException e) {
 			System.out.println("Desculpe, voce nao tem dinheiros suficientes.");
+		} catch (LimiteDeCartasExcedidoException e) {
+			System.out.println("Limite de cartas excedido.");
 		}
 	}
 
@@ -421,6 +425,8 @@ public class Jogo {
 			System.out.println("Voce comprou a carta "+cartas.get(indexNaCol).getNome()+" por "+cartas.get(indexNaCol).getPreco()+" dinheiros.");
 		} catch (DinheirosInsuficientesException e) {
 			System.out.println("Desculpe, voce nao tem dinheiros suficientes.");
+		} catch (LimiteDeCartasExcedidoException e) {
+			System.out.println("Limite de cartas excedido.");
 		}
 	}
 
@@ -441,6 +447,8 @@ public class Jogo {
 			System.out.println("Voce comprou a carta "+cartas.get(x).getNome()+" por "+cartas.get(x).getPreco()+" dinheiros.");
 		} catch (DinheirosInsuficientesException e) {
 			System.out.println("Desculpe, voce nao tem dinheiros suficientes.");
+		} catch (LimiteDeCartasExcedidoException e) {
+			System.out.println("Limite de cartas excedido.");
 		}
 	}
 

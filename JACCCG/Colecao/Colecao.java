@@ -3,6 +3,7 @@ package Colecao;
 import java.util.LinkedList;
 import java.util.List;
 
+import BD.DAOController;
 import BD.Registravel;
 import Cartas.CartaDeColecao;
 import Exceptions.BaralhoJaExistenteException;
@@ -36,6 +37,7 @@ public class Colecao implements Registravel{
 	public void adicionaCarta(CartaDeColecao carta) throws LimiteDeCartasExcedidoException{
 	//	if(!podeAdicionarCarta(carta)) throw new LimiteDeCartasExcedidoException(":)");
 		colecao.add(carta);
+		DAOController.getInstance().storeCartaNaColecao(getId(), carta.getId());
 	}
 
 	public List<CartaDeColecao> getCartas() {
@@ -49,6 +51,7 @@ public class Colecao implements Registravel{
 	public void addBaralho(RegistroDeBaralho baralho) throws BaralhoJaExistenteException{
 		if(baralhos.contains(baralho)) throw new BaralhoJaExistenteException("caralho do seu avo ja existente");
 		baralhos.add(baralho);
+		DAOController.getInstance().storeBaralho(id, baralho);
 	}
 	
 	public void removeDaColecao(CartaDeColecao carta) throws CartaSendoUtilizadaException, CartaNaoEncontradaException{
@@ -60,6 +63,7 @@ public class Colecao implements Registravel{
 			}
 		}
 		colecao.remove(carta);
+		DAOController.getInstance().deleteCartaColecao(id, carta.getId());
 	}
 	
 

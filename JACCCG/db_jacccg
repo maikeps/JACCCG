@@ -30,7 +30,7 @@ CREATE TABLE oponente(
 	numVezesBatalhado INT NOT NULL DEFAULT 0,
 	carta_equivalente INT NOT NULL,
 	PRIMARY KEY(id),
-	FOREIGN KEY(id_carta) REFERENCES carta(id),
+	FOREIGN KEY(carta_equivalente) REFERENCES carta(id)
 ); 
 
 CREATE TABLE oponente_liberado(
@@ -104,13 +104,7 @@ CREATE TABLE baralho_colecao(
 
 ####################################
 
-INSERT INTO usuario (nome, dinheiros) VALUES ("Teste", 0);
-
-###################################
-
-INSERT INTO oponente (nome, vida, recompensa) VALUES ("Lider Goblin", 20, 50);
-INSERT INTO oponente (nome, vida, recompensa) VALUES ("Paladino", 30, 75);
-INSERT INTO oponente (nome, vida, recompensa) VALUES ("Grande Alpha", 60, 100);
+INSERT INTO usuario (nome, dinheiros) VALUES ("Usuario", 0);
 
 ###################################
 
@@ -128,7 +122,13 @@ INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("In
 INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Lider Goblin", 6, 3, 1, 2, 'RARA', 300);
 INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Paladino", 4, 5, 3, 3, 'RARA', 350);
 INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Grande Alpha", 14, 0, 4, 8, 'RARA', 680);
-INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Pudim", 3, 0, 0, 1, 'COMUM', 25);
+INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Poodim", 3, 0, 0, 1, 'COMUM', 25);
+
+###################################
+
+INSERT INTO oponente (nome, vida, recompensa, carta_equivalente) VALUES ("Lider Goblin", 20, 50, 12);
+INSERT INTO oponente (nome, vida, recompensa, carta_equivalente) VALUES ("Paladino", 30, 75, 13);
+INSERT INTO oponente (nome, vida, recompensa, carta_equivalente) VALUES ("Grande Alpha", 6, 1000, 14);
 
 ###################################
 

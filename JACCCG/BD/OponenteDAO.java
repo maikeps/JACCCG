@@ -42,7 +42,7 @@ public class OponenteDAO extends DAO{
 				recompensa = rs.getInt("recompensa");
 				numVezesDerrotado = rs.getInt("numVezesDerrotado");
 				numVezesBatalhado = rs.getInt("numVezesBatalhado");
-				int idCarta = rs.getInt("id_carta");
+				int idCarta = rs.getInt("carta_equivalente");
 				cartaEquivalente = (CartaDeColecao) cartaDAO.load(idCarta);
 			}
 		} catch (SQLException e) {
@@ -69,7 +69,6 @@ public class OponenteDAO extends DAO{
 		int batalhado = oponente.getVezesBatalhado();
 		
 		String sql = "UPDATE oponente SET numVezesDerrotado = "+derrotado+", numVezesBatalhado = "+batalhado+" WHERE id = "+id;
-		System.out.println(sql);
 		try{
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
@@ -116,6 +115,20 @@ public class OponenteDAO extends DAO{
 		}
 		
 		return oponentes;
+	}
+
+	public boolean liberaOponente(int idUsuario, int idProxOponente) {
+		String sql = "INSERT INTO oponente_liberado (id_usuario, id_oponente) VALUES ("+idUsuario+", "+idProxOponente+")";
+		
+		try{
+			Statement st = con.createStatement();
+			st.executeUpdate(sql);
+			return true;
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		
+		return false;
 	}
 
 }

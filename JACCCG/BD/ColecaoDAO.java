@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import Cartas.CartaDeColecao;
+import Cartas.Raridade;
 import Colecao.Colecao;
 import Colecao.RegistroDeBaralho;
 
@@ -84,5 +85,44 @@ public class ColecaoDAO extends DAO {
 		Colecao colecao = new Colecao(cartas, baralhos);
 		colecao.setId(id);
 		return colecao;
-	}	
+	}
+	
+	public boolean storeCartaNaColecao(int idColecao, int idCarta){
+//		String query = "SELECT cc.id FROM carta_colecao AS cc "
+//				+ "INNER JOIN colecao AS c ON c.id = cc.id_colecao "
+//				+ "WHERE c.id_usuario = "+ idUsuario + " AND cc.id_carta = "+idCarta;
+//		 
+		String query = "SELECT * FROM carta_colecao WHERE id_colecao = "+idColecao+" AND id_carta = "+idCarta;		
+		String sql = "INSERT INTO carta_colecao (id_colecao, id_carta) VALUES ("+idColecao+", "+idCarta+")";
+		
+		CartaDeColecao carta = (CartaDeColecao) cartaDAO.load(idCarta);
+		Raridade raridade = carta.getRaridade();
+		int max = raridade.ordinal()+1;
+		
+		try{
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			int qtd = rs.getFetchSize();
+			if(qtd < max) st.executeUpdate(sql);
+			return true;
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+
+	public boolean deleteCartaColecao(int idColecao, int idCarta) {
+		String sql = "DELETE FROM carta_colecao WHERE id_colecao = "+idColecao+" AND id_carta = "+idCarta;
+		
+		try{
+			Statement st = con.createStatement();
+			st.executeUpdate(sql);
+			return true;
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
 }

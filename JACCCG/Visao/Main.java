@@ -7,7 +7,16 @@ public class Main {
 	public static void main(String[] args){
 //		DAOFactory daoFactory = DAOFactory.getInstance();
 //		BaralhoDAO baralhoDAO = daoFactory.getBaralhoDAO();
-//		CartaDAO cartaDAO = daoFactory.getCartaDAO();
+//		CartaDAO cartaDAO = daoFactory.getCartaDAO();		
+//
+//		List<CartaDeColecao> cartas = new LinkedList<CartaDeColecao>();
+//		cartas.add((CartaDeColecao) cartaDAO.load(1));
+//		cartas.add((CartaDeColecao) cartaDAO.load(2));
+//		cartas.add((CartaDeColecao) cartaDAO.load(3));
+//		cartas.add((CartaDeColecao) cartaDAO.load(3));
+//		RegistroDeBaralho rb = new RegistroDeBaralho(cartas, "Teste 2", 1);
+//				
+//		baralhoDAO.store(rb, 1);
 //		ColecaoDAO colecaoDAO = daoFactory.getColecaoDAO();
 //		UsuarioDAO usuarioDAO = daoFactory.getUsuarioDAO();
 //		OponenteDAO oponenteDAO = daoFactory.getOponenteDAO();
@@ -58,6 +67,7 @@ public class Main {
 //		
 		
 		Leitor c = new Leitor();
-		Jogo j = new Jogo(c);		
+		Jogo j = new Jogo(c);
+		
 	}
 }

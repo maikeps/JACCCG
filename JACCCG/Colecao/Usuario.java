@@ -1,5 +1,6 @@
 package Colecao;
 
+import BD.DAOController;
 import BD.Registravel;
 import Cartas.CartaDeColecao;
 import Exceptions.LimiteDeCartasExcedidoException;
@@ -21,6 +22,7 @@ public class Usuario implements Registravel{
 
 	public void ganhaDinheiros(int qtd) {
 		dinheiros+=qtd;
+		DAOController.getInstance().updateDinheirosUsuario(getId(), getDinheiros());
 	}
 
 	public void perdeDinheiros(int qtd) {
@@ -28,7 +30,9 @@ public class Usuario implements Registravel{
 			dinheiros = 0;
 		}**/
 		dinheiros -= qtd;
+		if(dinheiros < 0) dinheiros = 0;
 		
+		DAOController.getInstance().updateDinheirosUsuario(getId(), getDinheiros());		
 	}
 
 	public int getDinheiros(){

@@ -3,6 +3,7 @@ package Colecao;
 import java.util.LinkedList;
 import java.util.List;
 
+import BD.DAOController;
 import Cartas.CartaDeColecao;
 import Exceptions.CartaNaoEncontradaException;
 import Exceptions.CartaSendoUtilizadaException;
@@ -21,15 +22,17 @@ public class Loja {
 	}
 	/**
 	 * Os nomes dos pr�ximos dois metodos, estao do POV da Loja.
+	 * @throws LimiteDeCartasExcedidoException 
 	 */
-	public void vende(CartaDeColecao carta, Usuario comprador) throws DinheirosInsuficientesException{
+	public void vende(CartaDeColecao carta, Usuario comprador) throws DinheirosInsuficientesException, LimiteDeCartasExcedidoException{
 		if(comprador.getDinheiros() < carta.getPreco()) throw new DinheirosInsuficientesException("o pobreza");
-		try{
-			comprador.adicionaNaColecao(carta);
-			comprador.perdeDinheiros(carta.getPreco());
-		}catch(LimiteDeCartasExcedidoException e){
-			System.out.println("Naum Pode comprar.");
-		}
+//		try{
+		if(comprador.getColecao().getOcorrenciasCarta(carta) >= carta.getRaridade().ordinal()+1) throw new LimiteDeCartasExcedidoException("Nao pode comprar mais dessa carta");
+		comprador.adicionaNaColecao(carta);
+		comprador.perdeDinheiros(carta.getPreco());
+//		}catch(LimiteDeCartasExcedidoException e){
+//			System.out.println("Naum Pode comprar.");
+//		}
 	}
 
 	public void compra(CartaDeColecao carta, Usuario vendedor) throws CartaNaoEncontradaException {
@@ -37,7 +40,7 @@ public class Loja {
 			vendedor.getColecao().removeDaColecao(carta);
 			vendedor.ganhaDinheiros(carta.getPreco());
 		}catch(CartaSendoUtilizadaException a){
-			System.out.println("Naum pode vender.");
+			System.out.println("Nao pode vender.");
 		}
 	}
 	

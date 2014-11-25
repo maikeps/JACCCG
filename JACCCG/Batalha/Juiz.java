@@ -10,23 +10,11 @@ import Colecao.Usuario;
 public class Juiz {
 
 	private Loja loja;
-
 	private static Juiz instancia;
 
-	/**
-	 *  
-	 */
 	private Juiz() {
 
 	}
-
-//	private CartaDeColecao disponibilizaCarta(String carta) {
-//		//TODO testar para saber se .getCartas pega uma cópia da lista ou pega a lista em si.
-//		List<CartaDeColecao> c = loja.getCartas();
-//		(c.get(c.indexOf(carta))).setDisponibilidade(true);
-//		errado
-//		
-//	}
 	
 	private void disponibilizaCarta(CartaDeColecao carta, int idUsuario){
 		List<CartaDeColecao> cartas = loja.getCartas();
@@ -52,6 +40,7 @@ public class Juiz {
 		if(jogadorVenceu){
 			daDinheiros(usuario, recompensa);
 			if(!(oponente.getCartaEquivalente().estaDisponivel())) disponibilizaCarta(oponente.getCartaEquivalente(), usuario.getId());
+			DAOController.getInstance().liberaOponente(usuario.getId(), oponente.getId()+1);
 		}
 	}
 	
@@ -64,5 +53,8 @@ public class Juiz {
 		oponente.aumentaVezesBatalhado();
 		DAOController.getInstance().updateOponente(oponente);
 	}
-
+	
+	public void setLoja(Loja loja){
+		this.loja = loja;
+	}
 }
