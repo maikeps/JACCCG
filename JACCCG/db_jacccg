@@ -132,10 +132,9 @@ INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Pu
 
 ###################################
 
-INSERT INTO baralho (nome, id_usuario) VALUES ("Baralho Teste", 1);
-INSERT INTO baralho (nome, id_usuario) VALUES ("Baralho 1", 1);
-INSERT INTO baralho (nome, id_usuario) VALUES ("Baralho 2", 1);
-INSERT INTO baralho (nome, id_usuario) VALUES ("Baralho 3", 1);
+INSERT INTO baralho (nome, id_usuario) VALUES ("Humans and Pals", 1);
+INSERT INTO baralho (nome, id_usuario) VALUES ("Goblins and Fiends", 1);
+INSERT INTO baralho (nome, id_usuario) VALUES ("No Hands", 1);
 
 ###################################
 
@@ -150,65 +149,57 @@ INSERT INTO oponente_liberado (id_usuario, id_oponente) VALUES (1, 1);
 
 ###################################
 
-#Baralho Teste
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (1, 1);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (1, 2);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (1, 3);
+#Basic I - Humans and Pals
 INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (1, 4);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (1, 1);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (1, 1);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (1, 2);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (1, 4);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (1, 4);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (1, 5);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (1, 5);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (1, 5);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (1, 6);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (1, 7);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (1, 7);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (1, 7);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (1, 8);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (1, 9);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (1, 15);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (1, 15);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (1, 15);
 
-#Baralho 1
+
+#Basic II - Goblins and Fiends
 INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (2, 1);
 INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (2, 1);
 INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (2, 1);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (2, 4);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (2, 4);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (2, 5);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (2, 6);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (2, 6);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (2, 7);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (2, 7);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (2, 8);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (2, 9);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (2, 10);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (2, 13);
 INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (2, 2);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (2, 2);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (2, 2);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (2, 3);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (2, 7);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (2, 7);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (2, 7);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (2, 10);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (2, 11);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (2, 15);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (2, 15);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (2, 15);
 
-#Baralho 2
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (3, 2);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (3, 2);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (3, 2);
+#Basic III - No Hands
 INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (3, 1);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (3, 14);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (3, 6);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (3, 6);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (3, 7);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (3, 7);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (3, 1);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (3, 1);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (3, 2);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (3, 2);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (3, 4);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (3, 4);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (3, 4);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (3, 5);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (3, 5);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (3, 8);
 INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (3, 8);
 INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (3, 9);
 INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (3, 10);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (3, 15);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (3, 4);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (3, 4);
-
-#Baralho 3
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (4, 1);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (4, 2);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (4, 2);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (4, 12);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (4, 13);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (4, 5);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (4, 6);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (4, 6);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (4, 7);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (4, 7);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (4, 8);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (4, 9);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (4, 15);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (4, 11);
-INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (4, 4);
+INSERT INTO carta_baralho (id_baralho, id_carta) VALUES (3, 11);
 
 
 ###################################
@@ -253,6 +244,49 @@ INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (1, 15);
 INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (1, 9);
 
 ###################################
+
+###################################
+
+#Paladino
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (2, 4);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (2, 4);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (2, 6);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (2, 6);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (2, 11);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (2, 13);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (2, 10);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (2, 5);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (2, 5);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (2, 5);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (2, 1);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (2, 1);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (2, 1);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (2, 3);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (2, 3);
+
+###################################
+
+###################################
+
+#Grande Alpha
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (3, 5);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (3, 5);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (3, 7);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (3, 7);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (3, 7);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (3, 8);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (3, 8);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (3, 9);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (3, 9);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (3, 14);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (3, 11);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (3, 10);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (3, 10);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (3, 3);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (3, 3);
+
+###################################
+
 
 #Baralhos do jogador
 SELECT u.nome AS Nome, b.nome AS Baralho FROM usuario AS u
