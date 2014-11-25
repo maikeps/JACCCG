@@ -31,7 +31,7 @@ CREATE TABLE oponente(
 	carta_equivalente INT NOT NULL,
 	PRIMARY KEY(id),
 	FOREIGN KEY(id_carta) REFERENCES carta(id),
-);
+); 
 
 CREATE TABLE oponente_liberado(
 	id INT NOT NULL AUTO_INCREMENT,
