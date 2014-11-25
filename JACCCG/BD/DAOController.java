@@ -63,4 +63,9 @@ public class DAOController {
 		OponenteDAO oponenteDAO = DAOFactory.getInstance().getOponenteDAO();
 		oponenteDAO.update(oponente, oponente.getId());
 	}
+	
+	public void updateCartaLiberada(int idCarta, int idUsuario){
+		CartaDAO cartaDAO = DAOFactory.getInstance().getCartaDAO();
+		cartaDAO.storeCartaLiberada(idCarta, idUsuario);
+	}
 }

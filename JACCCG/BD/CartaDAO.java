@@ -7,8 +7,10 @@ import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
+import Cartas.Carta;
 import Cartas.CartaDeColecao;
 import Cartas.Raridade;
+import Colecao.Loja;
 
 
 public class CartaDAO extends DAO{
@@ -143,9 +145,53 @@ public class CartaDAO extends DAO{
 		return cartas;
 	}
 	
-	public List<CartaDeBatalha> loadCartasLiberadas(int idUsuario){
-		List<CartaDeBatalha> cartas = new LinkedList<CartaDeBatalha>();
+	public List<CartaDeColecao> loadCartasLiberadas(int idUsuario){
+		List<CartaDeColecao> cartas = new LinkedList<CartaDeColecao>();
 		
-		String sql = "SELECT * FROM "
+		String sql = "SELECT * FROM carta_liberada WHERE id_usuario = "+idUsuario;
+		
+		try{
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			while(rs.next()){
+				int idCarta = rs.getInt("id_carta");
+				cartas.add((CartaDeColecao) load(idCarta));
+			}
+		} catch(SQLException e){
+			e.printStackTrace();
+		}
+		
+		return cartas;
 	}
+	
+	public boolean storeCartaLiberada(int idCarta, int idUsuario){
+		String query = "SELECT id FROM carta_liberada WHERE id_carta = "+idCarta+" AND id_usuario = "+idUsuario;
+		String sql = "INSERT INTO carta_liberada (id_usuario, id_carta) VALUES ("+idUsuario+", "+idCarta+");";
+		
+		try{
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			if(!rs.next()){
+				st.executeUpdate(sql);
+			}
+			return true;
+		} catch(SQLException e){
+			e.printStackTrace();
+		}
+
+		return false;
+	}
+	
+//	public boolean atualizaCartasLiberadas(Loja loja, int idUsuario){
+//		List<CartaDeColecao> cartasLiberadas = loja.getCartas();
+//		List<CartaDeColecao> cartasLiberadasAntigas = loadCartasLiberadas(idUsuario);
+//		
+//		for(CartaDeColecao c : cartasLiberadas){
+//			for(CartaDeColecao ca : cartasLiberadasAntigas){
+//				if(c.getId() == ca.getId());
+//			}
+//		}
+//		
+//		return false;
+//	}
 }

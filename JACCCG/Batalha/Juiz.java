@@ -28,11 +28,12 @@ public class Juiz {
 //		
 //	}
 	
-	private void disponibilizaCarta(CartaDeColecao carta){
+	private void disponibilizaCarta(CartaDeColecao carta, int idUsuario){
 		List<CartaDeColecao> cartas = loja.getCartas();
 		for(CartaDeColecao c : cartas){
 			if(c.getId() == carta.getId()){
 				c.setDisponibilidade(true);
+				DAOController.getInstance().updateCartaLiberada(c.getId(), idUsuario);
 				return;
 			}
 		}
@@ -50,7 +51,7 @@ public class Juiz {
 		atualizaOponente(oponente, jogadorVenceu);
 		if(jogadorVenceu){
 			daDinheiros(usuario, recompensa);
-			if(!(oponente.getCartaEquivalente().estaDisponivel())) disponibilizaCarta(oponente.getCartaEquivalente());
+			if(!(oponente.getCartaEquivalente().estaDisponivel())) disponibilizaCarta(oponente.getCartaEquivalente(), usuario.getId());
 		}
 	}
 	
