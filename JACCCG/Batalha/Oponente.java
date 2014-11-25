@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 
 import BD.Registravel;
 import Cartas.CartaDeBatalha;
+import Controle.Logger;
 import Exceptions.ManaInsuficienteException;
 import Exceptions.MesaCheiaException;
 import Exceptions.MesaVaziaException;
@@ -22,6 +23,7 @@ public class Oponente extends Jogador implements Registravel{
 		this.recompensa = recompensa;
 		this.vezesBatalhado = vezesBatalhado;
 		this.vezesDerrotado = vezesDerrotado;
+		this.addObserver(Logger.getInstance());
 	}
 
 	public boolean querJogar(){
@@ -73,11 +75,13 @@ public class Oponente extends Jogador implements Registravel{
 		CartaDeBatalha atacante = selecionaCartaAtacante();
 		CartaDeBatalha alvo = selecionaAlvo(atacante, mesaDoJogador);
 		atacante.ataca(alvo);
-		System.out.println(atacante.getNome() + "("+atacante.getAtaque()+") atacou "+alvo.getNome()+"("+alvo.getDefesa()+")");
+		this.setChanged();
+		this.notifyObservers(atacante.getNome() + "("+atacante.getAtaque()+") atacou "+alvo.getNome()+"("+alvo.getDefesa()+")");
 		if(alvo.estaMorta()){
 			try {
 				mesaDoJogador.removeCarta(alvo);
-				System.out.println("Alvo " +alvo.getNome()+" morreu");
+				this.setChanged();
+				this.notifyObservers("Alvo " +alvo.getNome()+" morreu");
 			} catch (MesaVaziaException e) {
 				e.printStackTrace();
 			}
@@ -85,7 +89,8 @@ public class Oponente extends Jogador implements Registravel{
 		if(atacante.estaMorta()){
 			try {
 				mesa.removeCarta(atacante);
-				System.out.println("Atacante" +atacante.getNome()+" morreu");
+				this.setChanged();
+				this.notifyObservers("Atacante" +atacante.getNome()+" morreu");
 			} catch (MesaVaziaException e) {
 				e.printStackTrace();
 			}
