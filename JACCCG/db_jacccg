@@ -88,25 +88,27 @@ INSERT INTO usuario (nome, dinheiros) VALUES ("Teste", 0);
 
 ###################################
 
-INSERT INTO oponente (nome, vida, recompensa) VALUES ("Oponente Teste", 20, 50);
+INSERT INTO oponente (nome, vida, recompensa) VALUES ("Lider Goblin", 20, 50);
+INSERT INTO oponente (nome, vida, recompensa) VALUES ("Paladino", 30, 75);
+INSERT INTO oponente (nome, vida, recompensa) VALUES ("Grande Alpha", 60, 100);
 
 ###################################
 
-INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Goblin1", 2, 1, 1, 1, 'COMUM', 100);
-INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Goblin2", 2, 2, 1, 1, 'COMUM', 110);
-INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Goblin3", 4, 1, 1, 1, 'INCOMUM', 201);
-INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Goblin4", 4, 2, 2, 2, 'INCOMUM', 205);
-INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Goblin5", 6, 2, 2, 3, 'RARA', 650);
-INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Humanoide1", 2, 1, 1, 2, 'COMUM', 50);
-INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Humanoide2", 2, 1, 1, 4, 'COMUM', 130);
-INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Humanoide3", 4, 3, 2, 2, 'INCOMUM', 290);
-INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Humanoide4", 4, 3, 2, 3, 'INCOMUM', 140);
-INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Humanoide5", 4, 3, 3, 3, 'RARA', 540);
-INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Humanoide6", 4, 3, 4, 3, 'RARA', 540);
-INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Fera1", 8, 0, 4, 2, 'INCOMUM', 300);
-INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Fera2", 10, 0, 2, 2, 'RARA', 400);
-INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Monstruoso1", 12, 3, 6, 4, 'INCOMUM', 350);
-INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Monstruoso2", 10, 2, 5, 4, 'RARA', 600);
+INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Recruta Goblin", 5, 2, 1, 2, 'COMUM', 100);
+INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Soldado Goblin", 6, 3, 2, 3, 'COMUM', 150);
+INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Goblin Enfurecido", 7, 3, 3, 4, 'INCOMUM', 175);
+INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Escudeiro", 4, 3, 1, 2, 'COMUM', 100);
+INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Soldado", 4, 3, 2, 3, 'COMUM', 150);
+INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Barbaro", 6, 3, 3, 5, 'INCOMUM', 175);
+INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Filhote Feroz", 6, 0, 1, 4, 'COMUM', 125);
+INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Companheiro da Matilha", 8, 0, 2, 5, 'INCOMUM', 170);
+INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Lobo Atroz", 10, 0, 4, 6, 'INCOMUM', 225);
+INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Dinobulba", 10, 5, 5, 3, 'INCOMUM', 175);
+INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Infernal", 12, 5, 5, 2, 'INCOMUM', 175);
+INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Lider Goblin", 6, 3, 1, 2, 'RARA', 300);
+INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Paladino", 4, 5, 3, 3, 'RARA', 350);
+INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Grande Alpha", 14, 0, 4, 8, 'RARA', 680);
+INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Pudim", 3, 0, 0, 1, 'COMUM', 25);
 
 ###################################
 
@@ -202,22 +204,22 @@ INSERT INTO carta_colecao(id_colecao, id_carta) VALUES (1, 15);
 
 ###################################
 
-#Oponente Teste
+#Lider Goblin
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (1, 1);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (1, 1);
 INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (1, 1);
 INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (1, 2);
 INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (1, 2);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (1, 3);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (1, 3);
 INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (1, 12);
-INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (1, 13);
-INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (1, 5);
-INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (1, 6);
-INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (1, 6);
 INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (1, 7);
 INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (1, 7);
 INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (1, 8);
-INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (1, 9);
 INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (1, 15);
-INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (1, 11);
-INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (1, 4);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (1, 15);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (1, 15);
+INSERT INTO carta_oponente (id_oponente, id_carta) VALUES (1, 9);
 
 ###################################
 

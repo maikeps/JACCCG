@@ -1,11 +1,13 @@
 package Batalha;
 
+import java.util.Observable;
+
 import Cartas.CartaDeBatalha;
 import Exceptions.BaralhoVazioException;
 import Exceptions.ManaInsuficienteException;
 import Exceptions.MesaCheiaException;
 
-public class Jogador {
+public class Jogador extends Observable{
 	
 	private final int MPT = 1;//mana por turno
 	private final int MAX_MANA = 10;
