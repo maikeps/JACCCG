@@ -3,17 +3,19 @@ package Colecao;
 import java.util.LinkedList;
 import java.util.List;
 
+import BD.Registravel;
 import Cartas.CartaDeColecao;
 import Exceptions.BaralhoJaExistenteException;
 import Exceptions.CartaNaoEncontradaException;
 import Exceptions.CartaSendoUtilizadaException;
 import Exceptions.LimiteDeCartasExcedidoException;
 
-public class Colecao {
+public class Colecao implements Registravel{
 
 	private List<CartaDeColecao> colecao;
 	private List<RegistroDeBaralho> baralhos;
 	private Pesquisador pesquisador;
+	private int id;
 
 	public Colecao(List<CartaDeColecao> colecao, List<RegistroDeBaralho> baralhos) {
 		this.colecao = colecao;
@@ -71,5 +73,15 @@ public class Colecao {
 			if(carta.getNome().equals(c.getNome())) cont++;
 		}
 		return cont;
+	}
+
+	@Override
+	public int getId() {
+		return id;
+	}
+
+	@Override
+	public void setId(int id) {
+		this.id = id;
 	}
 }

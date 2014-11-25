@@ -110,7 +110,9 @@ public class BaralhoDAO extends DAO{
 				cartas.add((CartaDeColecao) cartaDAO.load(idCarta));
 			}
 			
-			return new RegistroDeBaralho(cartas, nome, cartas.size());
+			RegistroDeBaralho baralho = new RegistroDeBaralho(cartas, nome, cartas.size());
+			baralho.setId(id);
+			return baralho;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -163,7 +165,8 @@ public class BaralhoDAO extends DAO{
 				cartas.add((CartaDeColecao) cartaDAO.load(rs.getInt("c.id")));
 			}
 			
-			return new RegistroDeBaralho(cartas, nome, cartas.size());
+			RegistroDeBaralho baralho = new RegistroDeBaralho(cartas, nome, cartas.size());
+			return baralho;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

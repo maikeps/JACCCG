@@ -2,6 +2,8 @@ package Batalha;
 
 import java.util.List;
 
+import BD.DAOFactory;
+import BD.OponenteDAO;
 import Cartas.CartaDeColecao;
 import Colecao.Loja;
 
@@ -31,6 +33,13 @@ public class Juiz {
 		};
 		
 		return instancia;
+	}
+
+	public void atualizaOponente(Oponente oponente, boolean jogadorVenceu) {
+		if(jogadorVenceu) oponente.aumentaVezesDerrotado();
+		oponente.aumentaVezesBatalhado();
+		OponenteDAO oponenteDAO = DAOFactory.getInstance().getOponenteDAO();
+		oponenteDAO.update(oponente, oponente.getId());
 	}
 
 }

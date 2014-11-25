@@ -46,7 +46,9 @@ public class OponenteDAO extends DAO{
 		}
 		
 		Baralho baralho = new Baralho(baralhoDAO.loadBaralhoOponente(id));
-		return new Oponente(nome, baralho, vida, recompensa, numVezesDerrotado, numVezesBatalhado);
+		Oponente oponente = new Oponente(nome, baralho, vida, recompensa, numVezesDerrotado, numVezesBatalhado);
+		oponente.setId(id);
+		return oponente;
 	}
 
 	@Override
@@ -58,6 +60,18 @@ public class OponenteDAO extends DAO{
 	@Override
 	public boolean update(Registravel registravel, int id) {
 		Oponente oponente = (Oponente) registravel;
+		int derrotado = oponente.getVezesDerrotado();
+		int batalhado = oponente.getVezesBatalhado();
+		
+		String sql = "UPDATE oponente SET numVezesDerrotado = "+derrotado+", numVezesBatalhado = "+batalhado+" WHERE id = "+id;
+		System.out.println(sql);
+		try{
+			Statement st = con.createStatement();
+			st.executeUpdate(sql);
+		} catch(SQLException e){
+			e.printStackTrace();
+		}
+		
 		return false;
 	}
 

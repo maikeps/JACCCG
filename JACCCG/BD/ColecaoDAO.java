@@ -42,7 +42,9 @@ public class ColecaoDAO extends DAO {
 		LinkedList<RegistroDeBaralho> baralhos = baralhoDAO.loadBaralhos(idUsuario);
 		
 		if(cartas == null || baralhos == null) return null;
-		return (Registravel) new Colecao(cartas, baralhos);
+		Colecao colecao = new Colecao(cartas, baralhos);
+		colecao.setId(id);
+		return colecao;
 	}
 
 	@Override
@@ -67,7 +69,20 @@ public class ColecaoDAO extends DAO {
 		LinkedList<CartaDeColecao> cartas = cartaDAO.loadCartas(idUsuario);
 		LinkedList<RegistroDeBaralho> baralhos = baralhoDAO.loadBaralhos(idUsuario);
 		
+		String sql = "SELECT id FROM colecao WHERE id_usuario = "+idUsuario;
+		int id = 0;
+		
+		try{
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			if(rs.next()) id = rs.getInt("id"); 
+		} catch(SQLException e){
+			e.printStackTrace();
+		}
+		
 		if(cartas == null || baralhos == null) return null;
-		return new Colecao(cartas, baralhos);
+		Colecao colecao = new Colecao(cartas, baralhos);
+		colecao.setId(id);
+		return colecao;
 	}	
 }

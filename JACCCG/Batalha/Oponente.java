@@ -1,5 +1,7 @@
 package Batalha;
 
+import java.text.DecimalFormat;
+
 import BD.Registravel;
 import Cartas.CartaDeBatalha;
 import Exceptions.ManaInsuficienteException;
@@ -140,8 +142,17 @@ public class Oponente extends Jogador implements Registravel{
 	}
 	
 	public String toString(){
-		double vitoria = ((double)vezesBatalhado/vezesDerrotado)*100;
+		double vitoria = ((double)vezesDerrotado/vezesBatalhado)*100;
 		vitoria = (vitoria > 0) ? vitoria : 0;
-		return "Oponente "+nome+": \t"+vitoria+"% de vitorias ("+vezesBatalhado+"/"+vezesDerrotado+") \t Recompensa: "+recompensa+" dinheiros";
+		DecimalFormat f = new DecimalFormat();
+		return "Oponente "+nome+": \t"+(int)vitoria+"% de vitorias ("+vezesDerrotado+"/"+vezesBatalhado+") \t Recompensa: "+recompensa+" dinheiros";
+	}
+
+	public void aumentaVezesDerrotado() {
+		vezesDerrotado++;
+	}
+	
+	public void aumentaVezesBatalhado() {
+		vezesBatalhado++;
 	}
 }

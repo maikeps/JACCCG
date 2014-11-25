@@ -131,8 +131,11 @@ public class Jogo {
 			Jogador vencedor = partida.getVencedor();
 			if(vencedor instanceof Oponente){
 				System.out.println("Voce perdeu :(");
+				juiz.atualizaOponente(partida.getOponente(), false);
 			}else{
 				System.out.println("Parabens, voce venceu!\nA carta do " + partida.getOponente().getNome() + " foi liberada na loja para compra.");
+				juiz.atualizaOponente(partida.getOponente(), true);
+//				juiz.disponibilizaCarta(carta)
 			}
 		}
 	}

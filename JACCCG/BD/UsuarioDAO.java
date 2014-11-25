@@ -39,7 +39,9 @@ public class UsuarioDAO extends DAO{
 		}
 		
 		Colecao colecao = colecaoDAO.loadColecao(id);
-		return new Usuario(colecao, dinheiros);
+		Usuario usuario = new Usuario(colecao, dinheiros);
+		usuario.setId(id);
+		return usuario;
 	}
 
 	@Override
