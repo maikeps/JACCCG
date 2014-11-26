@@ -42,7 +42,7 @@ public class BaralhoDAO extends DAO{
 				cartas.add((CartaDeColecao) cartaDAO.load(idCarta));
 			}
 			
-			RegistroDeBaralho baralho = new RegistroDeBaralho(cartas, nome, cartas.size());
+			RegistroDeBaralho baralho = new RegistroDeBaralho(cartas, nome, 15);
 			baralho.setId(id);
 			return baralho;
 		} catch (SQLException e) {
@@ -110,7 +110,7 @@ public class BaralhoDAO extends DAO{
 				cartas.add((CartaDeColecao) cartaDAO.load(idCarta));
 			}
 			
-			RegistroDeBaralho baralho = new RegistroDeBaralho(cartas, nome, cartas.size());
+			RegistroDeBaralho baralho = new RegistroDeBaralho(cartas, nome, 15);
 			baralho.setId(id);
 			return baralho;
 		} catch (SQLException e) {
@@ -165,7 +165,7 @@ public class BaralhoDAO extends DAO{
 				cartas.add((CartaDeColecao) cartaDAO.load(rs.getInt("c.id")));
 			}
 			
-			RegistroDeBaralho baralho = new RegistroDeBaralho(cartas, nome, cartas.size());
+			RegistroDeBaralho baralho = new RegistroDeBaralho(cartas, nome, 15);
 			return baralho;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -288,7 +288,6 @@ public class BaralhoDAO extends DAO{
 		int idCarta = cartaDAO.getId(nomeCarta);
 		int	idBaralho = getId(idUsuario, nomeBaralho);
 		String sql = "INSERT INTO carta_baralho (id_baralho, id_carta) VALUES ("+idBaralho+", "+idCarta+");";
-		
 		try{
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
@@ -299,7 +298,6 @@ public class BaralhoDAO extends DAO{
 
 	private int getId(int idUsuario, String nomeBaralho) {
 		String sql = "SELECT id FROM baralho WHERE id_usuario = "+idUsuario+" AND nome = \""+nomeBaralho+"\";";
-		
 		int id = 0;
 		
 		try{
@@ -311,5 +309,13 @@ public class BaralhoDAO extends DAO{
 		}
 		
 		return id;
+	}
+	
+	public void updateCartasDoBaralho(RegistroDeBaralho baralho, int idUsuario){
+		String sql = "DELETE FROM carta_baralho WHERE id_baralho = "+baralho.getId();
+		List<CartaDeColecao> cartas = baralho.getCartas();
+		for(CartaDeColecao c : cartas){
+			storeCartaNoBaralho(idUsuario, baralho.getNome(), c.getNome());
+		}
 	}
 }
