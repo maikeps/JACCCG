@@ -39,7 +39,11 @@ public class Util {
     
     public static int pedeInt(String msg){
 		try{
-			int num = Integer.parseInt(JOptionPane.showInputDialog(null, msg));
+			String res = JOptionPane.showInputDialog(null, msg);
+			if(res == null){
+				return -1;
+			}
+			int num = Integer.parseInt(res);
 	    	return num;
 		}catch(NumberFormatException e){
 			return pedeInt(msg);

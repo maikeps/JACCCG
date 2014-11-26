@@ -9,6 +9,8 @@ import javax.swing.JOptionPane;
 
 import Cartas.CartaDeColecao;
 import Cartas.Raridade;
+import Exceptions.DinheirosInsuficientesException;
+import Exceptions.LimiteDeCartasExcedidoException;
 import JACCCG.JACCCG.Jogo;
 
 
@@ -17,11 +19,13 @@ public class Loja extends javax.swing.JFrame {
 
     private static Loja instance = null;
     private Jogo jogo;
+    private List<CartaDeColecao> pesquisadas;
     
     private Loja() {
         initComponents();
         this.setLocationRelativeTo(null);
         jogo = Jogo.getInstance();
+        pesquisadas = new LinkedList<>();
     }
     
     public static Loja getInstance(){
@@ -117,7 +121,8 @@ public class Loja extends javax.swing.JFrame {
         comprar.setText("Comprar!");
         comprar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comprarActionPerformed(evt);
+					comprarActionPerformed(evt);
+				
             }
         });
 
@@ -172,7 +177,7 @@ public class Loja extends javax.swing.JFrame {
     	List<CartaDeColecao> cartas = jogo.getLoja().getCartas();
     	List<String> strings = new LinkedList<String>();
     	for(int i = 0; i < cartas.size(); i++){
-    		strings.add((i+1) + " - " + cartas.get(i).toString());
+    		strings.add((i) + " - " + cartas.get(i).toString());
     	}
     	String str = Util.prepareString(strings);
     	Cartas.add(new JLabel(str));
@@ -186,14 +191,31 @@ public class Loja extends javax.swing.JFrame {
     	List<String> strings = new LinkedList<String>();
     	JLabel label = new JLabel();
     	for(int i = 0; i < cartas.size(); i++){
-    		strings.add((i+1) + " - " + cartas.get(i).toString());
+    		strings.add((i) + " - " + cartas.get(i).toString());
     	}
     	String str = Util.prepareString(strings);
 
     	Cartas.add(new JLabel(str));
+    	pesquisadas = cartas;
     }
 
-    private void comprarActionPerformed(java.awt.event.ActionEvent evt) {
+    private void comprarActionPerformed(java.awt.event.ActionEvent evt){
+    	try{
+    		int esc = Util.pedeInt("Qual carta voce quer comprar?\n" + "Dinheiros: " + jogo.getUsuario().getDinheiros());
+    		if(esc == -1){
+    			return;
+    		}
+    	try {
+			jogo.comprarCarta(pesquisadas.get(esc), jogo.getUsuario());
+			JOptionPane.showMessageDialog(null, "Voce comprou:" + pesquisadas.get(esc) + "!");
+		} catch (DinheirosInsuficientesException e) {
+			JOptionPane.showMessageDialog(null, "Voce nao tem dinheiros suficientes.");
+		} catch(LimiteDeCartasExcedidoException e){
+			JOptionPane.showMessageDialog(null, "Voce excedeu o limite de cartas do tipo " + pesquisadas.get(esc).getNome());
+		}}catch(IndexOutOfBoundsException e){
+    			JOptionPane.showMessageDialog(null, "Escolha uma carta valida!");
+    		}
+    
     }
 
     private void voltarActionPerformed(java.awt.event.ActionEvent evt) {
@@ -204,35 +226,53 @@ public class Loja extends javax.swing.JFrame {
     private void pRaridadeActionPerformed(java.awt.event.ActionEvent evt) {
     	Cartas.removeAll();
     	Jogo.getInstance();
-    	int raridade = Util.pedeInt(1,3,"Insira o custo da carta a ser pesquisada\n1 - COMUM\n2 - INCOMUM\n3 - RARA");
+    	int raridade = Util.pedeInt(1,3,"Insira a Raridade da carta a ser pesquisada\n1 - COMUM\n2 - INCOMUM\n3 - RARA");
     	List<CartaDeColecao> cartas = Jogo.getInstance().getLoja().getPesquisador().pesquisaCarta(Raridade.values()[3-raridade]);
     	List<String> strings = new LinkedList<String>();
     	JLabel label = new JLabel();
     	for(int i = 0; i < cartas.size(); i++){
-    		strings.add((i+1) + " - " + cartas.get(i).toString());
+    		strings.add((i) + " - " + cartas.get(i).toString());
     	}
     	String str = Util.prepareString(strings);
-
     	Cartas.add(new JLabel(str)); 
+    	pesquisadas = cartas;
+
     }  
 
     private void pCustoActionPerformed(java.awt.event.ActionEvent evt) {
     	Cartas.removeAll();
     	Jogo.getInstance();
-    	int raridade = Util.pedeInt(1,3,"Insira o custo da carta a ser pesquisada\n1 - COMUM\n2 - INCOMUM\n3 - RARA");
-    	List<CartaDeColecao> cartas = Jogo.getInstance().getLoja().getPesquisador().pesquisaCarta(Raridade.values()[3-raridade]);
+    	int cst = Util.pedeInt(0,10,"Insira o Custo de Mana da carta a ser pesquisada");
+    	List<CartaDeColecao> cartas = Jogo.getInstance().getLoja().getPesquisador().pesquisaCarta(cst);
     	List<String> strings = new LinkedList<String>();
     	JLabel label = new JLabel();
     	for(int i = 0; i < cartas.size(); i++){
-    		strings.add((i+1) + " - " + cartas.get(i).toString());
+    		strings.add((i) + " - " + cartas.get(i).toString());
     	}
     	String str = Util.prepareString(strings);
 
     	Cartas.add(new JLabel(str)); 
+    	pesquisadas = cartas;
+
     }
   
 
     private void pValorActionPerformed(java.awt.event.ActionEvent evt) {
+    	Cartas.removeAll();
+    	Jogo.getInstance();
+    	int val = Util.pedeInt("Insira o Valor a ser pesquisado");
+    	int menorQue = JOptionPane.showConfirmDialog(null, "Deseja valores menores ou iguais a " + val + "?");
+    	List<CartaDeColecao> cartas = Jogo.getInstance().getLoja().getPesquisador().pesquisaCarta(val, menorQue == 0);
+    	List<String> strings = new LinkedList<String>();
+    	JLabel label = new JLabel();
+    	for(int i = 0; i < cartas.size(); i++){
+    		strings.add((i) + " - " + cartas.get(i).toString());
+    	}
+    	String str = Util.prepareString(strings);	
+
+    	Cartas.add(new JLabel(str)); 
+    	pesquisadas = cartas;
+
     }
 
 

@@ -1,9 +1,11 @@
 package Visao.GUI;
 
-import java.awt.PopupMenu;
-import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+
+import Batalha.Jogador;
+import Batalha.Juiz;
+import Batalha.Oponente;
 
 public class MenuBatalha extends javax.swing.JFrame {
 
@@ -11,9 +13,14 @@ public class MenuBatalha extends javax.swing.JFrame {
     JLabel labelMesaJog = new javax.swing.JLabel("");
     JLabel labelMaoJog = new javax.swing.JLabel("");
     static MenuBatalha instance = null;
+    
+    Juiz juiz;
+    Oponente oponente;
+    Jogador jogador;
 
     private MenuBatalha() {
         initComponents();
+        this.setTitle("Batalha!!!");
         log.setText("Batalha iniciada!");
         mesaJog.add(labelMesaJog);
         mesaOponente.add(labelMesaOp);
@@ -21,14 +28,26 @@ public class MenuBatalha extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
 
-    public static MenuBatalha getInstance() {
-        if (instance == null) {
+    public static MenuBatalha getInstance(Juiz juiz, Oponente oponente, Jogador jogador) {
+    	if (instance == null) {
             instance = new MenuBatalha();
         }
+    	instance.juiz = juiz;
+    	instance.oponente = oponente;
+    	instance.jogador = jogador;
+    	
+    	instance.setOps();
+    	
         return instance;
     }
 
-    @SuppressWarnings("unchecked")
+    private void setOps() {
+    	this.atualizaHpJogador(jogador.getVida());
+    	this.atualizaHpOponente(oponente.getVida());
+	}
+    
+
+	@SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -247,7 +266,7 @@ public class MenuBatalha extends javax.swing.JFrame {
             if (result != null) {
                 int carta = Integer.parseInt(result);
                 if(carta <= 0) throw new NumberFormatException();
-                //TODO jogar carta na mesa
+                	
             }
         } catch (java.lang.NumberFormatException e) {
             Util.lancaAviso("ENTRADA INVALIDA!!!");

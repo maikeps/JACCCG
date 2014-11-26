@@ -8,6 +8,15 @@ package Visao.GUI;
 
 import java.util.List;
 
+import BD.DAOController;
+import BD.OponenteDAO;
+import Batalha.Baralho;
+import Batalha.Jogador;
+import Batalha.Juiz;
+import Batalha.Oponente;
+import Colecao.RegistroDeBaralho;
+import JACCCG.JACCCG.Jogo;
+
 /**
  *
  * @author jake
@@ -140,9 +149,11 @@ public class Escolha extends javax.swing.JFrame {
         int escolhaBa  = baralhos.getSelectedIndex();
         
         if(escolhaOP != -1 && escolhaBa != -1){
-            //TODO usar index baralho e oponente
-            this.setVisible(false);
-            MenuBatalha.getInstance().setVisible(true);
+            Oponente opEsc = DAOController.getInstance().getOponentes().get(escolhaOP);
+            RegistroDeBaralho baralho =  Jogo.getInstance().getUsuario().getColecao().getBaralhos().get(escolhaBa);
+            Jogador jogador = new Jogador(new Baralho(baralho), Jogo.getInstance().getVidaDefault());
+            this.setVisible(false); 
+            MenuBatalha.getInstance(Juiz.getInstance(),opEsc,jogador).setVisible(true);
         }else{
             Util.lancaAviso("Escolha um baralho e um oponente antes de avançar ou volte!");
         }

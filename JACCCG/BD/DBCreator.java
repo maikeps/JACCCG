@@ -23,6 +23,7 @@ public class DBCreator {
 		createTableColecao();
 		createTableCartaColecao();
 		createTableBaralhoColecao();
+		createTableCartaLiberada();
 		
 		insertCartas();
 		insertOponentes();

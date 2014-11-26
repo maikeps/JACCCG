@@ -1,6 +1,13 @@
 package Visao.GUI;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import BD.DAOController;
+import BD.OponenteDAO;
+import Batalha.Oponente;
+import Colecao.RegistroDeBaralho;
+import JACCCG.JACCCG.Jogo;
 
 /**
  *
@@ -95,11 +102,19 @@ public class MenuInicial extends javax.swing.JFrame {
         this.setVisible(false);
         
         Escolha ops = Escolha.getInstance();
-        ArrayList<String> list = new ArrayList();
-        for(int i = 0; i<=10; i++){
-            list.add(""+i);
+        ArrayList<String> listNOp = new ArrayList<String>();
+        ArrayList<String> listNBara = new ArrayList<String>();
+        List<RegistroDeBaralho> listBara = Jogo.getInstance().getUsuario().getColecao().getBaralhos();
+        List<Oponente> listOp = DAOController.getInstance().getOponentesLiberados(Jogo.getInstance().getUsuario().getId());
+        
+        for(RegistroDeBaralho r : listBara){
+            listNBara.add(r.getNome());
         }
-        ops.addListas(list, list);
+        for(Oponente o : listOp){
+            listNOp.add(o.toString());
+            System.out.println(o.toString());
+        }
+        ops.addListas(listNOp, listNBara);
         ops.setVisible(true);
 
     }//GEN-LAST:event_botaoJogarActionPerformed
