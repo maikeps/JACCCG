@@ -91,5 +91,23 @@ public class UsuarioDAO extends DAO{
 //		colecaoDAO.newColecao();
 //		Usuario usuario;
 	}
+
+	public int getNumUsuarios() {
+		String sql = "SELECT * FROM usuario;";
+		
+		try{
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			int i = 0;
+			while(rs.next()) {
+				i ++;
+			}
+			return i;
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
 	
 }

@@ -120,11 +120,12 @@ public class OponenteDAO extends DAO{
 	public boolean liberaOponente(int idUsuario, int idProxOponente) {
 		String sql = "INSERT INTO oponente_liberado (id_usuario, id_oponente) VALUES ("+idUsuario+", "+idProxOponente+")";
 		String q = "SELECT * FROM oponente";
-		int numOps;
+		int numOps = 0;
 		try{
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(q);
-			numOps = rs.getFetchSize();
+			while(rs.next()) numOps++;
+//			numOps = rs.getFetchSize();
 		}catch(Exception e){
 			e.printStackTrace();
 		}

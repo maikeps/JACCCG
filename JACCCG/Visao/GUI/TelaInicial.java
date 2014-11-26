@@ -98,17 +98,25 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void novoJogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoJogoActionPerformed
         String nome = JOptionPane.showInputDialog(null, "Qual o seu nome, guerreiro?");
+        if(nome == null) return;
+        this.setVisible(false);
         int idUsuario = DAOController.getInstance().novoJogo(nome, 100);
         Usuario usuario = DAOController.getInstance().getUsuario(idUsuario);
         Loja loja = DAOController.getInstance().getLoja(idUsuario);
         Jogo.getInstance().setLoja(loja);
         Jogo.getInstance().setUsuario(usuario);
         MenuInicial.getInstance().setVisible(true);
-        this.setVisible(false);
     }//GEN-LAST:event_novoJogoActionPerformed
 
     private void carregarJogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carregarJogoActionPerformed
-    	int idUsuario = Integer.parseInt(JOptionPane.showInputDialog(null, "Insira seu identificador, por favor."));
+//    	int idUsuario = Integer.parseInt(JOptionPane.showInputDialog(null, "Insira seu identificador, por favor."));
+    	int idUsuario = Util.pedeInt("Insira seu identificador, por favor.");
+    	if(idUsuario <= 0) return;
+    	int numUsuarios = DAOController.getInstance().getNumUsuarios();
+    	if(idUsuario > numUsuarios){
+    		Util.lancaAviso("Insira um identificador valido.");
+    		return;
+    	}
     	Usuario usuario = DAOController.getInstance().getUsuario(idUsuario);
         JOptionPane.showMessageDialog(null, "Bem vindo de volta, "+usuario.getNome());
         Loja loja = DAOController.getInstance().getLoja(idUsuario);

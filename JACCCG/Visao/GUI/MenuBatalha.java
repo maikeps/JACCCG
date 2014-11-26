@@ -6,6 +6,9 @@ import javax.swing.JOptionPane;
 import Batalha.Jogador;
 import Batalha.Juiz;
 import Batalha.Oponente;
+import Cartas.CartaDeBatalha;
+import Exceptions.ManaInsuficienteException;
+import Exceptions.MesaCheiaException;
 import JACCCG.JACCCG.Jogo;
 
 public class MenuBatalha extends javax.swing.JFrame {
@@ -37,12 +40,16 @@ public class MenuBatalha extends javax.swing.JFrame {
     	instance.oponente = oponente;
     	instance.jogador = jogador;
     	
+
+    	Jogo.getInstance().iniciaBatalha(oponente, jogador);
     	instance.setOps();
     	
         return instance;
     }
 
-    private void setOps() {
+    private void setOps() {    	
+    	boolean acabou = Jogo.getInstance().verificaFimDeJogo(jogador, oponente);
+    	
     	this.atualizaHpJogador(jogador.getVida());
     	this.atualizaHpOponente(oponente.getVida());
     	this.atualizaManaJogador(jogador.getManaPool());
@@ -51,6 +58,19 @@ public class MenuBatalha extends javax.swing.JFrame {
     	this.atualizaNomeOponente(oponente.getNome());
     	this.atualizaDeckJogador(15, 15);
     	this.atualizaDeckOponente(15, 15);
+    	this.atualizaMesaJogador(jogador.getMesa().toString());
+    	this.atualizaMesaOponente(oponente.getMesa().toString());
+    	this.atualizaMaoJogador(jogador.getMao().toString());
+    	
+    	if(acabou){
+    		Jogo.getInstance().gerenciaPosJogo(jogador, oponente);
+    		boolean jogadorVenceu = Jogo.getInstance().jogadorVenceu(jogador, oponente);
+    		String aviso = "Voce venceu :D";
+    		if(!jogadorVenceu) aviso = "Voce perdeu :("; 
+    		Util.lancaAviso(aviso);
+    		this.setVisible(false);
+    		MenuInicial.getInstance().setVisible(true);
+    	}
 	}
     
 
@@ -268,16 +288,19 @@ public class MenuBatalha extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jogarCartaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jogarCartaActionPerformed
-        String result = Util.pedeString("Escolha qual carta jogar");
-        try {
-            if (result != null) {
-                int carta = Integer.parseInt(result);
-                if(carta <= 0) throw new NumberFormatException();
-                	
-            }
-        } catch (java.lang.NumberFormatException e) {
-            Util.lancaAviso("ENTRADA INVALIDA!!!");
-        }
+    	int n = Util.pedeInt("Escolha qual carta jogar");
+    	if(n <= 0) return;
+    	CartaDeBatalha carta = jogador.getMao().getCartas().get(n-1);
+    	try {
+			Jogo.getInstance().jogaCarta(jogador, carta);
+			atualizaMesaJogador(jogador.getMesa().toString());
+			atualizaMaoJogador(jogador.getMao().toString());
+		} catch (MesaCheiaException e) {
+			Util.lancaAviso("Mesa cheia");
+		} catch (ManaInsuficienteException e) {
+			Util.lancaAviso("Mana insuficiente");
+		}
+    	setOps();
     }//GEN-LAST:event_jogarCartaActionPerformed
 
     public void atualizaMesaOponente(String s) {
@@ -326,22 +349,23 @@ public class MenuBatalha extends javax.swing.JFrame {
 
 
     private void atacarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atacarActionPerformed
-        try {
-            String resultado = Util.pedeString("Escolha com que carta vai atacar?");
-            if (resultado != null) {
-                int atacante = Integer.parseInt(resultado);
-                if(atacante <= 0) throw new NumberFormatException();
-                //TODO Seleção da carta atacante...
-                resultado = Util.pedeString("Escolha que carta vai atacar?");
-                if (resultado != null) {
-                    int atacada = Integer.parseInt(resultado);
-                    if(atacada <= 0) throw new NumberFormatException();
-                    //TODO Seleção da carta atacada...
-                }
-            }
-        } catch (java.lang.NumberFormatException e) {
-            Util.lancaAviso("ENTRADA INVALIDA!!!");
-        }
+    	int atacante = Util.pedeInt(1, jogador.getMesa().getCartas().size(), "Escolha com que carta vai atacar?")-1;
+    	if(atacante <= -1) return;
+    	CartaDeBatalha cAtacante = jogador.getMesa().getCartas().get(atacante);
+    	if(!cAtacante.podeAtacar()) {
+    		Util.lancaAviso("A carta escolhida esta indisponivel");
+    		return;
+    	}
+    	if(oponente.getMesa().getCartas().size() == 0){
+    		Jogo.getInstance().jogadorAtacaDiretamente(oponente, cAtacante);
+    	}else{
+	    	int alvo = Util.pedeInt(1, oponente.getMesa().getCartas().size(), "Escolha que carta vai atacar?")-1;
+	    	if(alvo <= -1) return;
+	    	CartaDeBatalha cAlvo = oponente.getMesa().getCartas().get(alvo);
+	    	
+	    	Jogo.getInstance().jogadorAtaca(jogador.getMesa(), oponente.getMesa(), cAtacante, cAlvo);
+    	}
+    	setOps();
     }//GEN-LAST:event_atacarActionPerformed
 
     private void DesistirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DesistirActionPerformed
@@ -364,9 +388,11 @@ public class MenuBatalha extends javax.swing.JFrame {
         resp = JOptionPane.showConfirmDialog(null, "Deseja realmente passar a vez?", "Confirmação:", JOptionPane.YES_NO_OPTION);
 
         if (resp == JOptionPane.YES_OPTION) {
-            //passa a vez
+        	atualizaLog(Jogo.getInstance().processaTurnoOponente(oponente, jogador));
+        	Jogo.getInstance().iniciaTurno(jogador);
+        	setOps();
         } else {
-
+        	return;
         }
     }//GEN-LAST:event_passarVezActionPerformed
 

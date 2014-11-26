@@ -39,8 +39,8 @@ public class Jogador extends Observable{
 	
 	public void iniciaTurno(){
 		mesa.aprontaCartas();
-		encheMana();
 		ganhaMana();
+		encheMana();
 		compraCarta();
 	}
 	

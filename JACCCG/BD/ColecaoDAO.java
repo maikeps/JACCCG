@@ -102,7 +102,9 @@ public class ColecaoDAO extends DAO {
 		try{
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(query);
-			int qtd = rs.getFetchSize();
+			int qtd = 0;
+			while(rs.next()) qtd++;
+//			int qtd = rs.getFetchSize();
 			if(qtd < max) st.executeUpdate(sql);
 			return true;
 		}catch(SQLException e){

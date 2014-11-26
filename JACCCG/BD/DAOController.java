@@ -110,4 +110,9 @@ public class DAOController {
 		BaralhoDAO baralhoDAO = DAOFactory.getInstance().getBaralhoDAO();
 		baralhoDAO.updateCartasDoBaralho(baralho, idUsuario);
 	}
+
+	public int getNumUsuarios() {
+		UsuarioDAO usuarioDAO = DAOFactory.getInstance().getUsuarioDAO();
+		return usuarioDAO.getNumUsuarios();
+	}
 }
