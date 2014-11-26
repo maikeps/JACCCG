@@ -111,6 +111,24 @@ public class ColecaoDAO extends DAO {
 		
 		return false;
 	}
+	
+	private boolean storeNewCartaNaColecao(int idColecao, String nomeCarta){
+		String query = "SELECT id FROM carta WHERE nome = \""+nomeCarta+"\"";
+		
+		try{
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			if(rs.next()){
+				int idCarta = rs.getInt("id");
+				cartaDAO.storeCartaLiberada(idCarta, idColecao);
+				return storeCartaNaColecao(idColecao, idCarta);
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
 
 	public boolean deleteCartaColecao(int idColecao, int idCarta) {
 		String sql = "DELETE FROM carta_colecao WHERE id_colecao = "+idColecao+" AND id_carta = "+idCarta;
@@ -124,5 +142,37 @@ public class ColecaoDAO extends DAO {
 		}
 		
 		return false;
+	}
+
+	public void newColecao(int idUsuario) {
+		String sqlColecao = "INSERT INTO colecao (id_usuario) VALUES ("+idUsuario+");";
+		
+		try{
+			Statement st = con.createStatement();
+			st.executeUpdate(sqlColecao);
+			
+			String queryId = "SELECT LAST_INSERT_ID()";
+			ResultSet rs = st.executeQuery(queryId);
+			if(rs.next()){
+				int idColecao = rs.getInt(1);
+				storeNewCartaNaColecao(idColecao, "Poodim");
+				storeNewCartaNaColecao(idColecao, "Recruta Goblin");
+				storeNewCartaNaColecao(idColecao, "Soldado Goblin");
+				storeNewCartaNaColecao(idColecao, "Goblin Enfurecido");
+				storeNewCartaNaColecao(idColecao, "Escudeiro");
+				storeNewCartaNaColecao(idColecao, "Soldado");
+				storeNewCartaNaColecao(idColecao, "Barbaro");
+				storeNewCartaNaColecao(idColecao, "Filhote Feroz");
+				storeNewCartaNaColecao(idColecao, "Companheiro da Matilha");
+				storeNewCartaNaColecao(idColecao, "Lobo Atroz");
+				storeNewCartaNaColecao(idColecao, "Dinobulba");
+				storeNewCartaNaColecao(idColecao, "Infernal");
+				
+				baralhoDAO.newBaralhos(idUsuario);
+			}
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
 	}
 }

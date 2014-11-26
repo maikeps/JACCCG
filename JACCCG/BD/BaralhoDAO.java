@@ -217,4 +217,99 @@ public class BaralhoDAO extends DAO{
 		
 		return false;
 	}
+	
+	public void newBaralhos(int idUsuario){
+		String sql1 = "INSERT INTO baralho (nome, id_usuario) VALUES (\"Humans and Pals\", "+idUsuario+");";
+		String sql2 = "INSERT INTO baralho (nome, id_usuario) VALUES (\"Goblins and Fiends\", "+idUsuario+");";
+		String sql3 = "INSERT INTO baralho (nome, id_usuario) VALUES (\"No Hands\", "+idUsuario+");";
+		
+		try{
+			Statement st = con.createStatement();
+			st.executeUpdate(sql1);
+			st.executeUpdate(sql2);
+			st.executeUpdate(sql3);
+
+			//Humans and Pals
+			storeCartaNoBaralho(idUsuario, "Humans and Pals", "Escudeiro");
+			storeCartaNoBaralho(idUsuario, "Humans and Pals", "Escudeiro");
+			storeCartaNoBaralho(idUsuario, "Humans and Pals", "Escudeiro");
+			storeCartaNoBaralho(idUsuario, "Humans and Pals", "Soldado");
+			storeCartaNoBaralho(idUsuario, "Humans and Pals", "Soldado");
+			storeCartaNoBaralho(idUsuario, "Humans and Pals", "Soldado");
+			storeCartaNoBaralho(idUsuario, "Humans and Pals", "Barbaro");
+			storeCartaNoBaralho(idUsuario, "Humans and Pals", "Filhote Feroz");
+			storeCartaNoBaralho(idUsuario, "Humans and Pals", "Filhote Feroz");
+			storeCartaNoBaralho(idUsuario, "Humans and Pals", "Filhote Feroz");
+			storeCartaNoBaralho(idUsuario, "Humans and Pals", "Companheiro da Matilha");
+			storeCartaNoBaralho(idUsuario, "Humans and Pals", "Lobo Atroz");
+			storeCartaNoBaralho(idUsuario, "Humans and Pals", "Poodim");
+			storeCartaNoBaralho(idUsuario, "Humans and Pals", "Poodim");
+			storeCartaNoBaralho(idUsuario, "Humans and Pals", "Poodim");
+
+			//Goblins and Fiends
+			storeCartaNoBaralho(idUsuario, "Goblins and Fiends", "Recruta Goblin");
+			storeCartaNoBaralho(idUsuario, "Goblins and Fiends", "Recruta Goblin");
+			storeCartaNoBaralho(idUsuario, "Goblins and Fiends", "Recruta Goblin");
+			storeCartaNoBaralho(idUsuario, "Goblins and Fiends", "Soldado Goblin");
+			storeCartaNoBaralho(idUsuario, "Goblins and Fiends", "Soldado Goblin");
+			storeCartaNoBaralho(idUsuario, "Goblins and Fiends", "Soldado Goblin");
+			storeCartaNoBaralho(idUsuario, "Goblins and Fiends", "Goblin Enfurecido");
+			storeCartaNoBaralho(idUsuario, "Goblins and Fiends", "Filhote Feroz");
+			storeCartaNoBaralho(idUsuario, "Goblins and Fiends", "Filhote Feroz");
+			storeCartaNoBaralho(idUsuario, "Goblins and Fiends", "Filhote Feroz");
+			storeCartaNoBaralho(idUsuario, "Goblins and Fiends", "Dinobulba");
+			storeCartaNoBaralho(idUsuario, "Goblins and Fiends", "Infernal");
+			storeCartaNoBaralho(idUsuario, "Goblins and Fiends", "Poodim");
+			storeCartaNoBaralho(idUsuario, "Goblins and Fiends", "Poodim");
+			storeCartaNoBaralho(idUsuario, "Goblins and Fiends", "Poodim");
+
+			//No Hands
+			storeCartaNoBaralho(idUsuario, "No Hands", "Recruta Goblin");
+			storeCartaNoBaralho(idUsuario, "No Hands", "Recruta Goblin");
+			storeCartaNoBaralho(idUsuario, "No Hands", "Recruta Goblin");
+			storeCartaNoBaralho(idUsuario, "No Hands", "Soldado Goblin");
+			storeCartaNoBaralho(idUsuario, "No Hands", "Soldado Goblin");
+			storeCartaNoBaralho(idUsuario, "No Hands", "Escudeiro");
+			storeCartaNoBaralho(idUsuario, "No Hands", "Escudeiro");
+			storeCartaNoBaralho(idUsuario, "No Hands", "Escudeiro");
+			storeCartaNoBaralho(idUsuario, "No Hands", "Soldado");
+			storeCartaNoBaralho(idUsuario, "No Hands", "Soldado");
+			storeCartaNoBaralho(idUsuario, "No Hands", "Companheiro da Matilha");
+			storeCartaNoBaralho(idUsuario, "No Hands", "Companheiro da Matilha");
+			storeCartaNoBaralho(idUsuario, "No Hands", "Lobo Atroz");
+			storeCartaNoBaralho(idUsuario, "No Hands", "Dinobulba");
+			storeCartaNoBaralho(idUsuario, "No Hands", "Infernal");
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+	}
+	
+	private void storeCartaNoBaralho(int idUsuario, String nomeBaralho, String nomeCarta){
+		int idCarta = cartaDAO.getId(nomeCarta);
+		int	idBaralho = getId(idUsuario, nomeBaralho);
+		String sql = "INSERT INTO carta_baralho (id_baralho, id_carta) VALUES ("+idBaralho+", "+idCarta+");";
+		
+		try{
+			Statement st = con.createStatement();
+			st.executeUpdate(sql);
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+	}
+
+	private int getId(int idUsuario, String nomeBaralho) {
+		String sql = "SELECT id FROM baralho WHERE id_usuario = "+idUsuario+" AND nome = \""+nomeBaralho+"\";";
+		
+		int id = 0;
+		
+		try{
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			if(rs.next()) id = rs.getInt("id");
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		
+		return id;
+	}
 }

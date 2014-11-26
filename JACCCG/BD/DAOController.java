@@ -100,4 +100,9 @@ public class DAOController {
 		OponenteDAO oponenteDAO = DAOFactory.getInstance().getOponenteDAO();
 		oponenteDAO.liberaOponente(idUsuario, idProxOponente);
 	}
+
+	public void novoJogo(String nome, int dinheiros) {
+		UsuarioDAO usuarioDAO = DAOFactory.getInstance().getUsuarioDAO();
+		usuarioDAO.newUsuario(nome, dinheiros);
+	}
 }
