@@ -5,12 +5,12 @@
  */
 package Visao.GUI;
 
+
 public class Main {
 
     static TelaInicial menu = TelaInicial.getInstance();
 
     public static void main(String args[])  {
-
-       menu.setVisible(true);
+        menu.setVisible(true);
     }
 }

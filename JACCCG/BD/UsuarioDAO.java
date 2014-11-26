@@ -34,12 +34,11 @@ public class UsuarioDAO extends DAO{
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 //			e.printStackTrace();
-			System.out.println("DFDF UsuarioDAO");
 			return null;
 		}
 		
 		Colecao colecao = colecaoDAO.loadColecao(id);
-		Usuario usuario = new Usuario(colecao, dinheiros);
+		Usuario usuario = new Usuario(colecao, dinheiros, nome);
 		usuario.setId(id);
 		return usuario;
 	}
@@ -70,7 +69,7 @@ public class UsuarioDAO extends DAO{
 		return false;
 	}
 
-	public void newUsuario(String nome, int dinheiros) {
+	public int newUsuario(String nome, int dinheiros) {
 		String sqlUsuario = "INSERT INTO usuario (nome, dinheiros) VALUES (\""+nome+"\", "+dinheiros+");";
 		System.out.println(sqlUsuario);
 		try{
@@ -82,10 +81,12 @@ public class UsuarioDAO extends DAO{
 			if(rs.next()){
 				int idUsuario = rs.getInt(1);
 				colecaoDAO.newColecao(idUsuario);
+				return idUsuario;
 			}
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
+		return 0;
 //		colecaoDAO.newColecao();
 //		Usuario usuario;
 	}

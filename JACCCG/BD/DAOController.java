@@ -101,8 +101,8 @@ public class DAOController {
 		oponenteDAO.liberaOponente(idUsuario, idProxOponente);
 	}
 
-	public void novoJogo(String nome, int dinheiros) {
+	public int novoJogo(String nome, int dinheiros) {
 		UsuarioDAO usuarioDAO = DAOFactory.getInstance().getUsuarioDAO();
-		usuarioDAO.newUsuario(nome, dinheiros);
+		return usuarioDAO.newUsuario(nome, dinheiros);
 	}
 }

@@ -1,5 +1,13 @@
 package Visao.GUI;
 
+import java.awt.Label;
+import java.util.List;
+
+import javax.swing.JLabel;
+
+import Cartas.CartaDeColecao;
+import JACCCG.JACCCG.Jogo;
+
 public class Colecao extends javax.swing.JFrame {
 
     private static Colecao instance = null;
@@ -148,6 +156,14 @@ public class Colecao extends javax.swing.JFrame {
     }//GEN-LAST:event_pNomeActionPerformed
 
     private void mostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarActionPerformed
+    	Jogo jogo = Jogo.getInstance();
+    	List<CartaDeColecao> cartas = jogo.getUsuario().getColecao().getCartas();
+    	JLabel label = new JLabel();
+    	for(CartaDeColecao c : cartas){
+    		System.out.println(c.getNome());
+        	Util.addNaLabel(c.getNome(), label);
+    	}
+    	Cartas.add(label);
         // TODO mostrar todas as cartas do jogador
     }//GEN-LAST:event_mostrarActionPerformed
 

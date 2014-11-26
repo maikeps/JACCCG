@@ -10,10 +10,12 @@ public class Usuario implements Registravel{
 	private Colecao colecao;
 	private int dinheiros;
 	private int id;
+	private String nome;
 
-	public Usuario(Colecao colecao, int dinheiros) {
+	public Usuario(Colecao colecao, int dinheiros, String nome) {
 		this.colecao = colecao;
 		this.dinheiros = dinheiros;
+		this.nome = nome;
 	}
 
 	public void adicionaNaColecao(CartaDeColecao carta) throws LimiteDeCartasExcedidoException {
@@ -53,4 +55,7 @@ public class Usuario implements Registravel{
 		this.id = id;
 	}
 
+	public String getNome(){
+		return nome;
+	}
 }

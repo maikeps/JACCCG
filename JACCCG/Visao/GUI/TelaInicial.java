@@ -3,6 +3,8 @@ package Visao.GUI;
 import javax.swing.JOptionPane;
 
 import BD.DAOController;
+import Colecao.Usuario;
+import JACCCG.JACCCG.Jogo;
 
 public class TelaInicial extends javax.swing.JFrame {
     
@@ -95,12 +97,20 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void novoJogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoJogoActionPerformed
         String nome = JOptionPane.showInputDialog(null, "Qual o seu nome, guerreiro?");
-        DAOController.getInstance().novoJogo(nome, 100);
+        int idUsuario = DAOController.getInstance().novoJogo(nome, 100);
+        Usuario usuario = DAOController.getInstance().getUsuario(idUsuario);
+        Jogo.getInstance().setUsuario(usuario);
         MenuInicial.getInstance().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_novoJogoActionPerformed
 
     private void carregarJogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carregarJogoActionPerformed
+    	int id = Integer.parseInt(JOptionPane.showInputDialog(null, "Insira seu identificador, por favor."));
+    	Usuario usuario = DAOController.getInstance().getUsuario(id);
+        JOptionPane.showMessageDialog(null, "Bem vindo de volta, "+usuario.getNome());
+    	Jogo.getInstance().setUsuario(usuario);
+        MenuInicial.getInstance().setVisible(true);
+        this.setVisible(false);
         // TODO add your handling code here:
     }//GEN-LAST:event_carregarJogoActionPerformed
 
@@ -116,4 +126,5 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JButton novoJogo;
     private javax.swing.JButton sair;
     // End of variables declaration//GEN-END:variables
+
 }
