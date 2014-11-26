@@ -5,7 +5,17 @@
  */
 package Visao.GUI;
 
+import java.util.LinkedList;
 import java.util.List;
+
+import Cartas.CartaDeColecao;
+import Cartas.ConstrutorDeBaralho;
+import Colecao.RegistroDeBaralho;
+import Exceptions.BaralhoCompletoException;
+import Exceptions.BaralhoNaoInicializadoException;
+import Exceptions.CartaNaoEncontradaException;
+import Exceptions.LimiteDeCartasExcedidoException;
+import JACCCG.JACCCG.Jogo;
 
 /**
  *
@@ -14,8 +24,12 @@ import java.util.List;
 public class Edicao extends javax.swing.JFrame {
 
     private static Edicao instance = null;
-
+    private Jogo jogo;
+    private ConstrutorDeBaralho construtor;
+    
     private Edicao() {
+    	jogo = Jogo.getInstance();
+    	construtor = new ConstrutorDeBaralho(jogo.getUsuario());
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -69,6 +83,10 @@ public class Edicao extends javax.swing.JFrame {
             }
         });
 
+        List<CartaDeColecao> cartas = jogo.getUsuario().getColecao().getCartas();
+        for(int i = 1; i <= cartas.size(); i++){
+            cartasDoJogo.add(i+" - "+cartas.get(i-1).toString());
+        }
         cartasDoJogo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cartasDoJogoActionPerformed(evt);
@@ -151,11 +169,41 @@ public class Edicao extends javax.swing.JFrame {
         }
     }
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
-        
+    	int selecionado = cartasDoJogo.getSelectedIndex();
+    	if(selecionado == -1) return;
+    	CartaDeColecao carta = jogo.getUsuario().getColecao().getCartas().get(selecionado);
+    	try {
+			construtor.adicionaCarta(carta);
+			List<String> strings = new LinkedList<String>();
+			for(int i = 1; i <= construtor.getBaralhoAtual().getCartas().size(); i++){
+				strings.add(i+" - "+construtor.getBaralhoAtual().getCartas().get(i-1));
+			}
+			setBaralho(strings);
+		} catch (BaralhoNaoInicializadoException e) {
+			Util.lancaAviso("Voce deve selecionar um baralho primeiro.");
+		} catch (LimiteDeCartasExcedidoException e) {
+			Util.lancaAviso("Voce excedeu o limite de cartas do tipo "+carta.getNome());
+		} catch (BaralhoCompletoException e) {
+			Util.lancaAviso("O baralho ja possui o numero maximo de cartas ("+construtor.getBaralhoAtual().getMaximo()+" cartas)");
+		}
     }//GEN-LAST:event_addActionPerformed
 
     private void remActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remActionPerformed
-        
+        int selecionado = cartasDoBaralho.getSelectedIndex();
+        if(selecionado == -1) return;
+    	CartaDeColecao carta = construtor.getBaralhoAtual().getCartas().get(selecionado);
+   		try {
+			construtor.removeCarta(carta);
+			List<String> strings = new LinkedList<String>();
+			for(int i = 1; i <= construtor.getBaralhoAtual().getCartas().size(); i++){
+				strings.add(i+" - "+construtor.getBaralhoAtual().getCartas().get(i-1));
+			}
+			setBaralho(strings);
+		} catch (BaralhoNaoInicializadoException e) {
+			Util.lancaAviso("Voce deve selecionar um baralho primeiro.");
+		} catch (CartaNaoEncontradaException e) {
+			Util.lancaAviso("O seu baralho nao continha a carta selecionada.");
+		}
     }//GEN-LAST:event_remActionPerformed
 
     private void VoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VoltarActionPerformed
@@ -165,32 +213,80 @@ public class Edicao extends javax.swing.JFrame {
 
     private void escolherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_escolherActionPerformed
         //TODO mudar a string para a lista de baralhos
-        String escolha = Util.pedeString("LISTA DE BARALHOS");
-        if (escolha != null) {
-            try {
-                int rest = Integer.parseInt(escolha);
-                if (rest >= 1) {
-                    //TODO escolher baralho pelo rest
-                    this.setVisible(false);
-                } else {
-                    throw new NumberFormatException();
-                }
-            } catch (NumberFormatException e) {
-                Util.lancaAviso("Escolha um baralho ou volte!");
-            }
+    	String str = "";
+    	List<RegistroDeBaralho> baralhos = jogo.getUsuario().getColecao().getBaralhos();
+    	for(int i = 1; i <= baralhos.size(); i++){
+    		str += i+" - "+baralhos.get(i-1).getNome()+"\n";
+    	}
+//        String escolha = Util.pedeString(str);
+    	int escolha = Util.pedeInt(1, baralhos.size(), str);
+    	construtor.editaBaralho(baralhos.get(escolha-1));
+        RegistroDeBaralho baralho = construtor.getBaralhoAtual();
+        List<String> strings = new LinkedList<String>();
+        for(CartaDeColecao c : baralho.getCartas()){
+            strings.add(c.toString());
         }
+        setBaralho(strings);
+    	
+    	
+//        if (escolha != null) {
+//            try {
+//                int rest = Integer.parseInt(escolha);
+//                if (rest >= 1) {
+//                    //TODO escolher baralho pelo rest
+//                    this.setVisible(false);
+//                } else {
+//                    throw new NumberFormatException();
+//                }
+//            } catch (NumberFormatException e) {
+//                Util.lancaAviso("Escolha um baralho ou volte!");
+//            }
+//        }
     }//GEN-LAST:event_escolherActionPerformed
 
     private void cartasDoJogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cartasDoJogoActionPerformed
+    	int selecionado = cartasDoJogo.getSelectedIndex();
+    	if(selecionado == -1) return;
+    	CartaDeColecao carta = jogo.getUsuario().getColecao().getCartas().get(selecionado);
+    	try {
+			construtor.adicionaCarta(carta);
+			List<String> strings = new LinkedList<String>();
+			for(int i = 1; i <= construtor.getBaralhoAtual().getCartas().size(); i++){
+				strings.add(i+" - "+construtor.getBaralhoAtual().getCartas().get(i-1));
+			}
+			setBaralho(strings);
+		} catch (BaralhoNaoInicializadoException e) {
+			Util.lancaAviso("Voce deve selecionar um baralho primeiro.");
+		} catch (LimiteDeCartasExcedidoException e) {
+			Util.lancaAviso("Voce excedeu o limite de cartas do tipo "+carta.getNome());
+		} catch (BaralhoCompletoException e) {
+			Util.lancaAviso("O baralho ja possui o numero maximo de cartas ("+construtor.getBaralhoAtual().getMaximo()+" cartas)");
+		}
         // TODO add your handling code here:
     }//GEN-LAST:event_cartasDoJogoActionPerformed
 
     private void cartasDoBaralhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cartasDoBaralhoActionPerformed
-        // TODO add your handling code here:
+    	int selecionado = cartasDoBaralho.getSelectedIndex();
+        if(selecionado == -1) return;
+    	CartaDeColecao carta = construtor.getBaralhoAtual().getCartas().get(selecionado);
+   		try {
+			construtor.removeCarta(carta);
+			List<String> strings = new LinkedList<String>();
+			for(int i = 1; i <= construtor.getBaralhoAtual().getCartas().size(); i++){
+				strings.add(i+" - "+construtor.getBaralhoAtual().getCartas().get(i-1));
+			}
+			setBaralho(strings);
+		} catch (BaralhoNaoInicializadoException e) {
+			Util.lancaAviso("Voce deve selecionar um baralho primeiro.");
+		} catch (CartaNaoEncontradaException e) {
+			Util.lancaAviso("O seu baralho nao continha a carta selecionada.");
+		}
     }//GEN-LAST:event_cartasDoBaralhoActionPerformed
 
     private void SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarActionPerformed
-        // TODO add your handling code here:
+    	construtor.salvarBaralho();
+    	this.setVisible(false);
+        Colecao.getInstance().setVisible(true);
     }//GEN-LAST:event_SalvarActionPerformed
 
 

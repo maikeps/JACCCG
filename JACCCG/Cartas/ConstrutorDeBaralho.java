@@ -1,6 +1,7 @@
 package Cartas;
 import java.util.LinkedList;
 
+import BD.DAOController;
 import Colecao.RegistroDeBaralho;
 import Colecao.Usuario;
 import Exceptions.BaralhoCompletoException;
@@ -29,7 +30,7 @@ public class ConstrutorDeBaralho {
 		if (baralhoAtual == null)
 			throw new BaralhoNaoInicializadoException(
 					"Baralho nao inicializado");
-		if (podeAdicionarCarta()) {
+		if (!podeAdicionarCarta()) {
 			throw new BaralhoCompletoException(
 					"Numero de cartas no baralho excedido");
 		}
@@ -55,12 +56,17 @@ public class ConstrutorDeBaralho {
 		try {
 			usuario.getColecao().addBaralho(baralhoAtual);
 		} catch (BaralhoJaExistenteException e) {
-			System.out.println("Baralho com esse nome ja existe");
+			DAOController.getInstance().deleteBaralho(baralhoAtual, usuario.getId());
+			try {
+				usuario.getColecao().addBaralho(baralhoAtual);
+			} catch (BaralhoJaExistenteException e1) {
+			}
+//			System.out.println("Baralho com esse nome ja existe");
 		}
 	}
 
 	public boolean podeAdicionarCarta() {
-		return baralhoAtual.jogavel();
+		return !baralhoAtual.jogavel();
 	}
 
 	public void editaBaralho(RegistroDeBaralho baralho) {
@@ -71,4 +77,7 @@ public class ConstrutorDeBaralho {
 		baralhoAtual = null;
 	}
 
+	public RegistroDeBaralho getBaralhoAtual(){
+		return baralhoAtual;
+	}
 }

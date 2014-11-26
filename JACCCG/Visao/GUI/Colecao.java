@@ -1,18 +1,23 @@
 package Visao.GUI;
 
-import java.awt.Label;
+import java.awt.event.ActionEvent;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import Cartas.CartaDeColecao;
+import Cartas.Raridade;
 import JACCCG.JACCCG.Jogo;
 
 public class Colecao extends javax.swing.JFrame {
 
     private static Colecao instance = null;
+    private Jogo jogo;
 
     private Colecao() {
+    	jogo = Jogo.getInstance();
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -38,7 +43,7 @@ public class Colecao extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         pNome = new javax.swing.JButton();
         pValor = new javax.swing.JButton();
-        pCusti = new javax.swing.JButton();
+        pCusto = new javax.swing.JButton();
         pRaridade = new javax.swing.JButton();
 
         jButton2.setText("Pesquisa cartas");
@@ -80,10 +85,25 @@ public class Colecao extends javax.swing.JFrame {
         });
 
         pValor.setText("Valor");
+        pValor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pValorActionPerformed(evt);
+            }
+        });
 
-        pCusti.setText("Custo");
+        pCusto.setText("Custo");
+        pCusto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	pCustoActionPerformed(evt);
+            }
+        });
 
         pRaridade.setText("Raridade");
+        pRaridade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	pRaridadeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -94,7 +114,7 @@ public class Colecao extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pValor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pCusti, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pCusto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pRaridade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -107,7 +127,7 @@ public class Colecao extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pValor)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pCusti)
+                .addComponent(pCusto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pRaridade))
         );
@@ -151,20 +171,64 @@ public class Colecao extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void pNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pNomeActionPerformed
-        // TODO add your handling code here:
+    protected void pRaridadeActionPerformed(ActionEvent evt) {
+    	Cartas.removeAll();
+    	int raridade = Util.pedeInt(1, 3, "Insira o custo da carta a ser pesquisada\n1 - COMUM\n2 - INCOMUM\n3 - RARA");
+    	List<CartaDeColecao> cartas = jogo.getUsuario().getColecao().getPesquisador().pesquisaCarta(Raridade.values()[3-raridade]);
+    	List<String> strings = new LinkedList<String>();
+    	for(CartaDeColecao c : cartas){
+    		strings.add(c.toString());
+    	}
+    	String str = Util.prepareString(strings);
+    	Cartas.add(new JLabel(str));
+	}
+
+	protected void pCustoActionPerformed(ActionEvent evt) {
+    	Cartas.removeAll();
+    	int custo = Util.pedeInt("Insira o custo da carta a ser pesquisada");
+    	List<CartaDeColecao> cartas = jogo.getUsuario().getColecao().getPesquisador().pesquisaCarta(custo);
+    	List<String> strings = new LinkedList<String>();
+    	for(CartaDeColecao c : cartas){
+    		strings.add(c.toString());
+    	}
+    	String str = Util.prepareString(strings);
+    	Cartas.add(new JLabel(str));
+	}
+
+	protected void pValorActionPerformed(ActionEvent evt) {
+    	Cartas.removeAll();
+    	int preco = Util.pedeInt("Insira o valor da carta a ser pesquisada");
+    	int menorQue = JOptionPane.showConfirmDialog(null, "Deseja valores menores ou iguais a "+preco+"?");
+    	List<CartaDeColecao> cartas = jogo.getUsuario().getColecao().getPesquisador().pesquisaCarta(preco, (menorQue == 0));
+    	List<String> strings = new LinkedList<String>();
+    	for(CartaDeColecao c : cartas){
+    		strings.add(c.toString());
+    	}
+    	String str = Util.prepareString(strings);
+    	Cartas.add(new JLabel(str));
+	}
+
+	private void pNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pNomeActionPerformed
+    	Cartas.removeAll();
+    	String nome = Util.pedeString("Insira o nome da carta a ser pesquisada");
+    	List<CartaDeColecao> cartas = jogo.getUsuario().getColecao().getPesquisador().pesquisaCarta(nome);
+    	List<String> strings = new LinkedList<String>();
+    	for(CartaDeColecao c : cartas){
+    		strings.add(c.toString());
+    	}
+    	String str = Util.prepareString(strings);
+    	Cartas.add(new JLabel(str));
     }//GEN-LAST:event_pNomeActionPerformed
 
     private void mostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarActionPerformed
-    	Jogo jogo = Jogo.getInstance();
+    	Cartas.removeAll();
     	List<CartaDeColecao> cartas = jogo.getUsuario().getColecao().getCartas();
-    	JLabel label = new JLabel();
+    	List<String> strings = new LinkedList<String>();
     	for(CartaDeColecao c : cartas){
-    		System.out.println(c.getNome());
-        	Util.addNaLabel(c.getNome(), label);
+    		strings.add(c.toString());
     	}
-    	Cartas.add(label);
-        // TODO mostrar todas as cartas do jogador
+    	String str = Util.prepareString(strings);
+    	Cartas.add(new JLabel(str));
     }//GEN-LAST:event_mostrarActionPerformed
 
     private void voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarActionPerformed
@@ -186,7 +250,7 @@ public class Colecao extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton mostrar;
-    private javax.swing.JButton pCusti;
+    private javax.swing.JButton pCusto;
     private javax.swing.JButton pNome;
     private javax.swing.JButton pRaridade;
     private javax.swing.JButton pValor;

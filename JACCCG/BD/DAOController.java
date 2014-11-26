@@ -105,4 +105,9 @@ public class DAOController {
 		UsuarioDAO usuarioDAO = DAOFactory.getInstance().getUsuarioDAO();
 		return usuarioDAO.newUsuario(nome, dinheiros);
 	}
+
+	public void deleteBaralho(RegistroDeBaralho baralho, int idUsuario) {
+		BaralhoDAO baralhoDAO = DAOFactory.getInstance().getBaralhoDAO();
+		baralhoDAO.updateCartasDoBaralho(baralho, idUsuario);
+	}
 }
