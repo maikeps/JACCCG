@@ -204,7 +204,7 @@ public class Loja extends javax.swing.JFrame {
     private void pRaridadeActionPerformed(java.awt.event.ActionEvent evt) {
     	Cartas.removeAll();
     	Jogo.getInstance();
-    	int raridade = Integer.parseInt(Util.pedeString("Insira o custo da carta a ser pesquisada\n1 - COMUM\n2 - INCOMUM\n3 - RARA"));
+    	int raridade = Util.pedeInt(1,3,"Insira o custo da carta a ser pesquisada\n1 - COMUM\n2 - INCOMUM\n3 - RARA");
     	List<CartaDeColecao> cartas = Jogo.getInstance().getLoja().getPesquisador().pesquisaCarta(Raridade.values()[3-raridade]);
     	List<String> strings = new LinkedList<String>();
     	JLabel label = new JLabel();
@@ -214,10 +214,23 @@ public class Loja extends javax.swing.JFrame {
     	String str = Util.prepareString(strings);
 
     	Cartas.add(new JLabel(str)); 
-    	}  
+    }  
 
     private void pCustoActionPerformed(java.awt.event.ActionEvent evt) {
+    	Cartas.removeAll();
+    	Jogo.getInstance();
+    	int raridade = Util.pedeInt(1,3,"Insira o custo da carta a ser pesquisada\n1 - COMUM\n2 - INCOMUM\n3 - RARA");
+    	List<CartaDeColecao> cartas = Jogo.getInstance().getLoja().getPesquisador().pesquisaCarta(Raridade.values()[3-raridade]);
+    	List<String> strings = new LinkedList<String>();
+    	JLabel label = new JLabel();
+    	for(int i = 0; i < cartas.size(); i++){
+    		strings.add((i+1) + " - " + cartas.get(i).toString());
+    	}
+    	String str = Util.prepareString(strings);
+
+    	Cartas.add(new JLabel(str)); 
     }
+  
 
     private void pValorActionPerformed(java.awt.event.ActionEvent evt) {
     }
