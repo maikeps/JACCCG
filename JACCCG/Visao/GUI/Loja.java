@@ -1,6 +1,15 @@
 package Visao.GUI;
 
 
+import java.util.List;
+
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import Cartas.CartaDeColecao;
+import JACCCG.JACCCG.Jogo;
+
+
 public class Loja extends javax.swing.JFrame {
 
 
@@ -9,6 +18,7 @@ public class Loja extends javax.swing.JFrame {
     private Loja() {
         initComponents();
         this.setLocationRelativeTo(null);
+        Jogo jogo = Jogo.getInstance();
     }
     
     public static Loja getInstance(){
@@ -155,13 +165,32 @@ public class Loja extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void mostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarActionPerformed
-        // TODO mostrar todas as cartas do jogador
-    }//GEN-LAST:event_mostrarActionPerformed
-
-    private void pNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pNomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pNomeActionPerformed
+    private void mostrarActionPerformed(java.awt.event.ActionEvent evt) {
+    	Jogo jogo = Jogo.getInstance();
+    	List<CartaDeColecao> cartas = jogo.getUsuario().getColecao().getCartas();
+    	JLabel label = new JLabel();
+    	String str = "<html>";
+    	for(CartaDeColecao c : cartas){
+    		str += c.getNome()+"<br/>";
+    	}
+    	str+= "</html>";
+    	label.setText(str);
+    	Cartas.add(label);
+    }
+    private void pNomeActionPerformed(java.awt.event.ActionEvent evt) {
+    	Cartas.removeAll();
+    	Jogo.getInstance();
+    	String j = Util.pedeString("Insira o nome da carta:");
+    	List<CartaDeColecao> cartas = Jogo.getInstance().getLoja().getCartas();
+    	JLabel label = new JLabel();
+    	String str = "<html>";
+    	for(int i = 0; i < cartas.size(); i++){
+    		str+= i + " - " + cartas.get(i).toString()+"<br />";
+    	}
+    	str+="<html>";
+    	label.setText(str);
+    	Cartas.add(label);
+    }
 
     private void comprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comprarActionPerformed
         // TODO add your handling code here:

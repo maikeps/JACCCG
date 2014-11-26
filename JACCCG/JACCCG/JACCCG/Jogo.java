@@ -29,6 +29,9 @@ public class Jogo {
 		this.loja = loja;
 	}
 
+	public Loja getLoja(){
+		return this.loja;
+	}
 	public Usuario getUsuario() {
 		return usuario;
 	}

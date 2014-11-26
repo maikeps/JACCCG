@@ -104,7 +104,7 @@ CREATE TABLE baralho_colecao(
 
 ####################################
 
-INSERT INTO usuario (nome, dinheiros) VALUES ("Usuario", 0);
+INSERT INTO usuario (nome, dinheiros) VALUES ("Usuario", 100);
 
 ###################################
 
@@ -128,7 +128,7 @@ INSERT INTO carta (nome, atk, def, custoMana, vida, raridade, preco) VALUES ("Po
 
 INSERT INTO oponente (nome, vida, recompensa, carta_equivalente) VALUES ("Lider Goblin", 20, 50, 12);
 INSERT INTO oponente (nome, vida, recompensa, carta_equivalente) VALUES ("Paladino", 30, 75, 13);
-INSERT INTO oponente (nome, vida, recompensa, carta_equivalente) VALUES ("Grande Alpha", 6, 1000, 14);
+INSERT INTO oponente (nome, vida, recompensa, carta_equivalente) VALUES ("Grande Alpha", 60, 100, 14);
 
 ###################################
 
@@ -219,9 +219,6 @@ INSERT INTO carta_colecao(id_colecao, id_carta) VALUES (1, 8);
 INSERT INTO carta_colecao(id_colecao, id_carta) VALUES (1, 9);
 INSERT INTO carta_colecao(id_colecao, id_carta) VALUES (1, 10);
 INSERT INTO carta_colecao(id_colecao, id_carta) VALUES (1, 11);
-INSERT INTO carta_colecao(id_colecao, id_carta) VALUES (1, 12);
-INSERT INTO carta_colecao(id_colecao, id_carta) VALUES (1, 13);
-INSERT INTO carta_colecao(id_colecao, id_carta) VALUES (1, 14);
 INSERT INTO carta_colecao(id_colecao, id_carta) VALUES (1, 15);
 
 ###################################

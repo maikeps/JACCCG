@@ -3,6 +3,7 @@ package Visao.GUI;
 import javax.swing.JOptionPane;
 
 import BD.DAOController;
+import Colecao.Loja;
 import Colecao.Usuario;
 import JACCCG.JACCCG.Jogo;
 
@@ -99,16 +100,20 @@ public class TelaInicial extends javax.swing.JFrame {
         String nome = JOptionPane.showInputDialog(null, "Qual o seu nome, guerreiro?");
         int idUsuario = DAOController.getInstance().novoJogo(nome, 100);
         Usuario usuario = DAOController.getInstance().getUsuario(idUsuario);
+        Loja loja = DAOController.getInstance().getLoja(idUsuario);
+        Jogo.getInstance().setLoja(loja);
         Jogo.getInstance().setUsuario(usuario);
         MenuInicial.getInstance().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_novoJogoActionPerformed
 
     private void carregarJogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carregarJogoActionPerformed
-    	int id = Integer.parseInt(JOptionPane.showInputDialog(null, "Insira seu identificador, por favor."));
-    	Usuario usuario = DAOController.getInstance().getUsuario(id);
+    	int idUsuario = Integer.parseInt(JOptionPane.showInputDialog(null, "Insira seu identificador, por favor."));
+    	Usuario usuario = DAOController.getInstance().getUsuario(idUsuario);
         JOptionPane.showMessageDialog(null, "Bem vindo de volta, "+usuario.getNome());
-    	Jogo.getInstance().setUsuario(usuario);
+        Loja loja = DAOController.getInstance().getLoja(idUsuario);
+        Jogo.getInstance().setLoja(loja);
+        Jogo.getInstance().setUsuario(usuario);
         MenuInicial.getInstance().setVisible(true);
         this.setVisible(false);
         // TODO add your handling code here:
