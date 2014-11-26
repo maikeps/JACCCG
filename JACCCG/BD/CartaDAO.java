@@ -181,6 +181,22 @@ public class CartaDAO extends DAO{
 
 		return false;
 	}
+
+	public int getId(String nomeCarta) {
+		String sql = "SELECT id FROM carta WHERE nome = \""+nomeCarta+"\"";
+		
+		int id = 0;
+		
+		try{
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			if(rs.next()) id = rs.getInt("id");
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		
+		return id;
+	}
 	
 //	public boolean atualizaCartasLiberadas(Loja loja, int idUsuario){
 //		List<CartaDeColecao> cartasLiberadas = loja.getCartas();

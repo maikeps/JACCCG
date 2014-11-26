@@ -69,5 +69,25 @@ public class UsuarioDAO extends DAO{
 		
 		return false;
 	}
+
+	public void newUsuario(String nome, int dinheiros) {
+		String sqlUsuario = "INSERT INTO usuario (nome, dinheiros) VALUES (\""+nome+"\", "+dinheiros+");";
+		System.out.println(sqlUsuario);
+		try{
+			Statement st = con.createStatement();
+			st.executeUpdate(sqlUsuario);
+			
+			String queryId = "SELECT LAST_INSERT_ID()";
+			ResultSet rs = st.executeQuery(queryId);
+			if(rs.next()){
+				int idUsuario = rs.getInt(1);
+				colecaoDAO.newColecao(idUsuario);
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+//		colecaoDAO.newColecao();
+//		Usuario usuario;
+	}
 	
 }
