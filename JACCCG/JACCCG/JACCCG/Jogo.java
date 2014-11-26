@@ -79,7 +79,7 @@ public class Jogo {
 				mesaJogador.removeCarta(atacante);
 			} catch (MesaVaziaException e1) {
 				// TODO Auto-generated catch block
-//				e1.printStackTrace();
+//				e1.printStackTrace(); 
 			}
 		if(alvo.estaMorta())
 			try {
