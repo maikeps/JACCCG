@@ -54,9 +54,9 @@ public class DAOController {
 		return oponentes;
 	}
 
-	public Loja getLoja() {
+	public Loja getLoja(int idUsuario) {
 		CartaDAO cartaDAO = daoFactory.getCartaDAO();
-		List<CartaDeColecao> cartas = cartaDAO.loadCartas();
+		List<CartaDeColecao> cartas = cartaDAO.loadCartasLiberadas(idUsuario);
 		return new Loja(cartas);
 	}
 

@@ -39,8 +39,11 @@ public class Juiz {
 		atualizaOponente(oponente, jogadorVenceu);
 		if(jogadorVenceu){
 			daDinheiros(usuario, recompensa);
-			if(!(oponente.getCartaEquivalente().estaDisponivel())) disponibilizaCarta(oponente.getCartaEquivalente(), usuario.getId());
+			if(!(oponente.getCartaEquivalente().estaDisponivel())){ 
+				disponibilizaCarta(oponente.getCartaEquivalente(), usuario.getId());
+			}
 			DAOController.getInstance().liberaOponente(usuario.getId(), oponente.getId()+1);
+			
 		}
 	}
 	

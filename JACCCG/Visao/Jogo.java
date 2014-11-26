@@ -35,7 +35,7 @@ public class Jogo {
 		this.leitor = leitor;
 		this.juiz = Juiz.getInstance();
 		usuario = DAOController.getInstance().getUsuario(1);
-		loja = DAOController.getInstance().getLoja();
+		loja = DAOController.getInstance().getLoja(usuario.getId());
 		juiz.setLoja(loja);
 		update();
 	}
