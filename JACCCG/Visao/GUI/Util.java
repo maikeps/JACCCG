@@ -6,6 +6,7 @@
 
 package Visao.GUI;
 
+import java.util.IllegalFormatException;
 import java.util.List;
 
 import javax.swing.JLabel;
@@ -22,6 +23,18 @@ public class Util {
     
     public static String pedeString(String mess) {
         return JOptionPane.showInputDialog(null, mess);
+    }
+    
+    public static int pedeInt(int min, int max, String msg){
+    	int num = min-1;
+    	while(num < min || num > max){
+    		try{
+    			num = Integer.parseInt(JOptionPane.showInputDialog(null, msg));
+    		}catch(NumberFormatException e){
+    			return pedeInt(min, max, msg);
+    		}
+    	}
+    	return num;
     }
     
     public static String prepareString(String s) {
