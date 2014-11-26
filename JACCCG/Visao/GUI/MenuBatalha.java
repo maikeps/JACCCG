@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 import Batalha.Jogador;
 import Batalha.Juiz;
 import Batalha.Oponente;
+import JACCCG.JACCCG.Jogo;
 
 public class MenuBatalha extends javax.swing.JFrame {
 
@@ -32,7 +33,7 @@ public class MenuBatalha extends javax.swing.JFrame {
     	if (instance == null) {
             instance = new MenuBatalha();
         }
-    	instance.juiz = juiz;
+    	instance.juiz = juiz;		
     	instance.oponente = oponente;
     	instance.jogador = jogador;
     	
@@ -44,6 +45,12 @@ public class MenuBatalha extends javax.swing.JFrame {
     private void setOps() {
     	this.atualizaHpJogador(jogador.getVida());
     	this.atualizaHpOponente(oponente.getVida());
+    	this.atualizaManaJogador(jogador.getManaPool());
+    	this.atualizaManaOponente(oponente.getManaPool());
+    	this.atualizaNomeJogador(Jogo.getInstance().getUsuario().getNome());
+    	this.atualizaNomeOponente(oponente.getNome());
+    	this.atualizaDeckJogador(15, 15);
+    	this.atualizaDeckOponente(15, 15);
 	}
     
 

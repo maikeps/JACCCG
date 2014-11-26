@@ -178,13 +178,12 @@ public class CartaDAO extends DAO{
 		} catch(SQLException e){
 			e.printStackTrace();
 		}
-
+		
 		return false;
 	}
 
 	public int getId(String nomeCarta) {
 		String sql = "SELECT id FROM carta WHERE nome = \""+nomeCarta+"\"";
-		
 		int id = 0;
 		
 		try{

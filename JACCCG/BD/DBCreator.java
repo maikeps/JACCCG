@@ -24,12 +24,46 @@ public class DBCreator {
 		createTableCartaColecao();
 		createTableBaralhoColecao();
 		createTableCartaLiberada();
+		createTableOponenteLiberado();
 		
 		insertCartas();
 		insertOponentes();
 		insertBaralhosOponente();
 	}
 	
+	private void createTableOponenteLiberado() {
+		String sql = "CREATE TABLE oponente_liberado("+
+	"id INT NOT NULL AUTO_INCREMENT,"+
+	"id_usuario INT NOT NULL,"+
+	"id_oponente INT NOT NULL,"+
+	"PRIMARY KEY(id),"+
+	"FOREIGN KEY(id_usuario) REFERENCES usuario(id),"+
+	"FOREIGN KEY(id_oponente) REFERENCES oponente(id));";
+		try{
+			Statement st = con.createStatement();
+			st.execute(sql);
+		} catch(SQLException e){
+			e.printStackTrace();
+		}
+	}
+
+	private void createTableCartaLiberada() {
+		String sql = "CREATE TABLE carta_liberada("+
+	"id INT NOT NULL AUTO_INCREMENT,"+
+	"id_usuario INT NOT NULL,"+
+	"id_carta INT NOT NULL,"+
+	"PRIMARY KEY(id),"+
+	"FOREIGN KEY(id_usuario) REFERENCES usuario(id),"+
+	"FOREIGN KEY(id_carta) REFERENCES carta(id));";
+		
+		try{
+			Statement st = con.createStatement();
+			st.execute(sql);
+		} catch(SQLException e){
+			e.printStackTrace();
+		}
+	}
+
 	private void createTableCarta(){
 		String sql = "CREATE TABLE carta("+
 					"id INT NOT NULL AUTO_INCREMENT,"+
@@ -73,7 +107,9 @@ public class DBCreator {
 					"recompensa INT NOT NULL,"+
 					"numVezesDerrotado INT NOT NULL DEFAULT 0,"+
 					"numVezesBatalhado INT NOT NULL DEFAULT 0,"+
-					"PRIMARY KEY(id));";
+					"carta_equivalente INT NOT NULL,"+
+					"PRIMARY KEY(id),"+
+					"FOREIGN KEY(carta_equivalente) REFERENCES carta(id))	;";
 		
 		try{
 			Statement st = con.createStatement();

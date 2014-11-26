@@ -81,6 +81,7 @@ public class UsuarioDAO extends DAO{
 			if(rs.next()){
 				int idUsuario = rs.getInt(1);
 				colecaoDAO.newColecao(idUsuario);
+				st.executeUpdate("INSERT INTO oponente_liberado (id_oponente, id_usuario) VALUES (1, "+idUsuario+")");
 				return idUsuario;
 			}
 		}catch(SQLException e){
