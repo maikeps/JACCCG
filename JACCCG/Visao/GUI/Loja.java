@@ -1,12 +1,14 @@
 package Visao.GUI;
 
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import Cartas.CartaDeColecao;
+import Cartas.Raridade;
 import JACCCG.JACCCG.Jogo;
 
 
@@ -14,11 +16,12 @@ public class Loja extends javax.swing.JFrame {
 
 
     private static Loja instance = null;
+    private Jogo jogo;
     
     private Loja() {
         initComponents();
         this.setLocationRelativeTo(null);
-        Jogo jogo = Jogo.getInstance();
+        jogo = Jogo.getInstance();
     }
     
     public static Loja getInstance(){
@@ -30,7 +33,6 @@ public class Loja extends javax.swing.JFrame {
 
    
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         mostrar = new javax.swing.JButton();
@@ -167,54 +169,60 @@ public class Loja extends javax.swing.JFrame {
 
     private void mostrarActionPerformed(java.awt.event.ActionEvent evt) {
     	Jogo jogo = Jogo.getInstance();
-    	List<CartaDeColecao> cartas = jogo.getUsuario().getColecao().getCartas();
-    	JLabel label = new JLabel();
-    	String str = "<html>";
-    	for(CartaDeColecao c : cartas){
-    		str += c.getNome()+"<br/>";
+    	List<CartaDeColecao> cartas = jogo.getLoja().getCartas();
+    	List<String> strings = new LinkedList<String>();
+    	for(int i = 0; i < cartas.size(); i++){
+    		strings.add((i+1) + " - " + cartas.get(i).toString());
     	}
-    	str+= "</html>";
-    	label.setText(str);
-    	Cartas.add(label);
+    	String str = Util.prepareString(strings);
+    	Cartas.add(new JLabel(str));
     }
+    
     private void pNomeActionPerformed(java.awt.event.ActionEvent evt) {
     	Cartas.removeAll();
     	Jogo.getInstance();
     	String j = Util.pedeString("Insira o nome da carta:");
-    	List<CartaDeColecao> cartas = Jogo.getInstance().getLoja().getCartas();
+    	List<CartaDeColecao> cartas = Jogo.getInstance().getLoja().getPesquisador().pesquisaCarta(j);
+    	List<String> strings = new LinkedList<String>();
     	JLabel label = new JLabel();
-    	String str = "<html>";
     	for(int i = 0; i < cartas.size(); i++){
-    		str+= i + " - " + cartas.get(i).toString()+"<br />";
+    		strings.add((i+1) + " - " + cartas.get(i).toString());
     	}
-    	str+="<html>";
-    	label.setText(str);
-    	Cartas.add(label);
+    	String str = Util.prepareString(strings);
+
+    	Cartas.add(new JLabel(str));
     }
 
-    private void comprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comprarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comprarActionPerformed
+    private void comprarActionPerformed(java.awt.event.ActionEvent evt) {
+    }
 
-    private void voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarActionPerformed
+    private void voltarActionPerformed(java.awt.event.ActionEvent evt) {
         this.setVisible(false);
         MenuInicial.getInstance().setVisible(true);
-    }//GEN-LAST:event_voltarActionPerformed
+    }
 
-    private void pRaridadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pRaridadeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pRaridadeActionPerformed
+    private void pRaridadeActionPerformed(java.awt.event.ActionEvent evt) {
+    	Cartas.removeAll();
+    	Jogo.getInstance();
+    	int raridade = Integer.parseInt(Util.pedeString("Insira o custo da carta a ser pesquisada\n1 - COMUM\n2 - INCOMUM\n3 - RARA"));
+    	List<CartaDeColecao> cartas = Jogo.getInstance().getLoja().getPesquisador().pesquisaCarta(Raridade.values()[3-raridade]);
+    	List<String> strings = new LinkedList<String>();
+    	JLabel label = new JLabel();
+    	for(int i = 0; i < cartas.size(); i++){
+    		strings.add((i+1) + " - " + cartas.get(i).toString());
+    	}
+    	String str = Util.prepareString(strings);
 
-    private void pCustoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pCustoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pCustoActionPerformed
+    	Cartas.add(new JLabel(str)); 
+    	}  
 
-    private void pValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pValorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pValorActionPerformed
+    private void pCustoActionPerformed(java.awt.event.ActionEvent evt) {
+    }
+
+    private void pValorActionPerformed(java.awt.event.ActionEvent evt) {
+    }
 
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.ScrollPane Cartas;
     private javax.swing.JButton comprar;
     private javax.swing.JLabel jLabel1;
@@ -225,5 +233,4 @@ public class Loja extends javax.swing.JFrame {
     private javax.swing.JButton pRaridade;
     private javax.swing.JButton pValor;
     private javax.swing.JButton voltar;
-    // End of variables declaration//GEN-END:variables
 }
