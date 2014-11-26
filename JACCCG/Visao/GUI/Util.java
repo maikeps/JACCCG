@@ -37,6 +37,15 @@ public class Util {
     	return num;
     }
     
+    public static int pedeInt(String msg){
+		try{
+			int num = Integer.parseInt(JOptionPane.showInputDialog(null, msg));
+	    	return num;
+		}catch(NumberFormatException e){
+			return pedeInt(msg);
+		}
+    }
+    
     public static String prepareString(String s) {
 
         String[] d = s.split("\n");
