@@ -6,10 +6,10 @@
 
 package Visao.GUI;
 
-import java.awt.PopupMenu;
+import java.util.List;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextPane;
 
 /**
  *
@@ -33,12 +33,23 @@ public class Util {
         }
         return retorno + "</html>";
     }
+    
+    public static String prepareString(List<String> strings){
+    	String string = "<html>";
+    	for(String s : strings){
+    		string += s+"<br/>";
+    	}
+    	string += "</html>";
+    	
+    	return string;
+    }
 
     public static void addNaLabel(String s, JLabel log) {
         String d = log.getText();
+        System.out.println(d);
         String[] split = d.split("</html>");
         String[] split2 = split[0].split("<html>");
-        d = "<html>" + s + "<br />" + split2[1] + "</html>";
+        d = "<html>" + s + "<br/>" + split2[0] + "</html>";
         log.setText(d);
     }
 }
