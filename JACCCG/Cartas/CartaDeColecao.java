@@ -35,7 +35,7 @@ public class CartaDeColecao extends Carta implements Registravel{
 	
 	public String toString(){
 		//String string = "";
-		return getNome() + " - " + "A:" + getAtaque() + " | D:" + getDefesa() + " | V:" + getVida() + " | C:" + getCustoMana() + " | Preco: " + getPreco();
+		return getNome() + " - " + "A:" + getAtaque() + " | D:" + getDefesa() + " | V:" + getVida() + " | C:" + getCustoMana() + " | Preco: " + getPreco() + " | R: "+getRaridade();
 		//string = super.toString();
 		//string += "Pre�o: " + preco + "\n";
 		
